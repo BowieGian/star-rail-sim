@@ -23,7 +23,7 @@ const handleChange = (input: string, props: Props) => {
   }
 }
 
-const StatInput = (props: Props) => {
+const PercentInput = (props: Props) => {
   return (
     <div>
       <label
@@ -38,7 +38,7 @@ const StatInput = (props: Props) => {
           type="number"
           name={props.name}
           id={props.name}
-          className="block w-full rounded-md border-0 py-1.5 pl-2 pr-3
+          className="block w-full rounded-md border-0 py-1.5 pl-2 pr-6
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
           font-sans font-bold text-neutral-900 text-right outline-none bg-violet-200
           ring-1 ring-inset ring-neutral-800
@@ -51,6 +51,9 @@ const StatInput = (props: Props) => {
           max={props.max}
           onChange={(e) => handleChange(e.target.value, props)}
         />
+        <div className="pointer-events-none absolute inset-y-0 py-1.5 right-0 flex items-center pr-3">
+          <span className="font-sans text-neutral-700 sm:text-sm">%</span>
+        </div>
       </div>
       <div>
         <input
@@ -69,4 +72,4 @@ const StatInput = (props: Props) => {
   )
 }
 
-export default StatInput;
+export default PercentInput;
