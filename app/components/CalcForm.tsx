@@ -38,13 +38,13 @@ const CalcForm = () => {
 
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
-      <div className="flex flex-col gap-y-8 py-5 lg:px-5 lg:py-6">
+      <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
         <StatInput stat={charLvl} setStat={setCharLvl} name="char-lvl" label="Character Level" min={1} max={80}/>
         <StatInput stat={atk} setStat={setAtk} name="atk" label="ATK" min={0} max={5000}/>
         <PercentInput stat={abilityMult} setStat={setAbilityMult} name="ability-mult" label="Ability Multiplier" min={0} max={1000}/>
         <StatInput stat={trgtLvl} setStat={setTrgtLvl} name="target-lvl" label="Enemy Level" min={1} max={80}/>
       </div>
-      <div className="flex flex-col gap-y-8 py-5 lg:px-5 lg:py-6">
+      <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
         <DamageOutput num={damage} label="Damage"/>
         <DamageOutput num={trgtDef} label="Enemy Defence"/>
         <DamageOutput num={defMult} label="Defence Multiplier"/>
