@@ -28,7 +28,7 @@ const PercentInput = (props: Props) => {
     <div>
       <label
         htmlFor={props.name}
-        className="block font-sans text-sm font-bold leading-6 text-violet-200"
+        className="block font-sans text-sm font-bold leading-6 text-purple-200"
       >
         {props.label}
       </label>
@@ -40,10 +40,10 @@ const PercentInput = (props: Props) => {
           id={props.name}
           className="block w-full rounded-md border-0 py-1.5 pl-2 pr-6
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
-          font-sans font-bold text-neutral-900 text-right outline-none bg-violet-200
+          font-sans font-bold text-neutral-900 text-right outline-none bg-purple-200
           ring-1 ring-inset ring-neutral-800
           placeholder:text-neutral-400
-          focus:ring-2 focus:ring-inset focus:ring-violet-500
+          focus:ring-2 focus:ring-inset focus:ring-purple-500
           sm:text-sm sm:leading-6"
           placeholder="0"
           value={props.stat}
