@@ -9,7 +9,7 @@ export default function Page() {
         Star Rail Damage Simulator
       </h1>
 
-      <Link href={"/character-builder"} className="font-sans font-bold text-violet-200">
+      <Link href={"/character-builder"} className="font-sans font-bold text-purple-200">
         Character Builder
       </Link>
 
