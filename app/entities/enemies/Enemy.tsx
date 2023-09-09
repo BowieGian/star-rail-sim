@@ -4,6 +4,10 @@ export default class Enemy extends Entity {
   private _toughnessMax: number = NaN;
   // TODO: Add Attack class and add big attacks
 
+  // constructor(name: string, level: number) {
+    
+  // }
+
   public get toughnessMax(): number {
     return this._toughnessMax;
   }
