@@ -1,19 +1,26 @@
+import BaseStats from "./BaseStats";
+import Linear from "./Linear";
+
 export default class Entity {
-  private _name: string = "";
-  private _level: number = NaN;
+  private baseStats: BaseStats;
+
   private _hpBase: number = NaN;
   private _atkBase: number = NaN;
   private _defBase: number = NaN;
   private _spdBase: number = NaN;
 
+  private _name: string = "";
+  private _level: number = NaN;
   private _hp: number = NaN;
   private _atk: number = NaN;
   private _def: number = NaN;
   private _spd: number = NaN;
 
 
-  constructor(name: string, level: number) {
+  constructor(name: string, level: number, baseStats: BaseStats) {
     this.name = name;
+    this.baseStats = baseStats;
+    this.level = level;
   }
 
   public getAV(): number {
@@ -43,6 +50,11 @@ export default class Entity {
       throw new RangeError("Level must be between 1 and 80");
 
     this._level = value;
+
+    ({hp: this.hpBase,
+      atk: this.atkBase,
+      def: this.defBase,
+      spd: this.spdBase} = this.baseStats.calculate(value));
   }
 
   public get hpBase(): number {
