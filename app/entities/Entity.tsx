@@ -2,7 +2,7 @@ import BaseStats from "./BaseStats";
 import Linear from "./Linear";
 
 export default class Entity {
-  private baseStats: BaseStats;
+  protected baseStats: BaseStats;
 
   private _hpBase: number = NaN;
   private _atkBase: number = NaN;
@@ -10,7 +10,7 @@ export default class Entity {
   private _spdBase: number = NaN;
 
   private _name: string = "";
-  private _level: number = NaN;
+  protected _level: number = NaN;
   private _hp: number = NaN;
   private _atk: number = NaN;
   private _def: number = NaN;
@@ -21,6 +21,7 @@ export default class Entity {
     this.name = name;
     this.baseStats = baseStats;
     this.level = level;
+    // console.log(this);
   }
 
   public getAV(): number {

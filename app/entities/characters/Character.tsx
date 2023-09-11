@@ -12,6 +12,7 @@ export interface ICharacterData {
 }
 
 export default class Character extends Entity {
+  private _ascension: number = 0;
   private _critRate: number = .05;
   private _critDamage: number = .5;
   private _breakEffect: number = 0;
@@ -29,10 +30,10 @@ export default class Character extends Entity {
     try {
       const jsonString: string = fs.readFileSync("./app/entities/characters/" + name + ".json", "utf-8");
       const characterData: ICharacterData = JSON.parse(jsonString);
-      console.log(characterData);
+      // console.log(characterData);
 
       baseStats = new BaseStats(characterData.baseStats);
-      console.log(baseStats);
+      // console.log(baseStats);
     } catch (err) { // Catch JSON.parse error
       console.error(err);
       return;
@@ -41,8 +42,79 @@ export default class Character extends Entity {
     super(name, level, baseStats);
   }
 
+  /*--------------------------------------------------------------*/
+  /* Private Functions                                            */
+  /*--------------------------------------------------------------*/
 
-  // Getters & Setters
+  // Returns the lower ascension phase for the input level
+  private ascensionFromLevel(level: number): number {
+    if (level > 0 && level <= 20)
+      return 0;
+    else if (level > 20 && level <= 30)
+      return 1;
+    else if (level > 30 && level <= 40)
+      return 2;
+    else if (level > 40 && level <= 50)
+      return 3;
+    else if (level > 50 && level <= 60)
+      return 4;
+    else if (level > 60 && level <= 70)
+      return 5;
+    else if (level > 70 && level <= 80)
+      return 6;
+    else
+      return NaN;
+  }
+
+  // Returns true if the level is part of 2 ascension phases
+  // (Levels 20, 30, 40, 50, 60, 70)
+  private isLevelBetweenAscensions(level: number) {
+    if (level >= 20 && level <= 70 && (level % 10 == 0))
+      return true;
+    return false;
+  }
+
+  // Returns true if the level is in the ascension phase
+  private isLevelInAscension(level: number, ascension: number): boolean {
+    let defaultAscension = this.ascensionFromLevel(level);
+
+    if (ascension == defaultAscension)
+      return true;
+    if (this.isLevelBetweenAscensions(level) && ascension == defaultAscension + 1)
+      return true;
+    return false;
+  }
+
+  /*--------------------------------------------------------------*/
+  /* Getters & Setters                                            */
+  /*--------------------------------------------------------------*/
+
+  // Updates the ascension phase, rounding down when 2 phases are valid
+  public override set level(value: number) {
+    if (value < 1 || value > 80) 
+      throw new RangeError("Level must be between 1 and 80");
+
+    this._level = value;
+    this._ascension = this.ascensionFromLevel(value);
+
+    ({hp: this.hpBase,
+      atk: this.atkBase,
+      def: this.defBase,
+      spd: this.spdBase} = this.baseStats.calculate(value));
+  }
+
+  public get ascension(): number {
+    return this._ascension;
+  }
+
+  public set ascension(value: number) {
+    if (value < 0 || value > 6) 
+      throw new RangeError("Ascension must be in range 0 - 6");
+
+    if (this.isLevelInAscension(this._level, value))
+      this._ascension = value;
+  }
+
   public get critRate(): number {
     return this._critRate;
   }
