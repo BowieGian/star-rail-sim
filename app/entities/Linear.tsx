@@ -4,8 +4,8 @@ export interface ILinear {
 }
 
 export default class Linear {
-  private _base: number = NaN;
-  private _add: number = NaN;
+  private _base: number = 0;
+  private _add: number = 0;
 
   constructor(input: ILinear) {
     this.base = input.base;
