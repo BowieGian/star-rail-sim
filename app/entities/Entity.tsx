@@ -4,10 +4,10 @@ import Linear from "./Linear";
 export default class Entity {
   protected baseStats: BaseStats;
 
-  private _hpBase: number = NaN;
-  private _atkBase: number = NaN;
-  private _defBase: number = NaN;
-  private _spdBase: number = NaN;
+  protected _hpBase: number = NaN;
+  protected _atkBase: number = NaN;
+  protected _defBase: number = NaN;
+  protected _spdBase: number = NaN;
 
   private _name: string = "";
   protected _level: number = NaN;
@@ -52,50 +52,26 @@ export default class Entity {
 
     this._level = value;
 
-    ({hp: this.hpBase,
-      atk: this.atkBase,
-      def: this.defBase,
-      spd: this.spdBase} = this.baseStats.calculate(value));
+    ({hp: this._hpBase,
+      atk: this._atkBase,
+      def: this._defBase,
+      spd: this._spdBase} = this.baseStats.calculate(value));
   }
 
   public get hpBase(): number {
     return this._hpBase;
   }
 
-  public set hpBase(value: number) {
-    if (value < 1) throw new RangeError("Base HP must be greater than 0");
-
-    this._hpBase = value;
-  }
-
   public get atkBase(): number {
     return this._atkBase;
-  }
-
-  public set atkBase(value: number) {
-  if (value < 1) throw new RangeError("Base ATK must be greater than 0");
-
-  this._atkBase = value;
   }
 
   public get defBase(): number {
     return this._defBase;
   }
 
-  public set defBase(value: number) {
-    if (value < 1) throw new RangeError("Base DEF must be greater than 0");
-
-    this._defBase = value;
-  }
-
   public get spdBase(): number {
     return this._spdBase;
-  }
-
-  public set spdBase(value: number) {
-    if (value < 1) throw new RangeError("Base SPD must be greater than 0");
-
-    this._spdBase = value;
   }
 
   public get hp(): number {

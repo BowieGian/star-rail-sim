@@ -97,10 +97,10 @@ export default class Character extends Entity {
     this._level = value;
     this._ascension = this.ascensionFromLevel(value);
 
-    ({hp: this.hpBase,
-      atk: this.atkBase,
-      def: this.defBase,
-      spd: this.spdBase} = this.baseStats.calculate(value)); // TODO: value + 8 * ascension?
+    ({hp: this._hpBase,
+      atk: this._atkBase,
+      def: this._defBase,
+      spd: this._spdBase} = this.baseStats.calculate(value)); // TODO: value + 8 * ascension?
   }
 
   public get ascension(): number {
