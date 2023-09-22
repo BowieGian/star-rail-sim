@@ -48,19 +48,21 @@ export default class Character extends Entity {
 
   // Returns the lower ascension phase for the input level
   private ascensionFromLevel(level: number): number {
-    if (level > 0 && level <= 20)
+    if (level <= 0)
+      return NaN;
+    else if (level <= 20)
       return 0;
-    else if (level > 20 && level <= 30)
+    else if (level <= 30)
       return 1;
-    else if (level > 30 && level <= 40)
+    else if (level <= 40)
       return 2;
-    else if (level > 40 && level <= 50)
+    else if (level <= 50)
       return 3;
-    else if (level > 50 && level <= 60)
+    else if (level <= 60)
       return 4;
-    else if (level > 60 && level <= 70)
+    else if (level <= 70)
       return 5;
-    else if (level > 70 && level <= 80)
+    else if (level <= 80)
       return 6;
     else
       return NaN;
@@ -68,7 +70,7 @@ export default class Character extends Entity {
 
   // Returns true if the level is part of 2 ascension phases
   // (Levels 20, 30, 40, 50, 60, 70)
-  private isLevelBetweenAscensions(level: number) {
+  private isLevelBetweenAscensions(level: number): boolean {
     if (level >= 20 && level <= 70 && (level % 10 == 0))
       return true;
     return false;
