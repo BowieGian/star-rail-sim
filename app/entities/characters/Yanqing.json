@@ -1,16 +1,16 @@
 {
   "baseStats": {
     "hp": {
-      "base": 121,
-      "add": 6.1
+      "base": 121.44,
+      "add": 6.072
     },
     "atk": {
-      "base": 92,
-      "add": 4.6
+      "base": 92.4,
+      "add": 4.62
     },
     "def": {
-      "base": 56,
-      "add": 2.8
+      "base": 56.1,
+      "add": 2.805
     },
     "spd": 109
   },
