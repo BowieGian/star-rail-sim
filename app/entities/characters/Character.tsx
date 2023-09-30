@@ -2,13 +2,16 @@ import * as fs from "fs";
 import Entity from "../Entity";
 import { ILinear } from "../Linear";
 import BaseStats, { IBaseStatData } from "../BaseStats";
+import Attribute, { IAttribute } from "../Attribute";
 
 export interface ICharacterData {
   baseStats: IBaseStatData;
-  basic: ILinear;
-  skill: ILinear;
-  ult: ILinear[];
-  talent: ILinear[];
+  skills: {
+    basic: IAttribute[];
+    skill: IAttribute[];
+    ult: IAttribute[];
+    talent: IAttribute[];
+  }
 }
 
 export default class Character extends Entity {
@@ -24,22 +27,45 @@ export default class Character extends Entity {
   private _elementalDmg: number = 0; // TODO: Consider single vs mult element
   private _elementalRes: number = 0;
 
+  private skills: {
+    basic: Attribute[];
+    skill: Attribute[];
+    ult: Attribute[];
+    talent: Attribute[];
+  } = {
+    basic: new Array<Attribute>,
+    skill: new Array<Attribute>,
+    ult: new Array<Attribute>,
+    talent: new Array<Attribute>
+  }
+
   constructor(name: string, level: number) {
-    let baseStats: BaseStats;
+    let characterData: ICharacterData;
 
     try {
-      const jsonString: string = fs.readFileSync("./app/entities/characters/" + name + ".json", "utf-8");
-      const characterData: ICharacterData = JSON.parse(jsonString);
+      let jsonString: string = fs.readFileSync("./app/entities/characters/" + name + ".json", "utf-8");
+      characterData = JSON.parse(jsonString);
       // console.log(characterData);
-
-      baseStats = new BaseStats(characterData.baseStats);
-      // console.log(baseStats);
     } catch (err) { // Catch JSON.parse error
       console.error(err);
       return;
     }
 
+    const baseStats = new BaseStats(characterData.baseStats);
+    // console.log(baseStats);
+
     super(name, level, baseStats);
+
+    let property: keyof typeof characterData.skills;
+    for (property in characterData.skills) {
+      for (let i = 0; i < characterData.skills[property].length; i++) {
+        this.skills[property].push(new Attribute(characterData.skills[property][i]));
+      }
+    }
+
+    // console.log(this);
+
+    // this.printSkills();
   }
 
   /*--------------------------------------------------------------*/
@@ -85,6 +111,28 @@ export default class Character extends Entity {
     if (this.isLevelBetweenAscensions(level) && ascension == defaultAscension + 1)
       return true;
     return false;
+  }
+
+  private printSkills() {
+    let property: keyof typeof this.skills;
+
+    for (property in this.skills) {
+      console.log(property);
+      for (let i = 0; i < this.skills[property].length; i++) {
+        console.log("Attribute %d", i);
+
+        let length: number;
+        if (property === "basic") {
+          length = 7;
+        } else {
+          length = 12;
+        }
+
+        for (let j = 1; j <= length; j++) {
+          console.log(this.skills[property][i].calculate(j));
+        }
+      }
+    }
   }
 
   /*--------------------------------------------------------------*/

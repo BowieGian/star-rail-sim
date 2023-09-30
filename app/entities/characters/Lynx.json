@@ -1,0 +1,38 @@
+{
+  "baseStats": {
+    "hp": {
+      "base": 144,
+      "add": 7.2
+    },
+    "atk": {
+      "base": 67.2,
+      "add": 3.36
+    },
+    "def": {
+      "base": 75,
+      "add": 3.75
+    },
+    "spd": 100
+  },
+  "skills": {
+    "basic": [
+      {"base": 0.25,"add": 0.05, "type": "basic"}
+    ],
+    "skill": [
+      {"base": 0.05, "add": 0.0025, "type": "default"},
+      {"base": 50, "add": 15, "type": "heal"},
+      {"base": 0.08, "add": 0.004, "type": "heal%"},
+      {"base": 80, "add": 24, "type": "heal"}
+    ],
+    "ult": [
+      {"base": 0.09, "add": 0.0045, "type": "heal%"},
+      {"base": 90, "add": 27, "type": "heal"}
+    ],
+    "talent": [
+      {"base": 0.024, "add": 0.0012, "type": "heal%"},
+      {"base": 24, "add": 7.2, "type": "heal"},
+      {"base": 0.03, "add": 0.0015, "type": "heal%"},
+      {"base": 30, "add": 9, "type": "heal"}
+    ]
+  }
+}

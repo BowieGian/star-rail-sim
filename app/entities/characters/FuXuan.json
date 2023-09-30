@@ -14,20 +14,20 @@
     },
     "spd": 100
   },
-  "basic": {
-    "base": 0.25,
-    "add": 0.05
-  },
-  "skill": [
-    {"base": 0.03, "add": 0.003},
-    {"base": 0.06, "add": 0.006}
-  ],
-  "ult": {
-    "base": 0.6,
-    "add": 0.04
-  },
-  "talent": [
-    {"base": 0.1, "add": 0.008},
-    {"base": 0.8, "add": 0.01}
-  ]
+  "skills": {
+    "basic": [
+      {"base": 0.25, "add": 0.05, "type": "basic"}
+    ],
+    "skill": [
+      {"base": 0.03, "add": 0.003, "type": "default"},
+      {"base": 0.06, "add": 0.006, "type": "default"}
+    ],
+    "ult": [
+      {"base": 0.6, "add": 0.04, "type": "default"}
+    ],
+    "talent": [
+      {"base": 0.1, "add": 0.008, "type": "default"},
+      {"base": 0.8, "add": 0.01, "type": "default"}
+    ]
+  }
 }

@@ -1,7 +1,7 @@
 export interface IAttribute {
   base: number;
   add: number;
-  type: "default" | "heal" | "heal%";
+  type: "basic" | "default" | "heal" | "heal%";
 }
 
 /*----------------------------------------------------------------*/
@@ -15,7 +15,7 @@ export interface IAttribute {
 export default class Attribute {
   private _base: number = 0;
   private _add: number = 0;
-  private _type: "default" | "heal" | "heal%" = "default";
+  private _type: "basic" | "default" | "heal" | "heal%" = "default";
 
   constructor(input: IAttribute) {
     this.base = input.base;
@@ -24,10 +24,15 @@ export default class Attribute {
   }
 
   public calculate(level: number): number {
+    if (this._type === "basic") {
+      if (level < 1 || level > 7)
+        throw new RangeError("Basic level must be between 1-7");
+
+      return this._base + this._add * (level - 1);
+    }
+
     if (level < 1 || level > 12)
       throw new RangeError("Ability level must be between 1-12");
-
-    if (level === 1) return this._base;
 
     let multiplier: number[];
 
@@ -41,13 +46,16 @@ export default class Attribute {
       return NaN;
     }
 
+    if (level === 1)
+      return this._base;
+
     let output = this._base;
 
     for (let i = 0; i < level - 1; i++) {
       output += this._add * multiplier[i];
     }
 
-    return Math.round((output + Number.EPSILON) * 10000) / 10000;
+    return Math.round((output + Number.EPSILON) * 1e6) / 1e6;
   }
 
   /*--------------------------------------------------------------*/
@@ -64,7 +72,7 @@ export default class Attribute {
     this._add = value;
   }
 
-  private set type(value: "default" | "heal" | "heal%") {
+  private set type(value: "basic" | "default" | "heal" | "heal%") {
     this._type = value;
   }
 }
