@@ -1,9 +1,9 @@
-import Linear, { ILinear } from "./Linear";
+import Stat, { IStat } from "./Linear";
 
 export interface IBaseStatData {
-  hp: ILinear;
-  atk: ILinear;
-  def: ILinear;
+  hp: IStat;
+  atk: IStat;
+  def: IStat;
   spd: number;
 }
 
@@ -15,15 +15,15 @@ export interface IBaseStats {
 }
 
 export default class BaseStats {
-  private hp: Linear;
-  private atk: Linear;
-  private def: Linear;
+  private hp: Stat;
+  private atk: Stat;
+  private def: Stat;
   private spd: number = NaN;
 
   constructor(input: IBaseStatData) {
-    this.hp = new Linear(input.hp);
-    this.atk = new Linear(input.atk);
-    this.def = new Linear(input.def);
+    this.hp = new Stat(input.hp);
+    this.atk = new Stat(input.atk);
+    this.def = new Stat(input.def);
     this.spd = input.spd;
   }
 

@@ -1,33 +1,28 @@
-export interface ILinear {
+export interface IStat {
   base: number;
   add: number;
 }
 
-export default class Linear {
+export default class Stat {
   private _base: number = 0;
   private _add: number = 0;
 
-  constructor(input: ILinear) {
+  constructor(input: IStat) {
     this.base = input.base;
     this.add = input.add;
   }
 
   public calculate(level: number): number {
-    return this.base * (level - 1);
+    return this._base + this._add * (level - 1);
   }
 
-  // Getters & Setters
-  public get base(): number {
-    return this._base;
-  }
+  /*--------------------------------------------------------------*/
+  /* Getters & Setters                                            */
+  /*--------------------------------------------------------------*/
 
   public set base(value: number) {
     if (value < 0) throw new RangeError("Base cannot be negative");
     this._base = value;
-  }
-
-  public get add(): number {
-    return this._add;
   }
 
   public set add(value: number) {

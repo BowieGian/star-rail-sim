@@ -1,5 +1,4 @@
 import BaseStats from "./BaseStats";
-import Linear from "./Linear";
 
 export default class Entity {
   protected baseStats: BaseStats;

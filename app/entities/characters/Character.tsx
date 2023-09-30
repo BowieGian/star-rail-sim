@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import Entity from "../Entity";
-import { ILinear } from "../Linear";
 import BaseStats, { IBaseStatData } from "../BaseStats";
 import Attribute, { IAttribute } from "../Attribute";
 
