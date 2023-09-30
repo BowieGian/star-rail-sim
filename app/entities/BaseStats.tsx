@@ -1,4 +1,4 @@
-import Stat, { IStat } from "./Linear";
+import Stat, { IStat } from "./Stat";
 
 export interface IBaseStatData {
   hp: IStat;
