@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import Entity from "../Entity";
 import BaseStats, { IBaseStatData } from "../BaseStats";
 import Attribute, { IAttribute } from "../Attribute";
@@ -38,18 +37,7 @@ export default class Character extends Entity {
     talent: new Array<Attribute>
   }
 
-  constructor(name: string, level: number) {
-    let characterData: ICharacterData;
-
-    try {
-      let jsonString: string = fs.readFileSync("./app/entities/characters/" + name + ".json", "utf-8");
-      characterData = JSON.parse(jsonString);
-      // console.log(characterData);
-    } catch (err) { // Catch JSON.parse error
-      console.error(err);
-      return;
-    }
-
+  constructor(characterData: ICharacterData, name: string, level: number) {
     const baseStats = new BaseStats(characterData.baseStats);
     // console.log(baseStats);
 

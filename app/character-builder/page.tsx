@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import PanelLayout from "../components/PanelLayout";
 import Yanqing from "../entities/characters/Yanqing";
