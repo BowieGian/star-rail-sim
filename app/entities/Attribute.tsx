@@ -1,7 +1,9 @@
+type AttributeTypes = "default" | "basic" | "dot" | "heal" | "heal%";
+
 export interface IAttribute {
   base: number;
   add: number;
-  type: "basic" | "default" | "heal" | "heal%";
+  type: AttributeTypes;
 }
 
 /*----------------------------------------------------------------*/
@@ -15,7 +17,7 @@ export interface IAttribute {
 export default class Attribute {
   private _base: number = 0;
   private _add: number = 0;
-  private _type: "basic" | "default" | "heal" | "heal%" = "default";
+  private _type: AttributeTypes = "default";
 
   constructor(input: IAttribute) {
     this.base = input.base;
@@ -42,6 +44,8 @@ export default class Attribute {
       multiplier = [2, 1.5, 1.5, 1, 1, .75, .75, .75, .75, .75, .75];
     } else if (this._type === "heal%") {
       multiplier = [1.25, 1.25, 1.25, 1.25, 1, 1, 1, 1, 1, 1, 1];
+    } else if (this._type === "dot") {
+      multiplier = [1, 1, 1, 1, 1.5, 2, 2.5, 3, 3, 1.3, 1.3];
     } else {
       return NaN;
     }
@@ -72,7 +76,7 @@ export default class Attribute {
     this._add = value;
   }
 
-  private set type(value: "basic" | "default" | "heal" | "heal%") {
+  private set type(value: AttributeTypes) {
     this._type = value;
   }
 }
