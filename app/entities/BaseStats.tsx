@@ -27,11 +27,11 @@ export default class BaseStats {
     this.spd = input.spd;
   }
 
-  public calculate(level: number): IBaseStats {
+  public calculate(level: number, ascension?: number): IBaseStats {
     let output: IBaseStats = {
-      hp: this.hp.calculate(level),
-      atk: this.atk.calculate(level),
-      def: this.def.calculate(level),
+      hp: this.hp.calculate(level, ascension),
+      atk: this.atk.calculate(level, ascension),
+      def: this.def.calculate(level, ascension),
       spd: this.spd
     }
     return output;

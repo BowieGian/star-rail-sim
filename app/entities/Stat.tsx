@@ -12,8 +12,9 @@ export default class Stat {
     this.add = input.add;
   }
 
-  public calculate(level: number): number {
-    return this._base + this._add * (level - 1);
+  public calculate(level: number, ascension: number = 0): number {
+    let output = this._base + this._add * (level - 1 + 8 * ascension)
+    return Math.round((output + Number.EPSILON) * 1e6) / 1e6;
   }
 
   /*--------------------------------------------------------------*/

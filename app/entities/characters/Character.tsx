@@ -149,7 +149,7 @@ export default class Character extends Entity {
     ({hp: this._hpBase,
       atk: this._atkBase,
       def: this._defBase,
-      spd: this._spdBase} = this.baseStats.calculate(value)); // TODO: value + 8 * ascension?
+      spd: this._spdBase} = this.baseStats.calculate(value, this._ascension));
   }
 
   public get ascension(): number {
@@ -160,8 +160,13 @@ export default class Character extends Entity {
     if (value < 0 || value > 6) 
       throw new RangeError("Ascension must be in range 0 - 6");
 
-    if (this.isLevelInAscension(this._level, value))
+    if (this.isLevelInAscension(this._level, value)) {
       this._ascension = value;
+      ({hp: this._hpBase,
+        atk: this._atkBase,
+        def: this._defBase,
+        spd: this._spdBase} = this.baseStats.calculate(this._level, value));
+    }
   }
 
   public get critRate(): number {
