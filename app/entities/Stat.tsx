@@ -21,12 +21,12 @@ export default class Stat {
   /* Getters & Setters                                            */
   /*--------------------------------------------------------------*/
 
-  public set base(value: number) {
+  private set base(value: number) {
     if (value < 0) throw new RangeError("Base cannot be negative");
     this._base = value;
   }
 
-  public set add(value: number) {
+  private set add(value: number) {
     if (value < 0) throw new RangeError("Add cannot be negative");
     this._add = value;
   }
