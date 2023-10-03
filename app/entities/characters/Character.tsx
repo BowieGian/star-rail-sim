@@ -1,15 +1,11 @@
 import Entity from "../Entity";
 import BaseStats, { IBaseStatData } from "../BaseStats";
 import Attribute, { IAttribute } from "../Attribute";
+import AbilityAttributes, { IAbilityAttributeData } from "../AbilityAttributes";
 
 export interface ICharacterData {
   baseStats: IBaseStatData;
-  skills: {
-    basic: IAttribute[];
-    skill: IAttribute[];
-    ult: IAttribute[];
-    talent: IAttribute[];
-  }
+  skills: IAbilityAttributeData;
 }
 
 export default class Character extends Entity {
@@ -25,17 +21,7 @@ export default class Character extends Entity {
   private _elementalDmg: number = 0; // TODO: Consider single vs mult element
   private _elementalRes: number = 0;
 
-  private skills: {
-    basic: Attribute[];
-    skill: Attribute[];
-    ult: Attribute[];
-    talent: Attribute[];
-  } = {
-    basic: new Array<Attribute>,
-    skill: new Array<Attribute>,
-    ult: new Array<Attribute>,
-    talent: new Array<Attribute>
-  }
+  private abilityAttributes: AbilityAttributes;
 
   constructor(characterData: ICharacterData, name: string, level: number) {
     const baseStats = new BaseStats(characterData.baseStats);
@@ -43,16 +29,10 @@ export default class Character extends Entity {
 
     super(name, level, baseStats);
 
-    let property: keyof typeof characterData.skills;
-    for (property in characterData.skills) {
-      for (let i = 0; i < characterData.skills[property].length; i++) {
-        this.skills[property].push(new Attribute(characterData.skills[property][i]));
-      }
-    }
+    this.abilityAttributes = new AbilityAttributes(characterData.skills);
+    this.abilityAttributes.print();
 
     // console.log(this);
-
-    // this.printSkills();
   }
 
   /*--------------------------------------------------------------*/
@@ -98,28 +78,6 @@ export default class Character extends Entity {
     if (this.isLevelBetweenAscensions(level) && ascension == defaultAscension + 1)
       return true;
     return false;
-  }
-
-  private printSkills() {
-    let property: keyof typeof this.skills;
-
-    for (property in this.skills) {
-      console.log(property);
-      for (let i = 0; i < this.skills[property].length; i++) {
-        console.log("Attribute %d", i);
-
-        let length: number;
-        if (property === "basic") {
-          length = 7;
-        } else {
-          length = 12;
-        }
-
-        for (let j = 1; j <= length; j++) {
-          console.log(this.skills[property][i].calculate(j));
-        }
-      }
-    }
   }
 
   /*--------------------------------------------------------------*/
