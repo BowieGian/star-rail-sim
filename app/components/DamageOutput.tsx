@@ -5,7 +5,7 @@ interface Props {
   label: string;
 }
 
-const DamageOutput = (props: Props) => {
+export default function DamageOutput(props: Props) {
   return (
     <div className="flex justify-between">
       <div className="font-sans text-sm font-bold text-purple-200">
@@ -18,5 +18,3 @@ const DamageOutput = (props: Props) => {
     </div>
   )
 }
-
-export default DamageOutput;

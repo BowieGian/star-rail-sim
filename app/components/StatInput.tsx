@@ -23,7 +23,7 @@ const handleChange = (input: string, props: Props) => {
   }
 }
 
-const StatInput = (props: Props) => {
+export default function StatInput(props: Props) {
   return (
     <div>
       <label
@@ -68,5 +68,3 @@ const StatInput = (props: Props) => {
     </div>
   )
 }
-
-export default StatInput;

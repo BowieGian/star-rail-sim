@@ -23,7 +23,7 @@ const handleChange = (input: string, props: Props) => {
   }
 }
 
-const PercentInput = (props: Props) => {
+export default function PercentInput(props: Props) {
   return (
     <div>
       <label
@@ -71,5 +71,3 @@ const PercentInput = (props: Props) => {
     </div>
   )
 }
-
-export default PercentInput;

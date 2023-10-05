@@ -12,7 +12,7 @@ const parseNumber = (inputNumber: number, decimals: number): string => {
     return(inputNumber.toFixed(decimals));
 }
 
-const CalcForm = () => {
+export default function CalcForm() {
   const [charLvl, setCharLvl] = useState<string>("1");
   const [atk, setAtk] = useState<string>("1000");
   const [abilityMult, setAbilityMult] = useState<string>("100");
@@ -52,5 +52,3 @@ const CalcForm = () => {
     </form>
   )
 }
-
-export default CalcForm;
