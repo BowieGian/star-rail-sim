@@ -9,17 +9,16 @@ export default class Entity {
   protected _spdBase: number = NaN;
 
   private _name: string = "";
-  protected _level: number = NaN;
+  protected _level: number = 1;
   private _hp: number = NaN;
   private _atk: number = NaN;
   private _def: number = NaN;
   private _spd: number = NaN;
 
 
-  constructor(name: string, level: number, baseStats: BaseStats) {
+  constructor(name: string, baseStats: BaseStats) {
     this.name = name;
     this.baseStats = baseStats;
-    this.level = level;
     // console.log(this);
   }
 

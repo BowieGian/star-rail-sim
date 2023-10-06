@@ -1,6 +1,5 @@
 import Entity from "../Entity";
 import BaseStats, { IBaseStatData } from "../BaseStats";
-import Attribute, { IAttribute } from "../Attribute";
 import AbilityAttributes, { IAbilityAttributeData } from "../AbilityAttributes";
 
 export interface ICharacterData {
@@ -23,11 +22,11 @@ export default class Character extends Entity {
 
   private abilityAttributes: AbilityAttributes;
 
-  constructor(characterData: ICharacterData, name: string, level: number) {
+  constructor(characterData: ICharacterData, name: string) {
     const baseStats = new BaseStats(characterData.baseStats);
     // console.log(baseStats);
 
-    super(name, level, baseStats);
+    super(name, baseStats);
 
     this.abilityAttributes = new AbilityAttributes(characterData.skills);
     // this.abilityAttributes.print();

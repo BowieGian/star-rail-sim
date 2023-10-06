@@ -3,7 +3,7 @@
 import Yanqing from "../entities/characters/Yanqing";
 
 export default function CharacterForm() {
-  let yanqing: Yanqing = new Yanqing("Yanqing", 40);
+  let yanqing: Yanqing = new Yanqing("Yanqing");
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
