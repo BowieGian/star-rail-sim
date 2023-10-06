@@ -9,7 +9,7 @@ export default class Entity {
   protected _spdBase: number = NaN;
 
   private _name: string = "";
-  protected _level: number = 1;
+  protected _level: number = NaN;
   private _hp: number = NaN;
   private _atk: number = NaN;
   private _def: number = NaN;
@@ -19,6 +19,7 @@ export default class Entity {
   constructor(name: string, baseStats: BaseStats) {
     this.name = name;
     this.baseStats = baseStats;
+    this.level = 1;
     // console.log(this);
   }
 
