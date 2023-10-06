@@ -7,6 +7,11 @@ export interface ICharacterData {
   skills: IAbilityAttributeData;
 }
 
+export interface IStat {
+  name: string;
+  value: number;
+}
+
 export default class Character extends Entity {
   private _ascension: number = 0;
   private _critRate: number = .05;
@@ -32,6 +37,24 @@ export default class Character extends Entity {
     // this.abilityAttributes.print();
 
     // console.log(this);
+  }
+
+  /*--------------------------------------------------------------*/
+  /* Public Functions                                             */
+  /*--------------------------------------------------------------*/
+
+  public getStats(): ReadonlyArray<IStat> {
+    let output = new Array<IStat>;
+    let names = ["hp", "atk", "def", "spd"] as const;
+
+    for (let name of names) {
+      let stat: IStat = { name: name, value: this[name]};
+      output.push(stat);
+    }
+
+    console.log(output);
+    
+    return output;
   }
 
   /*--------------------------------------------------------------*/
