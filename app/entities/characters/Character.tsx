@@ -30,7 +30,7 @@ export default class Character extends Entity {
     super(name, level, baseStats);
 
     this.abilityAttributes = new AbilityAttributes(characterData.skills);
-    this.abilityAttributes.print();
+    // this.abilityAttributes.print();
 
     // console.log(this);
   }
