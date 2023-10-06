@@ -7,7 +7,7 @@ export interface ICharacterData {
   skills: IAbilityAttributeData;
 }
 
-export interface IStat {
+export interface IStatDisplay {
   name: string;
   value: number;
 }
@@ -43,12 +43,12 @@ export default class Character extends Entity {
   /* Public Functions                                             */
   /*--------------------------------------------------------------*/
 
-  public getStats(): ReadonlyArray<IStat> {
-    let output = new Array<IStat>;
+  public getStats(): ReadonlyArray<IStatDisplay> {
+    let output = new Array<IStatDisplay>;
     let names = ["hp", "atk", "def", "spd"] as const;
 
     for (let name of names) {
-      let stat: IStat = { name: name, value: this[name]};
+      let stat: IStatDisplay = {name: name, value: this[name]};
       output.push(stat);
     }
 
@@ -100,6 +100,12 @@ export default class Character extends Entity {
     if (this.isLevelBetweenAscensions(level) && ascension == defaultAscension + 1)
       return true;
     return false;
+  }
+
+  // To be called after updating base stats and equipping weapons/relics
+  // Updates current stats with new base stats and equipment
+  private updateStats(): void {
+
   }
 
   /*--------------------------------------------------------------*/
