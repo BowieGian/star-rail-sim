@@ -34,7 +34,7 @@ export default function CharacterForm() {
 
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
         {stats.map(function(object) {
-          return <DamageOutput num={object.value.toString()} label={object.name}/>;
+          return <DamageOutput key={object.key} num={object.value.toString()} label={object.name}/>;
         })}
       </div>
 
