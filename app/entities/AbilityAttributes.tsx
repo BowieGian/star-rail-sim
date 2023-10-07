@@ -1,6 +1,7 @@
 import Attribute, { IAttribute } from "./Attribute";
 
-type AbilityTypes = "basic" | "skill" | "ult" | "talent";
+const abilityTypes = ["basic", "skill", "ult", "talent"] as const;
+type AbilityTypes = typeof abilityTypes[number];
 
 export interface IAbilityAttributeData {
   basic: IAttribute[];
@@ -55,9 +56,7 @@ export default class AbilityAttributes {
     }
   ): void {
 
-    let abilities: AbilityTypes[] = ["basic" , "skill" , "ult" , "talent"];
-
-    abilities.forEach(ability =>
+    abilityTypes.forEach(ability =>
       this.calculateAttribute(abilityLevels[ability], ability));
   }
 
@@ -80,9 +79,7 @@ export default class AbilityAttributes {
   }
 
   public print() {
-    let abilities: AbilityTypes[] = ["basic" , "skill" , "ult" , "talent"];
-
-    abilities.forEach(ability => this.printAttribute(ability));
+    abilityTypes.forEach(ability => this.printAttribute(ability));
   }
 
   /*--------------------------------------------------------------*/
@@ -90,22 +87,18 @@ export default class AbilityAttributes {
   /*--------------------------------------------------------------*/
 
   public get basic(): ReadonlyArray<number> {
-    let output: ReadonlyArray<number> = this.attributes.basic;
-    return output;
+    return this.attributes.basic;
   }
 
   public get skill(): ReadonlyArray<number> {
-    let output: ReadonlyArray<number> = this.attributes.skill;
-    return output;
+    return this.attributes.skill;
   }
 
   public get ult(): ReadonlyArray<number> {
-    let output: ReadonlyArray<number> = this.attributes.ult;
-    return output;
+    return this.attributes.ult;
   }
 
   public get talent(): ReadonlyArray<number> {
-    let output: ReadonlyArray<number> = this.attributes.talent;
-    return output;
+    return this.attributes.talent;
   }
 }
