@@ -8,8 +8,16 @@ export interface ICharacterData {
 }
 
 export interface IStatDisplay {
+  key: string;
   name: string;
   value: number;
+}
+
+const statNames = {
+  hp: "HP",
+  atk: "ATK",
+  def: "DEF",
+  spd: "SPD"
 }
 
 export default class Character extends Entity {
@@ -45,10 +53,15 @@ export default class Character extends Entity {
 
   public getStats(): ReadonlyArray<IStatDisplay> {
     let output = new Array<IStatDisplay>;
-    let names = ["hp", "atk", "def", "spd"] as const;
+    let keys = ["hp", "atk", "def", "spd"] as const;
 
-    for (let name of names) {
-      let stat: IStatDisplay = {name: name, value: this[name]};
+    for (let key of keys) {
+      let stat: IStatDisplay = {
+        key: key,
+        name: statNames[key],
+        value: this[key]
+      };
+      
       output.push(stat);
     }
 
