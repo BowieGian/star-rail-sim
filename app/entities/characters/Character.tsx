@@ -64,8 +64,6 @@ export default class Character extends Entity {
       
       output.push(stat);
     }
-
-    console.log(output);
     
     return output;
   }
