@@ -71,6 +71,22 @@ export default class Character extends Entity {
     return output;
   }
 
+  public getBasicAttr(): ReadonlyArray<number> {
+    return this.abilityAttributes.basic;
+  }
+
+  public getSkillAttr(): ReadonlyArray<number> {
+    return this.abilityAttributes.skill;
+  }
+
+  public getUltAttr(): ReadonlyArray<number> {
+    return this.abilityAttributes.ult;
+  }
+
+  public getTalentAttr(): ReadonlyArray<number> {
+    return this.abilityAttributes.talent;
+  }
+
   /*--------------------------------------------------------------*/
   /* Private Functions                                            */
   /*--------------------------------------------------------------*/
