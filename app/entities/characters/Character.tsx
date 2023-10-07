@@ -1,6 +1,6 @@
 import Entity from "../Entity";
 import BaseStats, { IBaseStatData } from "../BaseStats";
-import AbilityAttributes, { IAbilityAttributeData } from "../AbilityAttributes";
+import AbilityAttributes, { AbilityTypes, IAbilityAttributeData } from "../AbilityAttributes";
 
 export interface ICharacterData {
   baseStats: IBaseStatData;
@@ -34,17 +34,20 @@ export default class Character extends Entity {
   private _elementalRes: number = 0;
 
   private abilityAttributes: AbilityAttributes;
+  private abilityLevels = {
+    basic: 1,
+    skill: 1,
+    ult: 1,
+    talent: 1
+  }
 
   constructor(characterData: ICharacterData, name: string) {
     const baseStats = new BaseStats(characterData.baseStats);
-    // console.log(baseStats);
 
     super(name, baseStats);
 
     this.abilityAttributes = new AbilityAttributes(characterData.skills);
-    // this.abilityAttributes.print();
-
-    // console.log(this);
+    this.abilityAttributes.calculateAll(this.abilityLevels);
   }
 
   /*--------------------------------------------------------------*/
@@ -122,6 +125,10 @@ export default class Character extends Entity {
     this._spd = this.baseStats.spd;
   }
 
+  private calculateAbility(abilityType: AbilityTypes): void {
+    this.abilityAttributes.calculateAttribute(this.abilityLevels[abilityType], abilityType);
+  }
+
   /*--------------------------------------------------------------*/
   /* Getters & Setters                                            */
   /*--------------------------------------------------------------*/
@@ -152,6 +159,38 @@ export default class Character extends Entity {
       this.baseStats.calculate(this._level, this._ascension);
       this.updateStats();
     }
+  }
+
+  public set basicLevel(value: number) {
+    if (value < 0 || value > 7)
+      throw new RangeError("Basic level must be between 1-7");
+
+    this.abilityLevels.basic = value;
+    this.calculateAbility("basic");
+  }
+
+  public set skillLevel(value: number) {
+    if (value < 0 || value > 12)
+      throw new RangeError("Skill level must be between 1-12");
+
+    this.abilityLevels.skill = value;
+    this.calculateAbility("skill");
+  }
+
+  public set ultLevel(value: number) {
+    if (value < 0 || value > 12)
+      throw new RangeError("Ult level must be between 1-12");
+
+    this.abilityLevels.ult = value;
+    this.calculateAbility("ult");
+  }
+
+  public set talentLevel(value: number) {
+    if (value < 0 || value > 12)
+      throw new RangeError("Talent level must be between 1-12");
+
+    this.abilityLevels.talent = value;
+    this.calculateAbility("talent");
   }
 
   public get critRate(): number {

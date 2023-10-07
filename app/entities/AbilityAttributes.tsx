@@ -1,7 +1,7 @@
 import Attribute, { IAttribute } from "./Attribute";
 
 const abilityTypes = ["basic", "skill", "ult", "talent"] as const;
-type AbilityTypes = typeof abilityTypes[number];
+export type AbilityTypes = typeof abilityTypes[number];
 
 export interface IAbilityAttributeData {
   basic: IAttribute[];
