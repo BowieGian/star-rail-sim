@@ -11,9 +11,8 @@ export interface IAttribute {
 /* Class Attribute                                                */
 /*----------------------------------------------------------------*/
 /* Stores and calculates ability scaling numbers
-/* For default, add = level 2 - 1
+/* For default, basic & dot, add = level 2 - 1
 /* For heal & heal%, add = level 6 - 5
-/* TODO: Consider where to store the scaling stat (ATK, HP, DEF...)
 /*----------------------------------------------------------------*/
 export default class Attribute {
   private base: number = 0;
