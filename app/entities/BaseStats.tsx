@@ -15,25 +15,53 @@ export interface IBaseStats {
 }
 
 export default class BaseStats {
-  private hp: Stat;
-  private atk: Stat;
-  private def: Stat;
-  private spd: number = NaN;
-
-  constructor(input: IBaseStatData) {
-    this.hp = new Stat(input.hp);
-    this.atk = new Stat(input.atk);
-    this.def = new Stat(input.def);
-    this.spd = input.spd;
+  private data: {
+    hp: Stat,
+    atk: Stat,
+    def: Stat
   }
 
-  public calculate(level: number, ascension?: number): IBaseStats {
-    let output: IBaseStats = {
-      hp: this.hp.calculate(level, ascension),
-      atk: this.atk.calculate(level, ascension),
-      def: this.def.calculate(level, ascension),
-      spd: this.spd
+  private base = {
+    hp: NaN,
+    atk: NaN,
+    def: NaN,
+    spd: NaN
+  }
+
+  constructor(input: IBaseStatData) {
+    if (input.spd < 0) throw new RangeError("Spd cannot be negative");
+
+    this.data = {
+      hp: new Stat(input.hp),
+      atk: new Stat(input.atk),
+      def: new Stat(input.def)
     }
-    return output;
+    this.base.spd = input.spd;
+  }
+
+  public calculate(level: number, ascension?: number): void {
+    this.base.hp = this.data.hp.calculate(level, ascension);
+    this.base.atk = this.data.atk.calculate(level, ascension);
+    this.base.def = this.data.def.calculate(level, ascension);
+  }
+
+  /*--------------------------------------------------------------*/
+  /* Getters & Setters                                            */
+  /*--------------------------------------------------------------*/
+
+  public get hp(): number {
+    return this.base.hp;
+  }
+
+  public get atk(): number {
+    return this.base.atk;
+  }
+
+  public get def(): number {
+    return this.base.def;
+  }
+
+  public get spd(): number {
+    return this.base.spd;
   }
 }

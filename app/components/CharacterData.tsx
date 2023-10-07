@@ -12,10 +12,10 @@ export default function CharacterData(props: Props) {
   return (
     <div className="font-sans font-bold text-purple-200">
       {character.name} Base Stats<br/>
-      HP: {character.hpBase} <br/>
-      ATK: {character.atkBase} <br/>
-      DEF: {character.defBase} <br/>
-      SPD: {character.spdBase}
+      HP: {character.hp} <br/>
+      ATK: {character.atk} <br/>
+      DEF: {character.def} <br/>
+      SPD: {character.spd}
     </div>
   )
 }

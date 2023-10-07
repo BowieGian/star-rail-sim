@@ -105,7 +105,10 @@ export default class Character extends Entity {
   // To be called after updating base stats and equipping weapons/relics
   // Updates current stats with new base stats and equipment
   private updateStats(): void {
-
+    this._hp = this.baseStats.hp;
+    this._atk = this.baseStats.atk;
+    this._def = this.baseStats.def;
+    this._spd = this.baseStats.spd;
   }
 
   /*--------------------------------------------------------------*/
@@ -120,10 +123,8 @@ export default class Character extends Entity {
     this._level = value;
     this._ascension = this.ascensionFromLevel(value);
 
-    ({hp: this._hpBase,
-      atk: this._atkBase,
-      def: this._defBase,
-      spd: this._spdBase} = this.baseStats.calculate(value, this._ascension));
+    this.baseStats.calculate(this._level, this._ascension);
+    this.updateStats();
   }
 
   public get ascension(): number {
@@ -136,10 +137,9 @@ export default class Character extends Entity {
 
     if (this.isLevelInAscension(this._level, value)) {
       this._ascension = value;
-      ({hp: this._hpBase,
-        atk: this._atkBase,
-        def: this._defBase,
-        spd: this._spdBase} = this.baseStats.calculate(this._level, value));
+
+      this.baseStats.calculate(this._level, this._ascension);
+      this.updateStats();
     }
   }
 
