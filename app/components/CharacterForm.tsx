@@ -8,9 +8,11 @@ import DamageOutput from "./DamageOutput";
 import AbilityDisplay from "./AbilityDisplay";
 
 export default function CharacterForm() {
-  let yanqing: Yanqing = new Yanqing("Yanqing");
+  // Using lazy initial state to only run constructor once
+  const [yanqing, setYanqing] = useState<Yanqing>(() => new Yanqing("Yanqing"));
 
   const [charLvl, setCharLvl] = useState<string>("1");
+  const [ascension, setAscension] = useState<string>("0");
   const [basicLvl, setBasicLvl] = useState<string>("1");
   const [skillLvl, setSkillLvl] = useState<string>("1");
   const [ultLvl, setUltLvl] = useState<string>("1");
@@ -28,8 +30,15 @@ export default function CharacterForm() {
 
   useEffect(() => {
     yanqing.level = parseInt(charLvl);
+    setAscension(yanqing.ascension.toString());
     setStats(yanqing.getStats());
   }, [charLvl]);
+
+  useEffect(() => {
+    yanqing.ascension = parseInt(ascension);
+    setAscension(yanqing.ascension.toString());
+    setStats(yanqing.getStats());
+  }, [ascension]);
 
   useEffect(() => {
     yanqing.basicLevel = parseInt(basicLvl);
@@ -55,6 +64,7 @@ export default function CharacterForm() {
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
         <StatInput stat={charLvl} setStat={setCharLvl} name="char-lvl" label="Character Level" min={1} max={80}/>
+        <StatInput stat={ascension} setStat={setAscension} name="ascension" label="Ascension" min={0} max={6}/>
       </div>
 
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
