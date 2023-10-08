@@ -42,22 +42,22 @@ export default function CharacterForm() {
 
   useEffect(() => {
     yanqing.basicLevel = parseInt(basicLvl);
-    setBasicAttr(yanqing.getBasicAttr());
+    setBasicAttr([...yanqing.getBasicAttr()]);
   }, [basicLvl]);
 
   useEffect(() => {
     yanqing.skillLevel = parseInt(skillLvl);
-    setSkillAttr(yanqing.getSkillAttr());
+    setSkillAttr([...yanqing.getSkillAttr()]);
   }, [skillLvl]);
 
   useEffect(() => {
     yanqing.ultLevel = parseInt(ultLvl);
-    setUltAttr(yanqing.getUltAttr());
+    setUltAttr([...yanqing.getUltAttr()]);
   }, [ultLvl]);
 
   useEffect(() => {
     yanqing.talentLevel = parseInt(talentLvl);
-    setTalentAttr(yanqing.getTalentAttr());
+    setTalentAttr([...yanqing.getTalentAttr()]);
   }, [talentLvl]);
   
   return (
