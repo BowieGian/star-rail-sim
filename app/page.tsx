@@ -10,7 +10,7 @@ export default function Page() {
       </h1>
 
       <Link href={"/character-stats"} className="font-sans font-bold text-purple-200">
-        Character Stats
+        To Yanqing Stats
       </Link>
 
       <PanelLayout>
