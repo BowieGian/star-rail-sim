@@ -20,8 +20,12 @@ export default class Attribute {
   private type: AttributeTypes = "default";
 
   constructor(input: IAttribute) {
+    if (input.base === undefined) throw new Error("Base is undefined");
     if (input.base < 0) throw new RangeError("Base cannot be negative");
+
+    if (input.add === undefined) throw new Error("Add is undefined");
     if (input.add < 0) throw new RangeError("Add cannot be negative");
+    
     if (!this.isAttributeType(input.type))
       throw new Error(input.type + " is not part of AttributeTypes");
 
