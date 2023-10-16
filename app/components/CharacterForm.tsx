@@ -12,7 +12,9 @@ export default function CharacterForm() {
   const [yanqing, setYanqing] = useState<Yanqing>(() => new Yanqing("Yanqing"));
 
   const [charLvl, setCharLvl] = useState<string>("1");
-  const [ascension, setAscension] = useState<string>("0");
+  const [ascension, setAscension] = useState<number>(0);
+  const [maxLevel, setMaxLevel] = useState<number>(0);
+
   const [basicLvl, setBasicLvl] = useState<string>("1");
   const [skillLvl, setSkillLvl] = useState<string>("1");
   const [ultLvl, setUltLvl] = useState<string>("1");
@@ -24,19 +26,42 @@ export default function CharacterForm() {
   const [ultAttr, setUltAttr] = useState<readonly number[]>(yanqing.getUltAttr());
   const [talentAttr, setTalentAttr] = useState<readonly number[]>(yanqing.getTalentAttr());
 
+  const [isAscended, setIsAscended] = useState<boolean>(false);
+  const [isAscDisabled, setIsAscDisabled] = useState<boolean>(false);
+
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
   }
 
+  const handleAscToggle = (e: React.FormEvent) => {
+    let value = !isAscended;
+    setIsAscended(value);
+
+    if (value)
+      setAscension(ascension + 1);
+    else
+      setAscension(ascension - 1);
+  }
+
   useEffect(() => {
-    yanqing.level = parseInt(charLvl);
-    setAscension(yanqing.ascension.toString());
+    let level = parseInt(charLvl);
+
+    yanqing.level = level;
+    setAscension(yanqing.ascension);
     setStats(yanqing.getStats());
+
+    if (yanqing.isLevelBetweenAscensions(level)) {
+      setIsAscDisabled(false);
+    } else {
+      setIsAscDisabled(true);
+      setIsAscended(false);
+    }
   }, [charLvl]);
 
   useEffect(() => {
-    yanqing.ascension = parseInt(ascension);
-    setAscension(yanqing.ascension.toString());
+    yanqing.ascension = ascension;
+    setAscension(yanqing.ascension);
+    setMaxLevel(yanqing.maxLevel);
     setStats(yanqing.getStats());
   }, [ascension]);
 
@@ -64,7 +89,16 @@ export default function CharacterForm() {
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
         <StatInput stat={charLvl} setStat={setCharLvl} name="char-lvl" label="Character Level" min={1} max={80}/>
-        <StatInput stat={ascension} setStat={setAscension} name="ascension" label="Ascension" min={0} max={6}/>
+
+        <button onClick={handleAscToggle} disabled={isAscDisabled}
+          className="block w-full rounded-md py-1.5 px-2
+          bg-purple-200 hover:bg-purple-400 active:bg-purple-600
+          disabled:bg-neutral-200
+          font-sans font-bold
+          text-neutral-900 disabled:text-neutral-500"
+        >
+          / {maxLevel}
+        </button>
       </div>
 
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">

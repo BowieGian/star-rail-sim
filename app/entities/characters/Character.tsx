@@ -21,6 +21,7 @@ const statNames = {
 }
 
 export default class Character extends Entity {
+  private _maxLevel: number = 0;
   private _ascension: number = 0;
   private _critRate: number = .05;
   private _critDamage: number = .5;
@@ -87,6 +88,14 @@ export default class Character extends Entity {
     return this.abilityAttributes.talent;
   }
 
+  // Returns true if the level is part of 2 ascension phases
+  // (Levels 20, 30, 40, 50, 60, 70)
+  public isLevelBetweenAscensions(level: number): boolean {
+    if (level >= 20 && level <= 70 && (level % 10 == 0))
+      return true;
+    return false;
+  }
+
   /*--------------------------------------------------------------*/
   /* Private Functions                                            */
   /*--------------------------------------------------------------*/
@@ -113,14 +122,6 @@ export default class Character extends Entity {
       return NaN;
   }
 
-  // Returns true if the level is part of 2 ascension phases
-  // (Levels 20, 30, 40, 50, 60, 70)
-  private isLevelBetweenAscensions(level: number): boolean {
-    if (level >= 20 && level <= 70 && (level % 10 == 0))
-      return true;
-    return false;
-  }
-
   // Returns true if the level is in the ascension phase
   private isLevelInAscension(level: number, ascension: number): boolean {
     let defaultAscension = this.ascensionFromLevel(level);
@@ -130,6 +131,11 @@ export default class Character extends Entity {
     if (this.isLevelBetweenAscensions(level) && ascension == defaultAscension + 1)
       return true;
     return false;
+  }
+
+  private maxLvlFromAscension(ascension: number): number {
+    const maxLevel = [20, 30, 40, 50, 60, 70, 80];
+    return maxLevel[ascension];
   }
 
   // To be called after updating base stats and equipping weapons/relics
@@ -161,6 +167,10 @@ export default class Character extends Entity {
     this.updateStats();
   }
 
+  public get maxLevel(): number {
+    return this._maxLevel;
+  }
+
   public get ascension(): number {
     return this._ascension;
   }
@@ -172,6 +182,7 @@ export default class Character extends Entity {
     if (this.isLevelInAscension(this._level, value)) {
       this._ascension = value;
 
+      this._maxLevel = this.maxLvlFromAscension(value);
       this.baseStats.calculate(this._level, this._ascension);
       this.updateStats();
     }
