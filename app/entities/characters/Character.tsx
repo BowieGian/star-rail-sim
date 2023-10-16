@@ -1,10 +1,10 @@
 import Entity from "../Entity";
 import BaseStats, { IBaseStatData } from "../BaseStats";
-import AbilityAttributes, { AbilityTypes, IAbilityAttributeData } from "../AbilityAttributes";
+import AbilityAttributes, { AbilityTypes, IAbilityData } from "../AbilityAttributes";
 
 export interface ICharacterData {
   baseStats: IBaseStatData;
-  skills: IAbilityAttributeData;
+  skills: IAbilityData;
 }
 
 export interface IStatDisplay {

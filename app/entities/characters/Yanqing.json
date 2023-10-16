@@ -15,22 +15,46 @@
     "spd": 109
   },
   "skills": {
-    "basic": [
-      {"base": 0.5, "add": 0.1, "type": "basic"}
-    ],
-    "skill": [
-      {"base": 1.1, "add": 0.11, "type": "default"}
-    ],
-    "ult": [
-      {"base": 0.3, "add": 0.02, "type": "default"},
-      {"base": 2.1, "add": 0.14, "type": "default"}
-    ],
-    "talent": [
-      {"base": 0.15, "add": 0.005, "type": "default"},
-      {"base": 0.15, "add": 0.015, "type": "default"},
-      {"base": 0.5, "add": 0.01, "type": "default"},
-      {"base": 0.25, "add": 0.025, "type": "default"},
-      {"base": 0.25, "add": 0.025, "type": "default"}
-    ]
+    "basic": {
+      "attributes": [
+        {"base": 0.5, "add": 0.1, "type": "basic"}
+      ],
+      "description": [
+        "Deals Ice DMG equal to ",
+        " of Yanqing's ATK to a single enemy."
+      ]
+    },
+    "skill": {
+      "attributes": [
+        {"base": 1.1, "add": 0.11, "type": "default"}
+      ],
+      "description": [
+        "Deals Ice DMG equal to ",
+        " of Yanqing's ATK to a single enemy and activates Soulsteel Sync for 1 turn."
+      ]
+    },
+    "ult": {
+      "attributes": [
+        {"base": 0.3, "add": 0.02, "type": "default"},
+        {"base": 2.1, "add": 0.14, "type": "default"}
+      ],
+      "description": [
+        "Increases Yanqing's CRIT Rate by 60%. When Soulsteel Sync is active, increases Yanqing's CRIT DMG by an extra ",
+        ". This buff lasts for one turn. Afterwards, deals Ice DMG equal to ",
+        " of Yanqing's ATK to a single enemy."
+      ]
+    },
+    "talent": {
+      "attributes": [
+        {"base": 0.15, "add": 0.005, "type": "default"},
+        {"base": 0.15, "add": 0.015, "type": "default"},
+        {"base": 0.5, "add": 0.01, "type": "default"},
+        {"base": 0.25, "add": 0.025, "type": "default"},
+        {"base": 0.25, "add": 0.025, "type": "default"}
+      ],
+      "description": [
+        ""
+      ]
+    }
   }
 }

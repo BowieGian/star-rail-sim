@@ -3,11 +3,16 @@ import Attribute, { IAttribute } from "./Attribute";
 const abilityTypes = ["basic", "skill", "ult", "talent"] as const;
 export type AbilityTypes = typeof abilityTypes[number];
 
-export interface IAbilityAttributeData {
-  basic: IAttribute[];
-  skill: IAttribute[];
-  ult: IAttribute[];
-  talent: IAttribute[];
+export interface IAbilityData {
+  basic: IAbility;
+  skill: IAbility;
+  ult: IAbility;
+  talent: IAbility;
+}
+
+export interface IAbility {
+  attributes: IAttribute[];
+  description: string[];
 }
 
 export interface IAbilityAttributes {
@@ -32,11 +37,14 @@ export default class AbilityAttributes {
     talent: new Array<number>
   }
 
-  constructor(input: IAbilityAttributeData) {
-    let property: keyof IAbilityAttributeData;
+  constructor(input: IAbilityData) {
+    let property: keyof IAbilityData;
     for (property in input) {
-      for (let i = 0; i < input[property].length; i++) {
-        this.data[property].push(new Attribute(input[property][i]));
+      if (!input[property].attributes.length)
+        throw new Error("Attributes has no length");
+
+      for (let i = 0; i < input[property].attributes.length; i++) {
+        this.data[property].push(new Attribute(input[property].attributes[i]));
       }
     }
   }
