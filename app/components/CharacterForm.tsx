@@ -118,12 +118,12 @@ export default function CharacterForm() {
       <AbilityDisplay attributes={skillAttr} label="Skill"/>
 
       <div className="flex flex-col gap-y-8 lg:px-5">
-        <StatInput stat={ultLvl} setStat={setUltLvl} name="skill-lvl" label="Ult Level" min={1} max={12}/>
+        <StatInput stat={ultLvl} setStat={setUltLvl} name="ult-lvl" label="Ult Level" min={1} max={12}/>
       </div>
       <AbilityDisplay attributes={ultAttr} label="Ult"/>
 
       <div className="flex flex-col gap-y-8 lg:px-5">
-        <StatInput stat={talentLvl} setStat={setTalentLvl} name="skill-lvl" label="Talent Level" min={1} max={12}/>
+        <StatInput stat={talentLvl} setStat={setTalentLvl} name="talent-lvl" label="Talent Level" min={1} max={12}/>
       </div>
       <AbilityDisplay attributes={talentAttr} label="Talent"/>
     </form>
