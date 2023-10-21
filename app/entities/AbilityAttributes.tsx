@@ -30,6 +30,13 @@ export default class AbilityAttributes {
     talent: new Array<Attribute>
   }
 
+    private descriptions = {
+    basic: new Array<string>,
+    skill: new Array<string>,
+    ult: new Array<string>,
+    talent: new Array<string>
+  }
+
   private attributes = {
     basic: new Array<number>,
     skill: new Array<number>,
@@ -43,10 +50,22 @@ export default class AbilityAttributes {
       if (!input[property].attributes.length)
         throw new Error("Attributes has no length");
 
+      if (!input[property].description.length)
+        throw new Error("Description has no length");
+
+      if (input[property].description.length - input[property].attributes.length !== 1)
+        throw new Error("Description length is not 1 less than attribute length");
+
       for (let i = 0; i < input[property].attributes.length; i++) {
         this.data[property].push(new Attribute(input[property].attributes[i]));
       }
+
+      for (let i = 0; i < input[property].description.length; i++) {
+        this.descriptions[property].push(input[property].description[i]);
+      }
     }
+
+    this.calculateAll({basic: 1, skill: 1, ult: 1, talent: 1});
   }
 
   public calculateAttribute(level: number, ability: AbilityTypes): void {
@@ -108,5 +127,21 @@ export default class AbilityAttributes {
 
   public get talent(): ReadonlyArray<number> {
     return this.attributes.talent;
+  }
+
+  public get basicDesc(): ReadonlyArray<string> {
+    return this.descriptions.basic;
+  }
+
+  public get skillDesc(): ReadonlyArray<string> {
+    return this.descriptions.skill;
+  }
+
+  public get ultDesc(): ReadonlyArray<string> {
+    return this.descriptions.ult;
+  }
+
+  public get talentDesc(): ReadonlyArray<string> {
+    return this.descriptions.talent;
   }
 }

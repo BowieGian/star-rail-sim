@@ -88,6 +88,22 @@ export default class Character extends Entity {
     return this.abilityAttributes.talent;
   }
 
+  public get basicDesc(): ReadonlyArray<string> {
+    return this.abilityAttributes.basicDesc;
+  }
+
+  public get skillDesc(): ReadonlyArray<string> {
+    return this.abilityAttributes.skillDesc;
+  }
+
+  public get ultDesc(): ReadonlyArray<string> {
+    return this.abilityAttributes.ultDesc;
+  }
+
+  public get talentDesc(): ReadonlyArray<string> {
+    return this.abilityAttributes.talentDesc;
+  }
+
   // Returns true if the level is part of 2 ascension phases
   // (Levels 20, 30, 40, 50, 60, 70)
   public isLevelBetweenAscensions(level: number): boolean {
