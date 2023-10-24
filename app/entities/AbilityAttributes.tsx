@@ -15,13 +15,6 @@ export interface IAbility {
   description: string[];
 }
 
-export interface IAbilityAttributes {
-  basic: number[];
-  skill: number[];
-  ult: number[];
-  talent: number[];
-}
-
 export default class AbilityAttributes {
   private data = {
     basic: new Array<Attribute>,

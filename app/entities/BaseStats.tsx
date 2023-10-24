@@ -7,13 +7,6 @@ export interface IBaseStatData {
   spd: number;
 }
 
-export interface IBaseStats {
-  hp: number;
-  atk: number;
-  def: number;
-  spd: number;
-}
-
 export default class BaseStats {
   private data: {
     hp: Stat,
