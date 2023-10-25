@@ -6,6 +6,7 @@ import StatInput from "./StatInput";
 import { IStatDisplay } from "../entities/characters/Character";
 import DamageOutput from "./DamageOutput";
 import AbilityDisplay from "./AbilityDisplay";
+import LvlAscInput from "./LvlAscInput";
 
 export default function CharacterForm() {
   // Using lazy initial state to only run constructor once
@@ -94,17 +95,7 @@ export default function CharacterForm() {
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
-        <StatInput stat={charLvl} setStat={setCharLvl} name="char-lvl" label="Character Level" min={1} max={80}/>
-
-        <button onClick={handleAscToggle} disabled={isAscDisabled}
-          className="block w-full rounded-md py-1.5 px-2
-          bg-purple-200 hover:bg-purple-400 active:bg-purple-600
-          disabled:bg-neutral-200
-          font-sans font-bold
-          text-neutral-900 disabled:text-neutral-500"
-        >
-          / {maxLevel}
-        </button>
+        <LvlAscInput lvl={charLvl} setLvl={setCharLvl} handleButton={handleAscToggle} disableButton={isAscDisabled} maxLevel={maxLevel} name="char-lvl" min={1} max={80}/>
       </div>
 
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
