@@ -1,12 +1,12 @@
 interface Props {
+  name: string;
+  min: number;
+  max: number;
   lvl: string;
   setLvl: React.Dispatch<React.SetStateAction<string>>;
   handleButton: (e: React.FormEvent) => void;
   disableButton: boolean;
-  maxLevel: number;
-  name: string;
-  min: number;
-  max: number;
+  maxLvlForAsc: number;
 }
 
 const handleChange = (input: string, props: Props) => {
@@ -57,7 +57,7 @@ export default function LvlAscInput(props: Props) {
           hover:bg-purple-400 active:bg-purple-600
           disabled:bg-neutral-200 disabled:text-neutral-500"
         >
-          / {props.maxLevel}
+          / {props.maxLvlForAsc}
         </button>
       </div>
 

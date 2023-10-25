@@ -14,7 +14,7 @@ export default function CharacterForm() {
 
   const [charLvl, setCharLvl] = useState<string>("1");
   const [ascension, setAscension] = useState<number>(0);
-  const [maxLevel, setMaxLevel] = useState<number>(0);
+  const [maxLvlForAsc, setMaxLevel] = useState<number>(0);
 
   const [basicLvl, setBasicLvl] = useState<string>("1");
   const [skillLvl, setSkillLvl] = useState<string>("1");
@@ -95,7 +95,16 @@ export default function CharacterForm() {
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
-        <LvlAscInput lvl={charLvl} setLvl={setCharLvl} handleButton={handleAscToggle} disableButton={isAscDisabled} maxLevel={maxLevel} name="char-lvl" min={1} max={80}/>
+        <LvlAscInput
+          name="char-lvl"
+          min={1}
+          max={80}
+          lvl={charLvl}
+          setLvl={setCharLvl}
+          handleButton={handleAscToggle}
+          disableButton={isAscDisabled}
+          maxLvlForAsc={maxLvlForAsc}
+        />
       </div>
 
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
