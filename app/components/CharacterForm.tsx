@@ -10,6 +10,7 @@ import LvlAscInput from "./LvlAscInput";
 import CharacterSelect from "./CharacterSelect";
 import { characterKey, characterList, characters } from "../entities/characters";
 
+// TODO: Split base stats and abilities to new files
 export default function CharacterForm() {
   // Using lazy initial state to only run constructor once
   const [character, setCharacter] = useState<characters>(() => characterList["Yanqing"]);
