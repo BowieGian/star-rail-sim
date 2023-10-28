@@ -3,7 +3,7 @@ import BaseStats from "./BaseStats";
 export default class Entity {
   protected baseStats: BaseStats;
 
-  protected _name: string = "";
+  protected _id: string = "";
   protected _level: number = NaN;
   protected _hp: number = NaN;
   protected _atk: number = NaN;
@@ -11,10 +11,10 @@ export default class Entity {
   protected _spd: number = NaN;
 
 
-  constructor(name: string, baseStats: BaseStats) {
-    if (!name) throw new Error("The name is invalid");
+  constructor(id: string, baseStats: BaseStats) {
+    if (!id) throw new Error("The name is invalid");
 
-    this._name = name;
+    this._id = id;
     this.baseStats = baseStats;
     this.level = 1;
     // console.log(this);
@@ -31,8 +31,8 @@ export default class Entity {
   /* Getters & Setters                                            */
   /*--------------------------------------------------------------*/
 
-  public get name(): string {
-    return this._name;
+  public get id(): string {
+    return this._id;
   }
 
   public get level(): number {

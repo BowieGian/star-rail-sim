@@ -43,11 +43,11 @@ export default class Character extends Entity {
     talent: 1
   }
 
-  constructor(characterKey: characterKey, name: string) {
+  constructor(id: string, characterKey: characterKey) {
     const characterData: ICharacterData = getCharacterData(characterKey);
     const baseStats = new BaseStats(characterData.baseStats);
 
-    super(name, baseStats);
+    super(id, baseStats);
 
     this.abilityAttributes = new AbilityAttributes(characterData.skills);
     this.abilityAttributes.calculateAll(this.abilityLevels);
