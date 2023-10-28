@@ -114,6 +114,10 @@ export default class Character extends Entity {
     return false;
   }
 
+  public isAscended(): boolean {
+    return this.ascensionFromLevel(this.level) + 1 === this.ascension;
+  }
+
   /*--------------------------------------------------------------*/
   /* Private Functions                                            */
   /*--------------------------------------------------------------*/
