@@ -102,39 +102,11 @@ export default class AbilityAttributes {
     abilityTypes.forEach(ability => this.printAttribute(ability));
   }
 
-  /*--------------------------------------------------------------*/
-  /* Getters & Setters                                            */
-  /*--------------------------------------------------------------*/
-
-  public get basic(): ReadonlyArray<number> {
-    return this.attributes.basic;
+  public getAttributes(abilityType: AbilityTypes): ReadonlyArray<number> {
+    return this.attributes[abilityType];
   }
 
-  public get skill(): ReadonlyArray<number> {
-    return this.attributes.skill;
-  }
-
-  public get ult(): ReadonlyArray<number> {
-    return this.attributes.ult;
-  }
-
-  public get talent(): ReadonlyArray<number> {
-    return this.attributes.talent;
-  }
-
-  public get basicDesc(): ReadonlyArray<string> {
-    return this.descriptions.basic;
-  }
-
-  public get skillDesc(): ReadonlyArray<string> {
-    return this.descriptions.skill;
-  }
-
-  public get ultDesc(): ReadonlyArray<string> {
-    return this.descriptions.ult;
-  }
-
-  public get talentDesc(): ReadonlyArray<string> {
-    return this.descriptions.talent;
+  public getDescriptions(abilityType: AbilityTypes): ReadonlyArray<string> {
+    return this.descriptions[abilityType];
   }
 }

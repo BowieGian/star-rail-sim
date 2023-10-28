@@ -27,15 +27,15 @@ export default function CharacterForm() {
 
   const [stats, setStats] = useState<readonly IStatDisplay[]>(character.getStats());
 
-  const [basicAttr, setBasicAttr] = useState<readonly number[]>(character.getBasicAttr());
-  const [skillAttr, setSkillAttr] = useState<readonly number[]>(character.getSkillAttr());
-  const [ultAttr, setUltAttr] = useState<readonly number[]>(character.getUltAttr());
-  const [talentAttr, setTalentAttr] = useState<readonly number[]>(character.getTalentAttr());
+  const [basicAttr, setBasicAttr] = useState<readonly number[]>(character.getAbilityAttr("basic"));
+  const [skillAttr, setSkillAttr] = useState<readonly number[]>(character.getAbilityAttr("skill"));
+  const [ultAttr, setUltAttr] = useState<readonly number[]>(character.getAbilityAttr("ult"));
+  const [talentAttr, setTalentAttr] = useState<readonly number[]>(character.getAbilityAttr("talent"));
 
-  const basicDesc = character.basicDesc;
-  const skillDesc = character.skillDesc;
-  const ultDesc = character.ultDesc;
-  const talentDesc = character.talentDesc;
+  const basicDesc = character.getAbilityDesc("basic");
+  const skillDesc = character.getAbilityDesc("skill");
+  const ultDesc = character.getAbilityDesc("ult");
+  const talentDesc = character.getAbilityDesc("talent");
 
   const [isAscended, setIsAscended] = useState<boolean>(false);
   const [isAscDisabled, setIsAscDisabled] = useState<boolean>(false);
@@ -83,22 +83,22 @@ export default function CharacterForm() {
 
   useEffect(() => {
     character.basicLevel = parseInt(basicLvl);
-    setBasicAttr([...character.getBasicAttr()]);
+    setBasicAttr([...character.getAbilityAttr("basic")]);
   }, [basicLvl]);
 
   useEffect(() => {
     character.skillLevel = parseInt(skillLvl);
-    setSkillAttr([...character.getSkillAttr()]);
+    setSkillAttr([...character.getAbilityAttr("skill")]);
   }, [skillLvl]);
 
   useEffect(() => {
     character.ultLevel = parseInt(ultLvl);
-    setUltAttr([...character.getUltAttr()]);
+    setUltAttr([...character.getAbilityAttr("ult")]);
   }, [ultLvl]);
 
   useEffect(() => {
     character.talentLevel = parseInt(talentLvl);
-    setTalentAttr([...character.getTalentAttr()]);
+    setTalentAttr([...character.getAbilityAttr("talent")]);
   }, [talentLvl]);
   
   return (

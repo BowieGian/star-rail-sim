@@ -79,36 +79,12 @@ export default class Character extends Entity {
   }
 
   // TODO: Change to abilityTypes
-  public getBasicAttr(): ReadonlyArray<number> {
-    return this.abilityAttributes.basic;
+  public getAbilityAttr(abilityType: AbilityTypes): ReadonlyArray<number> {
+    return this.abilityAttributes.getAttributes(abilityType);
   }
 
-  public getSkillAttr(): ReadonlyArray<number> {
-    return this.abilityAttributes.skill;
-  }
-
-  public getUltAttr(): ReadonlyArray<number> {
-    return this.abilityAttributes.ult;
-  }
-
-  public getTalentAttr(): ReadonlyArray<number> {
-    return this.abilityAttributes.talent;
-  }
-
-  public get basicDesc(): ReadonlyArray<string> {
-    return this.abilityAttributes.basicDesc;
-  }
-
-  public get skillDesc(): ReadonlyArray<string> {
-    return this.abilityAttributes.skillDesc;
-  }
-
-  public get ultDesc(): ReadonlyArray<string> {
-    return this.abilityAttributes.ultDesc;
-  }
-
-  public get talentDesc(): ReadonlyArray<string> {
-    return this.abilityAttributes.talentDesc;
+  public getAbilityDesc(abilityType: AbilityTypes): ReadonlyArray<string> {
+    return this.abilityAttributes.getDescriptions(abilityType);
   }
 
   // Returns true if the level is part of 2 ascension phases
