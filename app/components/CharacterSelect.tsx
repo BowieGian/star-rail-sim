@@ -1,9 +1,9 @@
+import { characterKeys } from "../entities/characters";
+
 interface Props {
   character: string;
   setCharacter: React.Dispatch<React.SetStateAction<string>>;
 }
-
-const characters = ["Serval", "Yanqing"] as const;
 
 export default function CharacterSelect(props: Props) {
   return (
@@ -15,7 +15,7 @@ export default function CharacterSelect(props: Props) {
       value={props.character}
       onChange={(e) => props.setCharacter(e.target.value)}
     >
-      {characters.map((character) => (
+      {characterKeys.map((character) => (
         <option key={character} value={character} className="font-bold">
           {character}
         </option>
