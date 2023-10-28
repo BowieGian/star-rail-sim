@@ -55,6 +55,11 @@ export default function CharacterForm() {
   }
 
   useEffect(() => {
+    setCharacter(characterList[characterKey]);
+    setStats(character.getStats());
+  }, [characterKey])
+
+  useEffect(() => {
     let level = parseInt(charLvl);
 
     character.level = level;
