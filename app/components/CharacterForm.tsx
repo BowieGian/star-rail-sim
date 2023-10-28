@@ -8,11 +8,12 @@ import DamageOutput from "./DamageOutput";
 import AbilityDisplay from "./AbilityDisplay";
 import LvlAscInput from "./LvlAscInput";
 import CharacterSelect from "./CharacterSelect";
+import { characterKey } from "../entities/characters";
 
 export default function CharacterForm() {
   // Using lazy initial state to only run constructor once
   const [yanqing, setYanqing] = useState<Yanqing>(() => new Yanqing("Yanqing"));
-  const [character, setCharacter] = useState<string>("Yanqing");
+  const [characterKey, setCharacterKey] = useState<characterKey>("Yanqing");
 
   const [charLvl, setCharLvl] = useState<string>("1");
   const [ascension, setAscension] = useState<number>(0);
@@ -97,7 +98,7 @@ export default function CharacterForm() {
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
-        <CharacterSelect character={character} setCharacter={setCharacter}/>
+        <CharacterSelect characterKey={characterKey} setCharacterKey={setCharacterKey}/>
       </div>
 
       <div></div>
