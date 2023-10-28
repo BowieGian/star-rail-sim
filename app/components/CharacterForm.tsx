@@ -8,11 +8,11 @@ import DamageOutput from "./DamageOutput";
 import AbilityDisplay from "./AbilityDisplay";
 import LvlAscInput from "./LvlAscInput";
 import CharacterSelect from "./CharacterSelect";
-import { characterKey } from "../entities/characters";
+import { characterKey, characterList, characters } from "../entities/characters";
 
 export default function CharacterForm() {
   // Using lazy initial state to only run constructor once
-  const [yanqing, setYanqing] = useState<Yanqing>(() => new Yanqing("Yanqing"));
+  const [character, setCharacter] = useState<characters>(() => characterList["Yanqing"]);
   const [characterKey, setCharacterKey] = useState<characterKey>("Yanqing");
 
   const [charLvl, setCharLvl] = useState<string>("1");
@@ -24,17 +24,17 @@ export default function CharacterForm() {
   const [ultLvl, setUltLvl] = useState<string>("1");
   const [talentLvl, setTalentLvl] = useState<string>("1");
 
-  const [stats, setStats] = useState<readonly IStatDisplay[]>(yanqing.getStats());
+  const [stats, setStats] = useState<readonly IStatDisplay[]>(character.getStats());
 
-  const [basicAttr, setBasicAttr] = useState<readonly number[]>(yanqing.getBasicAttr());
-  const [skillAttr, setSkillAttr] = useState<readonly number[]>(yanqing.getSkillAttr());
-  const [ultAttr, setUltAttr] = useState<readonly number[]>(yanqing.getUltAttr());
-  const [talentAttr, setTalentAttr] = useState<readonly number[]>(yanqing.getTalentAttr());
+  const [basicAttr, setBasicAttr] = useState<readonly number[]>(character.getBasicAttr());
+  const [skillAttr, setSkillAttr] = useState<readonly number[]>(character.getSkillAttr());
+  const [ultAttr, setUltAttr] = useState<readonly number[]>(character.getUltAttr());
+  const [talentAttr, setTalentAttr] = useState<readonly number[]>(character.getTalentAttr());
 
-  const basicDesc = yanqing.basicDesc;
-  const skillDesc = yanqing.skillDesc;
-  const ultDesc = yanqing.ultDesc;
-  const talentDesc = yanqing.talentDesc;
+  const basicDesc = character.basicDesc;
+  const skillDesc = character.skillDesc;
+  const ultDesc = character.ultDesc;
+  const talentDesc = character.talentDesc;
 
   const [isAscended, setIsAscended] = useState<boolean>(false);
   const [isAscDisabled, setIsAscDisabled] = useState<boolean>(false);
@@ -56,11 +56,11 @@ export default function CharacterForm() {
   useEffect(() => {
     let level = parseInt(charLvl);
 
-    yanqing.level = level;
-    setAscension(yanqing.ascension);
-    setStats(yanqing.getStats());
+    character.level = level;
+    setAscension(character.ascension);
+    setStats(character.getStats());
 
-    if (yanqing.isLevelBetweenAscensions(level)) {
+    if (character.isLevelBetweenAscensions(level)) {
       setIsAscDisabled(false);
     } else {
       setIsAscDisabled(true);
@@ -69,30 +69,30 @@ export default function CharacterForm() {
   }, [charLvl]);
 
   useEffect(() => {
-    yanqing.ascension = ascension;
-    setAscension(yanqing.ascension);
-    setMaxLevel(yanqing.maxLevel);
-    setStats(yanqing.getStats());
+    character.ascension = ascension;
+    setAscension(character.ascension);
+    setMaxLevel(character.maxLevel);
+    setStats(character.getStats());
   }, [ascension]);
 
   useEffect(() => {
-    yanqing.basicLevel = parseInt(basicLvl);
-    setBasicAttr([...yanqing.getBasicAttr()]);
+    character.basicLevel = parseInt(basicLvl);
+    setBasicAttr([...character.getBasicAttr()]);
   }, [basicLvl]);
 
   useEffect(() => {
-    yanqing.skillLevel = parseInt(skillLvl);
-    setSkillAttr([...yanqing.getSkillAttr()]);
+    character.skillLevel = parseInt(skillLvl);
+    setSkillAttr([...character.getSkillAttr()]);
   }, [skillLvl]);
 
   useEffect(() => {
-    yanqing.ultLevel = parseInt(ultLvl);
-    setUltAttr([...yanqing.getUltAttr()]);
+    character.ultLevel = parseInt(ultLvl);
+    setUltAttr([...character.getUltAttr()]);
   }, [ultLvl]);
 
   useEffect(() => {
-    yanqing.talentLevel = parseInt(talentLvl);
-    setTalentAttr([...yanqing.getTalentAttr()]);
+    character.talentLevel = parseInt(talentLvl);
+    setTalentAttr([...character.getTalentAttr()]);
   }, [talentLvl]);
   
   return (
