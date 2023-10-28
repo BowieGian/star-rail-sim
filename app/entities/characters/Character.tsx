@@ -74,6 +74,11 @@ export default class Character extends Entity {
     return output;
   }
 
+  public getAbilityLevel(abilityType: AbilityTypes): number {
+    return this.abilityLevels[abilityType];
+  }
+
+  // TODO: Change to abilityTypes
   public getBasicAttr(): ReadonlyArray<number> {
     return this.abilityAttributes.basic;
   }
