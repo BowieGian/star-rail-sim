@@ -8,13 +8,13 @@ import DamageOutput from "./DamageOutput";
 import AbilityDisplay from "./AbilityDisplay";
 import LvlAscInput from "./LvlAscInput";
 import CharacterSelect from "./CharacterSelect";
-import { characterKey, characterList, characters } from "../entities/characters";
+import { CharacterKey, characterList, Characters } from "../entities/characters";
 
 // TODO: Split base stats and abilities to new files
 export default function CharacterForm() {
   // Using lazy initial state to only run constructor once
-  const [character, setCharacter] = useState<characters>(() => characterList["Yanqing"]);
-  const [characterKey, setCharacterKey] = useState<characterKey>("Yanqing");
+  const [character, setCharacter] = useState<Characters>(() => characterList["Yanqing"]);
+  const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");
 
   const [charLvl, setCharLvl] = useState<string>("1");
   const [ascension, setAscension] = useState<number>(0);

@@ -1,8 +1,8 @@
-import { characterKey, characterKeys } from "../entities/characters";
+import { CharacterKey, characterKeys } from "../entities/characters";
 
 interface Props {
-  characterKey: characterKey;
-  setCharacterKey: React.Dispatch<React.SetStateAction<characterKey>>;
+  characterKey: CharacterKey;
+  setCharacterKey: React.Dispatch<React.SetStateAction<CharacterKey>>;
 }
 
 export default function CharacterSelect(props: Props) {
@@ -13,7 +13,7 @@ export default function CharacterSelect(props: Props) {
       focus:ring-2 focus:ring-inset focus:ring-purple-500
       sm:text-sm sm:leading-6"
       value={props.characterKey}
-      onChange={(e) => props.setCharacterKey(e.target.value as characterKey)}
+      onChange={(e) => props.setCharacterKey(e.target.value as CharacterKey)}
     >
       {characterKeys.map((characterKey) => (
         <option key={characterKey} value={characterKey} className="font-bold">

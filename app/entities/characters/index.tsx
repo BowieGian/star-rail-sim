@@ -5,15 +5,15 @@ import Yanqing from "./Yanqing";
 import YanqingData from "./Yanqing.json";
 
 export const characterKeys = ["Serval", "Yanqing"] as const;
-export type characterKey = typeof characterKeys[number];
+export type CharacterKey = typeof characterKeys[number];
 
 // Record of all character data
-const characterData: Record<characterKey, ICharacterData> = {
+const characterData: Record<CharacterKey, ICharacterData> = {
   "Serval": ServalData,
   "Yanqing": YanqingData
-} as Record<characterKey, ICharacterData>;
+} as Record<CharacterKey, ICharacterData>;
 
-export default function getCharacterData(characterKey: characterKey) {
+export default function getCharacterData(characterKey: CharacterKey) {
   return characterData[characterKey];
 }
 
@@ -24,4 +24,4 @@ export const characterList = {
   "Yanqing": new Yanqing("Yanqing")
 }
 
-export type characters = typeof characterList[characterKey];
+export type Characters = typeof characterList[CharacterKey];
