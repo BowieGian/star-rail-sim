@@ -22,7 +22,7 @@ const statNames = {
 }
 
 export default class Character extends Entity {
-  private _maxLevel: number = 0;
+  private _maxLevel: number = 20;
   private _ascension: number = 0;
   private _critRate: number = .05;
   private _critDamage: number = .5;
@@ -157,6 +157,12 @@ export default class Character extends Entity {
   /*--------------------------------------------------------------*/
   /* Getters & Setters                                            */
   /*--------------------------------------------------------------*/
+
+  // Must override getter along with setter
+  // Get function is the same
+  public override get level(): number {
+    return this._level;
+  }
 
   // Updates the ascension phase, rounding down when 2 phases are valid
   public override set level(value: number) {
