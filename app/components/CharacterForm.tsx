@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import Yanqing from "../entities/characters/Yanqing";
 import StatInput from "./StatInput";
 import { IStatDisplay } from "../entities/characters/Character";
 import DamageOutput from "./DamageOutput";
@@ -18,7 +17,7 @@ export default function CharacterForm() {
 
   const [charLvl, setCharLvl] = useState<string>("1");
   const [ascension, setAscension] = useState<number>(0);
-  const [maxLvlForAsc, setMaxLevel] = useState<number>(0);
+  const [maxLvl, setMaxLvl] = useState<number>(0);
 
   const [basicLvl, setBasicLvl] = useState<string>("1");
   const [skillLvl, setSkillLvl] = useState<string>("1");
@@ -56,51 +55,64 @@ export default function CharacterForm() {
 
   useEffect(() => {
     setCharacter(characterList[characterKey]);
-    setStats(character.getStats());
   }, [characterKey])
 
   useEffect(() => {
-    let level = parseInt(charLvl);
+    const levelString = character.level.toString();
 
-    character.level = level;
+    if (charLvl === levelString && ascension === character.ascension) {
+      // Don't need to trigger the lvl/asc useEffect
+      setStats(character.getStats());
+    } else {
+      setCharLvl(levelString);
+      setAscension(character.ascension);
+    }
+
+    setBasicLvl(character.getAbilityLevel("basic").toString());
+    setSkillLvl(character.getAbilityLevel("skill").toString());
+    setUltLvl(character.getAbilityLevel("ult").toString());
+    setTalentLvl(character.getAbilityLevel("talent").toString());
+  }, [character])
+
+  useEffect(() => {
+    let levelInt = parseInt(charLvl);
+    character.level = levelInt;
+
+    character.ascension = ascension;
     setAscension(character.ascension);
+    setMaxLvl(character.maxLevel);
+
     setStats(character.getStats());
 
-    if (character.isLevelBetweenAscensions(level)) {
+    if (character.isLevelBetweenAscensions(levelInt)) {
       setIsAscDisabled(false);
+      setIsAscended(character.isAscended());
     } else {
       setIsAscDisabled(true);
       setIsAscended(false);
     }
-  }, [charLvl]);
-
-  useEffect(() => {
-    character.ascension = ascension;
-    setAscension(character.ascension);
-    setMaxLevel(character.maxLevel);
-    setStats(character.getStats());
-  }, [ascension]);
+  }, [charLvl, ascension]);
 
   useEffect(() => {
     character.basicLevel = parseInt(basicLvl);
     setBasicAttr([...character.getAbilityAttr("basic")]);
-  }, [basicLvl]);
+  }, [basicLvl, character]);
 
   useEffect(() => {
     character.skillLevel = parseInt(skillLvl);
     setSkillAttr([...character.getAbilityAttr("skill")]);
-  }, [skillLvl]);
+  }, [skillLvl, character]);
 
   useEffect(() => {
     character.ultLevel = parseInt(ultLvl);
     setUltAttr([...character.getAbilityAttr("ult")]);
-  }, [ultLvl]);
+  }, [ultLvl, character]);
 
   useEffect(() => {
     character.talentLevel = parseInt(talentLvl);
     setTalentAttr([...character.getAbilityAttr("talent")]);
-  }, [talentLvl]);
-  
+  }, [talentLvl, character]);
+
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
@@ -118,7 +130,7 @@ export default function CharacterForm() {
           setLvl={setCharLvl}
           handleButton={handleAscToggle}
           disableButton={isAscDisabled}
-          maxLvlForAsc={maxLvlForAsc}
+          maxLvlForAsc={maxLvl}
         />
       </div>
 
