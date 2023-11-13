@@ -1,3 +1,5 @@
+import ToolTip from "./ToolTip";
+
 interface Props {
   attributes: readonly number[]
   description: readonly string[]
@@ -11,7 +13,7 @@ export default function AbilityDisplay(props: Props) {
         return (
           <span key={props.label + index}>
             {props.description[index]}
-            <span className="text-purple-500">{(attribute * 100).toFixed(0)}%</span>
+            <ToolTip text={<span className="text-purple-500">{(attribute * 100).toFixed(0)}%</span>}><div>Temp Tip</div></ToolTip>
           </span>
         )
       })}
