@@ -3,12 +3,7 @@ import Attribute, { IAttribute } from "./Attribute";
 const abilityTypes = ["basic", "skill", "ult", "talent"] as const;
 export type AbilityTypes = typeof abilityTypes[number];
 
-export interface IAbilityData {
-  basic: IAbility;
-  skill: IAbility;
-  ult: IAbility;
-  talent: IAbility;
-}
+export type IAbilityData = Record<AbilityTypes, IAbility>
 
 export interface IAbility {
   attributes: IAttribute[];
@@ -16,47 +11,46 @@ export interface IAbility {
 }
 
 export default class Abilities {
-  private data = {
+  private data: Record<AbilityTypes, Array<Attribute>> = {
     basic: new Array<Attribute>,
     skill: new Array<Attribute>,
     ult: new Array<Attribute>,
     talent: new Array<Attribute>
   }
 
-    private descriptions = {
+    private descriptions: Record<AbilityTypes, Array<string>> = {
     basic: new Array<string>,
     skill: new Array<string>,
     ult: new Array<string>,
     talent: new Array<string>
   }
 
-  private attributes = {
+  private attributes: Record<AbilityTypes, Array<number>> = {
     basic: new Array<number>,
     skill: new Array<number>,
     ult: new Array<number>,
     talent: new Array<number>
   }
 
-  constructor(input: IAbilityData) {
-    let property: keyof IAbilityData;
-    for (property in input) {
-      if (!input[property].attributes.length)
-        throw new Error("Attributes has no length");
+  constructor(abilityData: IAbilityData) {
+    abilityTypes.forEach(ability => {
+      if (!abilityData[ability].attributes.length)
+        throw new Error("Attributes of " + ability + " has no length");
 
-      if (!input[property].description.length)
-        throw new Error("Description has no length");
+      if (!abilityData[ability].description.length)
+        throw new Error("Description of " + ability + " has no length");
 
-      if (input[property].description.length - input[property].attributes.length !== 1)
-        throw new Error("Description length is not 1 less than attribute length");
+      if (abilityData[ability].description.length - abilityData[ability].attributes.length !== 1)
+        throw new Error("Description length of " + ability + " is not 1 less than its attribute length");
 
-      for (let i = 0; i < input[property].attributes.length; i++) {
-        this.data[property].push(new Attribute(input[property].attributes[i]));
+      for (let i = 0; i < abilityData[ability].attributes.length; i++) {
+        this.data[ability].push(new Attribute(abilityData[ability].attributes[i]));
       }
 
-      for (let i = 0; i < input[property].description.length; i++) {
-        this.descriptions[property].push(input[property].description[i]);
+      for (let i = 0; i < abilityData[ability].description.length; i++) {
+        this.descriptions[ability].push(abilityData[ability].description[i]);
       }
-    }
+  });
 
     this.calculateAll({basic: 1, skill: 1, ult: 1, talent: 1});
   }
@@ -67,46 +61,37 @@ export default class Abilities {
     }
   }
 
-  public calculateAll(
-    abilityLevels: {
-      basic: number,
-      skill: number,
-      ult: number,
-      talent: number
-    }
-  ): void {
-
-    abilityTypes.forEach(ability =>
-      this.calculateAttribute(abilityLevels[ability], ability));
+  public calculateAll(abilityLevels: Record<AbilityTypes, number>): void {
+    abilityTypes.forEach(
+      ability => this.calculateAttribute(abilityLevels[ability], ability)
+    );
   }
 
-  private printAttribute(ability: AbilityTypes): void {
-    console.log(ability);
-    for (let i = 0; i < this.data[ability].length; i++) {
-      console.log("Attribute %d", i);
+  public printAttributes() {
+    abilityTypes.forEach(ability => {
+      console.log(ability);
+      for (let i = 0; i < this.data[ability].length; i++) {
+        console.log("Attribute %d", i);
 
-      let length: number;
-      if (ability === "basic") {
-        length = 7;
-      } else {
-        length = 12;
+        let length: number;
+        if (ability === "basic") {
+          length = 7;
+        } else {
+          length = 12;
+        }
+
+        for (let j = 1; j <= length; j++) {
+          console.log(this.data[ability][i].calculate(j));
+        }
       }
-
-      for (let j = 1; j <= length; j++) {
-        console.log(this.data[ability][i].calculate(j));
-      }
-    }
+    });
   }
 
-  public print() {
-    abilityTypes.forEach(ability => this.printAttribute(ability));
+  public getAttributes(ability: AbilityTypes): ReadonlyArray<number> {
+    return this.attributes[ability];
   }
 
-  public getAttributes(abilityType: AbilityTypes): ReadonlyArray<number> {
-    return this.attributes[abilityType];
-  }
-
-  public getDescriptions(abilityType: AbilityTypes): ReadonlyArray<string> {
-    return this.descriptions[abilityType];
+  public getDescriptions(ability: AbilityTypes): ReadonlyArray<string> {
+    return this.descriptions[ability];
   }
 }
