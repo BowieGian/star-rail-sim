@@ -14,7 +14,7 @@
     },
     "spd": 104
   },
-  "skills": {
+  "abilities": {
     "basic": {
       "attributes": [
         {"base": 0.5, "add": 0.1, "type": "basic"}

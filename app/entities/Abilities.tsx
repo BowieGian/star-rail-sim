@@ -15,7 +15,7 @@ export interface IAbility {
   description: string[];
 }
 
-export default class AbilityAttributes {
+export default class Abilities {
   private data = {
     basic: new Array<Attribute>,
     skill: new Array<Attribute>,

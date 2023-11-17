@@ -1,11 +1,11 @@
 import Entity from "../Entity";
 import BaseStats, { IBaseStatData } from "../BaseStats";
-import AbilityAttributes, { AbilityTypes, IAbilityData } from "../AbilityAttributes";
+import Abilities, { AbilityTypes, IAbilityData } from "../Abilities";
 import getCharacterData, { CharacterKey } from ".";
 
 export interface ICharacterData {
   baseStats: IBaseStatData;
-  skills: IAbilityData;
+  abilities: IAbilityData;
 }
 
 export interface IStatDisplay {
@@ -35,7 +35,7 @@ export default class Character extends Entity {
   private _elementalDmg: number = 0; // TODO: Consider single vs mult element
   private _elementalRes: number = 0;
 
-  private abilityAttributes: AbilityAttributes;
+  private abilities: Abilities;
   private abilityLevels = {
     basic: 1,
     skill: 1,
@@ -49,8 +49,8 @@ export default class Character extends Entity {
 
     super(id, baseStats);
 
-    this.abilityAttributes = new AbilityAttributes(characterData.skills);
-    this.abilityAttributes.calculateAll(this.abilityLevels);
+    this.abilities = new Abilities(characterData.abilities);
+    this.abilities.calculateAll(this.abilityLevels);
   }
 
   /*--------------------------------------------------------------*/
@@ -78,13 +78,12 @@ export default class Character extends Entity {
     return this.abilityLevels[abilityType];
   }
 
-  // TODO: Change to abilityTypes
   public getAbilityAttr(abilityType: AbilityTypes): ReadonlyArray<number> {
-    return this.abilityAttributes.getAttributes(abilityType);
+    return this.abilities.getAttributes(abilityType);
   }
 
   public getAbilityDesc(abilityType: AbilityTypes): ReadonlyArray<string> {
-    return this.abilityAttributes.getDescriptions(abilityType);
+    return this.abilities.getDescriptions(abilityType);
   }
 
   // Returns true if the level is part of 2 ascension phases
@@ -151,7 +150,7 @@ export default class Character extends Entity {
   }
 
   private calculateAbility(abilityType: AbilityTypes): void {
-    this.abilityAttributes.calculateAttribute(this.abilityLevels[abilityType], abilityType);
+    this.abilities.calculateAttribute(this.abilityLevels[abilityType], abilityType);
   }
 
   /*--------------------------------------------------------------*/
