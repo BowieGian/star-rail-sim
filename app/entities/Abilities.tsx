@@ -11,21 +11,21 @@ export interface IAbility {
 }
 
 export default class Abilities {
-  private data = {
+  private data: Record<AbilityTypes, Array<Attribute>> = {
     basic: new Array<Attribute>,
     skill: new Array<Attribute>,
     ult: new Array<Attribute>,
     talent: new Array<Attribute>
   }
 
-    private descriptions = {
+    private descriptions: Record<AbilityTypes, Array<string>> = {
     basic: new Array<string>,
     skill: new Array<string>,
     ult: new Array<string>,
     talent: new Array<string>
   }
 
-  private attributes = {
+  private attributes: Record<AbilityTypes, Array<number>> = {
     basic: new Array<number>,
     skill: new Array<number>,
     ult: new Array<number>,
