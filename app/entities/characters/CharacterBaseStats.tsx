@@ -1,13 +1,13 @@
-import Stat, { IStat } from "./Stat";
+import Stat, { IStat } from "../Stat";
 
-export interface IBaseStatData {
+export interface ICharacterBaseStatData {
   hp: IStat;
   atk: IStat;
   def: IStat;
   spd: number;
 }
 
-export default class BaseStats {
+export default class CharacterBaseStats {
   private data: {
     hp: Stat,
     atk: Stat,
@@ -21,7 +21,7 @@ export default class BaseStats {
     spd: NaN
   }
 
-  constructor(input: IBaseStatData) {
+  constructor(input: ICharacterBaseStatData) {
     if (input.spd < 0) throw new RangeError("Spd cannot be negative");
 
     this.data = {

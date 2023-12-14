@@ -1,10 +1,10 @@
 import Entity from "../Entity";
-import BaseStats, { IBaseStatData } from "../BaseStats";
+import CharacterBaseStats, { ICharacterBaseStatData } from "./CharacterBaseStats";
 import Abilities, { AbilityTypes, IAbilityData } from "../Abilities";
 import getCharacterData, { CharacterKey } from ".";
 
 export interface ICharacterData {
-  baseStats: IBaseStatData;
+  baseStats: ICharacterBaseStatData;
   abilities: IAbilityData;
 }
 
@@ -45,9 +45,9 @@ export default class Character extends Entity {
 
   constructor(id: string, characterKey: CharacterKey) {
     const characterData: ICharacterData = getCharacterData(characterKey);
-    const baseStats = new BaseStats(characterData.baseStats);
+    const characterBaseStats = new CharacterBaseStats(characterData.baseStats);
 
-    super(id, baseStats);
+    super(id, characterBaseStats);
 
     this.abilities = new Abilities(characterData.abilities);
     this.abilities.calculateAll(this.abilityLevels);
@@ -143,10 +143,10 @@ export default class Character extends Entity {
   // To be called after updating base stats and equipping weapons/relics
   // Updates current stats with new base stats and equipment
   private updateStats(): void {
-    this._hp = this.baseStats.hp;
-    this._atk = this.baseStats.atk;
-    this._def = this.baseStats.def;
-    this._spd = this.baseStats.spd;
+    this._hp = this.characterBaseStats.hp;
+    this._atk = this.characterBaseStats.atk;
+    this._def = this.characterBaseStats.def;
+    this._spd = this.characterBaseStats.spd;
   }
 
   private calculateAbility(abilityType: AbilityTypes): void {
@@ -171,7 +171,7 @@ export default class Character extends Entity {
     this._level = value;
     this._ascension = this.ascensionFromLevel(value);
 
-    this.baseStats.calculate(this._level, this._ascension);
+    this.characterBaseStats.calculate(this._level, this._ascension);
     this.updateStats();
   }
 
@@ -191,7 +191,7 @@ export default class Character extends Entity {
       this._ascension = value;
 
       this._maxLevel = this.maxLvlFromAscension(value);
-      this.baseStats.calculate(this._level, this._ascension);
+      this.characterBaseStats.calculate(this._level, this._ascension);
       this.updateStats();
     }
   }

@@ -1,7 +1,7 @@
-import BaseStats from "./BaseStats";
+import CharacterBaseStats from "./characters/CharacterBaseStats";
 
 export default class Entity {
-  protected baseStats: BaseStats;
+  protected characterBaseStats: CharacterBaseStats;
 
   protected _id: string = "";
   protected _level: number = NaN;
@@ -11,11 +11,11 @@ export default class Entity {
   protected _spd: number = NaN;
 
 
-  constructor(id: string, baseStats: BaseStats) {
+  constructor(id: string, characterBaseStats: CharacterBaseStats) {
     if (!id) throw new Error("The name is invalid");
 
     this._id = id;
-    this.baseStats = baseStats;
+    this.characterBaseStats = characterBaseStats;
     this.level = 1;
     // console.log(this);
   }
@@ -45,12 +45,12 @@ export default class Entity {
 
     this._level = value;
 
-    this.baseStats.calculate(value);
+    this.characterBaseStats.calculate(value);
 
-    this._hp = this.baseStats.hp;
-    this._atk = this.baseStats.atk;
-    this._def = this.baseStats.def;
-    this._spd = this.baseStats.spd;
+    this._hp = this.characterBaseStats.hp;
+    this._atk = this.characterBaseStats.atk;
+    this._def = this.characterBaseStats.def;
+    this._spd = this.characterBaseStats.spd;
   }
 
   public get hp(): number {
