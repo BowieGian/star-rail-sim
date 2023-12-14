@@ -82,18 +82,6 @@ export default class Character extends Entity {
     return output;
   }
 
-  public getAbilityLevel(abilityType: AbilityTypes): number {
-    return this.abilityLevels[abilityType];
-  }
-
-  public getAbilityAttr(abilityType: AbilityTypes): ReadonlyArray<number> {
-    return this.abilities.getAttributes(abilityType);
-  }
-
-  public getAbilityDesc(abilityType: AbilityTypes): ReadonlyArray<string> {
-    return this.abilities.getDescriptions(abilityType);
-  }
-
   // Returns true if the level is part of 2 ascension phases
   // (Levels 20, 30, 40, 50, 60, 70)
   public isLevelBetweenAscensions(level: number): boolean {
@@ -204,36 +192,33 @@ export default class Character extends Entity {
     }
   }
 
-  public set basicLevel(value: number) {
-    if (value < 0 || value > 7)
+  public getAbilityLevel(abilityType: AbilityTypes): number {
+    return this.abilityLevels[abilityType];
+  }
+
+  public setAbilityLevel(abilityType: AbilityTypes, level: number): void {
+    if (abilityType !== "basic") {
+      if (level < 0 || level > 12)
+        throw new RangeError("Ability level must be between 1-12");
+
+      this.abilityLevels[abilityType] = level;
+      this.calculateAbility(abilityType);
+      return;
+    }
+
+    if (level < 0 || level > 7)
       throw new RangeError("Basic level must be between 1-7");
 
-    this.abilityLevels.basic = value;
+    this.abilityLevels.basic = level;
     this.calculateAbility("basic");
   }
 
-  public set skillLevel(value: number) {
-    if (value < 0 || value > 12)
-      throw new RangeError("Skill level must be between 1-12");
-
-    this.abilityLevels.skill = value;
-    this.calculateAbility("skill");
+  public getAbilityAttr(abilityType: AbilityTypes): ReadonlyArray<number> {
+    return this.abilities.getAttributes(abilityType);
   }
 
-  public set ultLevel(value: number) {
-    if (value < 0 || value > 12)
-      throw new RangeError("Ult level must be between 1-12");
-
-    this.abilityLevels.ult = value;
-    this.calculateAbility("ult");
-  }
-
-  public set talentLevel(value: number) {
-    if (value < 0 || value > 12)
-      throw new RangeError("Talent level must be between 1-12");
-
-    this.abilityLevels.talent = value;
-    this.calculateAbility("talent");
+  public getAbilityDesc(abilityType: AbilityTypes): ReadonlyArray<string> {
+    return this.abilities.getDescriptions(abilityType);
   }
 
   public get critRate(): number {

@@ -94,22 +94,22 @@ export default function CharacterForm() {
   }, [charLvl, ascension]);
 
   useEffect(() => {
-    character.basicLevel = parseInt(basicLvl);
+    character.setAbilityLevel("basic", parseInt(basicLvl));
     setBasicAttr([...character.getAbilityAttr("basic")]);
   }, [basicLvl, character]);
 
   useEffect(() => {
-    character.skillLevel = parseInt(skillLvl);
+    character.setAbilityLevel("skill", parseInt(skillLvl));
     setSkillAttr([...character.getAbilityAttr("skill")]);
   }, [skillLvl, character]);
 
   useEffect(() => {
-    character.ultLevel = parseInt(ultLvl);
+    character.setAbilityLevel("ult", parseInt(ultLvl));
     setUltAttr([...character.getAbilityAttr("ult")]);
   }, [ultLvl, character]);
 
   useEffect(() => {
-    character.talentLevel = parseInt(talentLvl);
+    character.setAbilityLevel("talent", parseInt(talentLvl));
     setTalentAttr([...character.getAbilityAttr("talent")]);
   }, [talentLvl, character]);
 
