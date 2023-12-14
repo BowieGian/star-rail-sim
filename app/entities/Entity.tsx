@@ -1,31 +1,33 @@
-import CharacterBaseStats from "./characters/CharacterBaseStats";
+import { AllBaseStats } from "./characters/CharacterBaseStats";
 
 export default class Entity {
-  protected characterBaseStats: CharacterBaseStats;
-
   protected _id: string = "";
   protected _level: number = NaN;
-  protected _hp: number = NaN;
-  protected _atk: number = NaN;
-  protected _def: number = NaN;
-  protected _spd: number = NaN;
 
-
-  constructor(id: string, characterBaseStats: CharacterBaseStats) {
-    if (!id) throw new Error("The name is invalid");
-
-    this._id = id;
-    this.characterBaseStats = characterBaseStats;
-    this.level = 1;
-    // console.log(this);
+  protected baseStats: Record<AllBaseStats, number> = {
+    hp: NaN,
+    atk: NaN,
+    def: NaN,
+    spd: NaN
   }
+
+  /*--------------------------------------------------------------*/
+  /* Constructor                                                  */
+  /*--------------------------------------------------------------*/
+
+  constructor(id: string) {
+    if (!id) throw new Error("The ID is invalid");
+    this._id = id;
+  }
+
+  /*--------------------------------------------------------------*/
+  /* Public Functions                                             */
+  /*--------------------------------------------------------------*/
 
   public getAV(): number {
-    if (!this._spd) throw new Error("SPD has not been defined yet");
-
-    return 10000 / this._spd;
+    if (!this.baseStats.spd) throw new Error("SPD has not been defined yet or is 0");
+    return 10000 / this.baseStats.spd;
   }
-
 
   /*--------------------------------------------------------------*/
   /* Getters & Setters                                            */
@@ -36,6 +38,7 @@ export default class Entity {
   }
 
   public get level(): number {
+    if (!this._level) throw new Error("Level has not been defined yet or is 0");
     return this._level;
   }
 
@@ -44,28 +47,10 @@ export default class Entity {
       throw new RangeError("Level must be between 1 and 90");
 
     this._level = value;
-
-    this.characterBaseStats.calculate(value);
-
-    this._hp = this.characterBaseStats.hp;
-    this._atk = this.characterBaseStats.atk;
-    this._def = this.characterBaseStats.def;
-    this._spd = this.characterBaseStats.spd;
   }
 
-  public get hp(): number {
-    return this._hp;
-  }
-
-  public get atk(): number {
-    return this._atk;
-  }
-
-  public get def(): number {
-    return this._def;
-  }
-
-  public get spd(): number {
-    return this._spd;
+  public getBaseStat(stat: AllBaseStats): number {
+    if (!this.baseStats[stat]) throw new Error("Base stat has not been defined yet or is 0");
+    return this.baseStats[stat];
   }
 }

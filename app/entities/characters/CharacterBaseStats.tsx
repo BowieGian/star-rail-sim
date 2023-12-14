@@ -1,60 +1,57 @@
 import Stat, { IStat } from "../Stat";
 
-export interface ICharacterBaseStatData {
-  hp: IStat;
-  atk: IStat;
-  def: IStat;
-  spd: number;
-}
+const scalingBaseStats = ["hp", "atk", "def"] as const;
+type ScalingBaseStats = typeof scalingBaseStats[number];
+
+type Speed = "spd";
+
+export const allBaseStats = ["hp", "atk", "def", "spd"] as const;
+export type AllBaseStats = typeof allBaseStats[number];
+
+export type ICharacterBaseStatData = Record<ScalingBaseStats, IStat> & Record<Speed, number>;
 
 export default class CharacterBaseStats {
-  private data: {
-    hp: Stat,
-    atk: Stat,
-    def: Stat
-  }
+  private data: Record<ScalingBaseStats, Stat>;
 
-  private base = {
+  private base: Record<AllBaseStats, number> = {
     hp: NaN,
     atk: NaN,
     def: NaN,
     spd: NaN
-  }
+  };
+
+  /*--------------------------------------------------------------*/
+  /* Constructor                                                  */
+  /*--------------------------------------------------------------*/
 
   constructor(input: ICharacterBaseStatData) {
-    if (input.spd < 0) throw new RangeError("Spd cannot be negative");
+    if (input.spd <= 0) throw new RangeError("Spd must be positive");
 
     this.data = {
       hp: new Stat(input.hp),
       atk: new Stat(input.atk),
       def: new Stat(input.def)
-    }
+    };
+
     this.base.spd = input.spd;
   }
 
+  /*--------------------------------------------------------------*/
+  /* Public Functions                                             */
+  /*--------------------------------------------------------------*/
+
   public calculate(level: number, ascension?: number): void {
-    this.base.hp = this.data.hp.calculate(level, ascension);
-    this.base.atk = this.data.atk.calculate(level, ascension);
-    this.base.def = this.data.def.calculate(level, ascension);
+    for (let stat of scalingBaseStats) {
+      this.base[stat] = this.data[stat].calculate(level, ascension);
+    }
   }
 
   /*--------------------------------------------------------------*/
   /* Getters & Setters                                            */
   /*--------------------------------------------------------------*/
 
-  public get hp(): number {
-    return this.base.hp;
-  }
-
-  public get atk(): number {
-    return this.base.atk;
-  }
-
-  public get def(): number {
-    return this.base.def;
-  }
-
-  public get spd(): number {
-    return this.base.spd;
+  public getStat(stat: AllBaseStats): number {
+    if (!this.base[stat]) throw new Error("Stats have not been calculated yet");
+    return this.base[stat];
   }
 }

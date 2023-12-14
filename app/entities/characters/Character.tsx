@@ -1,5 +1,5 @@
 import Entity from "../Entity";
-import CharacterBaseStats, { ICharacterBaseStatData } from "./CharacterBaseStats";
+import CharacterBaseStats, { ICharacterBaseStatData, AllBaseStats, allBaseStats } from "./CharacterBaseStats";
 import Abilities, { AbilityTypes, IAbilityData } from "../Abilities";
 import getCharacterData, { CharacterKey } from ".";
 
@@ -14,7 +14,7 @@ export interface IStatDisplay {
   value: number;
 }
 
-const statNames = {
+const statNames: Record<AllBaseStats, string> = {
   hp: "HP",
   atk: "ATK",
   def: "DEF",
@@ -24,6 +24,9 @@ const statNames = {
 export default class Character extends Entity {
   private _maxLevel: number = 20;
   private _ascension: number = 0;
+
+  private characterBaseStats: CharacterBaseStats;
+
   private _critRate: number = .05;
   private _critDamage: number = .5;
   private _breakEffect: number = 0;
@@ -36,18 +39,24 @@ export default class Character extends Entity {
   private _elementalRes: number = 0;
 
   private abilities: Abilities;
-  private abilityLevels = {
+  private abilityLevels = { // TODO: Consider moving levels into Abilites
     basic: 1,
     skill: 1,
     ult: 1,
     talent: 1
   }
 
+  /*--------------------------------------------------------------*/
+  /* Constructor                                                  */
+  /*--------------------------------------------------------------*/
+
   constructor(id: string, characterKey: CharacterKey) {
     const characterData: ICharacterData = getCharacterData(characterKey);
-    const characterBaseStats = new CharacterBaseStats(characterData.baseStats);
 
-    super(id, characterBaseStats);
+    super(id);
+
+    this.characterBaseStats = new CharacterBaseStats(characterData.baseStats);
+    this.level = 1;
 
     this.abilities = new Abilities(characterData.abilities);
     this.abilities.calculateAll(this.abilityLevels);
@@ -59,16 +68,15 @@ export default class Character extends Entity {
 
   public getStats(): ReadonlyArray<IStatDisplay> {
     let output = new Array<IStatDisplay>;
-    let keys = ["hp", "atk", "def", "spd"] as const;
 
-    for (let key of keys) {
-      let stat: IStatDisplay = {
-        key: key,
-        name: statNames[key],
-        value: this[key]
+    for (let stat of allBaseStats) {
+      let statDisplay: IStatDisplay = {
+        key: stat,
+        name: statNames[stat],
+        value: this.getBaseStat(stat)
       };
       
-      output.push(stat);
+      output.push(statDisplay);
     }
     
     return output;
@@ -143,10 +151,10 @@ export default class Character extends Entity {
   // To be called after updating base stats and equipping weapons/relics
   // Updates current stats with new base stats and equipment
   private updateStats(): void {
-    this._hp = this.characterBaseStats.hp;
-    this._atk = this.characterBaseStats.atk;
-    this._def = this.characterBaseStats.def;
-    this._spd = this.characterBaseStats.spd;
+    this.baseStats.hp = this.characterBaseStats.getStat("hp");
+    this.baseStats.atk = this.characterBaseStats.getStat("atk");
+    this.baseStats.def = this.characterBaseStats.getStat("def");
+    this.baseStats.spd = this.characterBaseStats.getStat("spd");
   }
 
   private calculateAbility(abilityType: AbilityTypes): void {
