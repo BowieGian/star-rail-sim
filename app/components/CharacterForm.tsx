@@ -17,7 +17,7 @@ export default function CharacterForm() {
 
   const [charLvl, setCharLvl] = useState<string>("1");
   const [ascension, setAscension] = useState<number>(0);
-  const [maxLvl, setMaxLvl] = useState<number>(0);
+  const [maxLvl, setMaxLvl] = useState<number>(character.maxLevel);
 
   const [basicLvl, setBasicLvl] = useState<string>("1");
   const [skillLvl, setSkillLvl] = useState<string>("1");
@@ -37,7 +37,7 @@ export default function CharacterForm() {
   const talentDesc = character.getAbilityDesc("talent");
 
   const [isAscended, setIsAscended] = useState<boolean>(false);
-  const [isAscDisabled, setIsAscDisabled] = useState<boolean>(false);
+  const [isAscDisabled, setIsAscDisabled] = useState<boolean>(true);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
