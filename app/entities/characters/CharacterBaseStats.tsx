@@ -13,12 +13,18 @@ export type AllBaseStats = typeof allBaseStats[number];
 
 export type ICharacterBaseStatData = Record<ScalingBaseStats, IStat> & Record<Speed, ISpeedStat>;
 
+/** @example
+/*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Class CharacterBaseStats                                                   /
+/ ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Stores & calculates the base values of a character's base stats
+/ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class CharacterBaseStats {
   private stats: Record<ScalingBaseStats, Stat> & Record<Speed, ISpeedStat>;
 
-  /*--------------------------------------------------------------*/
-  /* Constructor                                                  */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Constructor                                                  /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(input: ICharacterBaseStatData) {
     if (input.spd.value <= 0) throw new RangeError("Spd must be positive");
@@ -31,9 +37,9 @@ export default class CharacterBaseStats {
     };
   }
 
-  /*--------------------------------------------------------------*/
-  /* Public Functions                                             */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Public Functions                                             /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public calculate(level: number, ascension: number): void {
     for (let stat of scalingBaseStats) {
@@ -41,9 +47,9 @@ export default class CharacterBaseStats {
     }
   }
 
-  /*--------------------------------------------------------------*/
-  /* Getters & Setters                                            */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Getters & Setters                                            /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public getStat(stat: AllBaseStats): number {
     return this.stats[stat].value;

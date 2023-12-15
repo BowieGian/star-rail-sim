@@ -7,17 +7,22 @@ export interface IAttribute {
   type: AttributeTypes;
 }
 
-/*----------------------------------------------------------------*/
-/* Class Attribute                                                */
-/*----------------------------------------------------------------*/
-/* Stores and calculates ability scaling numbers
-/* For default, basic & dot, add = level 2 - 1
-/* For heal & heal%, add = level 6 - 5
-/*----------------------------------------------------------------*/
+/** @example
+/*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Class Attribute                                                            /
+/ ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Stores and calculates ability scaling numbers
+/   For default, basic & dot, add = (level 2) - (level 1)
+/   For heal & heal%, add = (level 6) - (level 5)
+/ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class Attribute {
   private base: number = 0;
   private add: number = 0;
   private type: AttributeTypes = "default";
+
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Constructor                                                  /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(input: IAttribute) {
     if (input.base === undefined) throw new Error("Base is undefined");
@@ -34,9 +39,9 @@ export default class Attribute {
     this.type = input.type;
   }
 
-  /*--------------------------------------------------------------*/
-  /* Public Functions                                             */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Public Functions                                             /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public calculate(level: number): number {
     if (this.type === "basic") {
@@ -76,9 +81,9 @@ export default class Attribute {
     return Math.round((output + Number.EPSILON) * 1e6) / 1e6;
   }
 
-  /*--------------------------------------------------------------*/
-  /* Private Functions                                            */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Private Functions                                            /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   private isAttributeType(type: AttributeTypes): type is AttributeTypes {
     return typeof type === "string" && attributeTypes.includes(type);

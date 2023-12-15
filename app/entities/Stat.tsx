@@ -3,14 +3,20 @@ export interface IStat {
   add: number;
 }
 
+/** @example
+/*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Class Stat                                                                 /
+/ ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Stores & calculates a stat of a character
+/ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class Stat {
   private base: number;
   private add: number;
   private _value: number = NaN;
 
-  /*--------------------------------------------------------------*/
-  /* Constructor                                                  */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Constructor                                                  /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(input: IStat) {
     if (input.base < 0) throw new RangeError("Base cannot be negative");
@@ -20,18 +26,18 @@ export default class Stat {
     this.add = input.add;
   }
 
-  /*--------------------------------------------------------------*/
-  /* Public Functions                                             */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Public Functions                                             /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public calculate(level: number, ascension: number): void {
     let output = this.base + this.add * (level - 1 + 8 * ascension)
     this._value = Math.round((output + Number.EPSILON) * 1e6) / 1e6;
   }
 
-  /*--------------------------------------------------------------*/
-  /* Getters & Setters                                            */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Getters & Setters                                            /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public get value(): number {
     if (Number.isNaN(this._value)) throw new Error("Value has not been calculated");

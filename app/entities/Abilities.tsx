@@ -10,6 +10,13 @@ export interface IAbility {
   description: string[];
 }
 
+/** @example
+/*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Class Abilities                                                            /
+/ ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Stores character abilities including the descriptions and levels(TODO)
+/   Contains functions that returns data for frontend(TODO: move from Character)
+/ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class Abilities {
   private data: Record<AbilityTypes, Array<Attribute>> = {
     basic: new Array<Attribute>,
@@ -31,6 +38,10 @@ export default class Abilities {
     ult: new Array<number>,
     talent: new Array<number>
   }
+
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Constructor                                                  /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(abilityData: IAbilityData) {
     abilityTypes.forEach(ability => {
@@ -67,6 +78,10 @@ export default class Abilities {
     );
   }
 
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Public Functions                                             /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
+
   public printAttributes() {
     abilityTypes.forEach(ability => {
       console.log(ability);
@@ -86,6 +101,10 @@ export default class Abilities {
       }
     });
   }
+
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Private Functions                                            /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public getAttributes(ability: AbilityTypes): ReadonlyArray<number> {
     return this.attributes[ability];

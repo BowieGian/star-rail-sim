@@ -21,6 +21,14 @@ const statNames: Record<AllBaseStats, string> = {
   spd: "SPD"
 }
 
+/** @example
+/*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Class Character                                                            /
+/ ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+/   Simulates a character in Honkai: Star Rail
+/   Stores the character's stats/buffs and equipment
+/   Calculates the damage the character's abilities will do
+/ ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class Character extends Entity {
   private _maxLevel: number = 20; // TODO: Consider making a class for lvl/asc
   private _ascension: number = 0;
@@ -46,9 +54,9 @@ export default class Character extends Entity {
     talent: 1
   }
 
-  /*--------------------------------------------------------------*/
-  /* Constructor                                                  */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Constructor                                                  /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(id: string, characterKey: CharacterKey) {
     const characterData: ICharacterData = getCharacterData(characterKey);
@@ -62,9 +70,9 @@ export default class Character extends Entity {
     this.abilities.calculateAll(this.abilityLevels);
   }
 
-  /*--------------------------------------------------------------*/
-  /* Public Functions                                             */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Public Functions                                             /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public getStats(): ReadonlyArray<IStatDisplay> {
     let output = new Array<IStatDisplay>;
@@ -82,8 +90,10 @@ export default class Character extends Entity {
     return output;
   }
 
-  // Returns true if the level is part of 2 ascension phases
-  // (Levels 20, 30, 40, 50, 60, 70)
+  /** @example
+  /* Returns true if the level is part of 2 ascension phases
+   * (Levels 20, 30, 40, 50, 60, 70)
+   */
   public isLevelBetweenAscensions(level: number): boolean {
     if (level >= 20 && level <= 70 && (level % 10 == 0))
       return true;
@@ -94,9 +104,9 @@ export default class Character extends Entity {
     return this.ascensionFromLevel(this.level) + 1 === this.ascension;
   }
 
-  /*--------------------------------------------------------------*/
-  /* Private Functions                                            */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Private Functions                                            /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   // Returns the lower ascension phase for the input level
   private ascensionFromLevel(level: number): number {
@@ -149,9 +159,9 @@ export default class Character extends Entity {
     this.abilities.calculateAttribute(this.abilityLevels[abilityType], abilityType);
   }
 
-  /*--------------------------------------------------------------*/
-  /* Getters & Setters                                            */
-  /*--------------------------------------------------------------*/
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Getters & Setters                                            /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   // Must override getter along with setter
   // Get function is the same
