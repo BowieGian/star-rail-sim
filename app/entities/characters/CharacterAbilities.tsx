@@ -1,4 +1,4 @@
-import Attribute, { IAttribute } from "./Attribute";
+import Attribute, { IAttribute } from "../Attribute";
 
 const abilityTypes = ["basic", "skill", "ult", "talent"] as const;
 export type AbilityTypes = typeof abilityTypes[number];
@@ -12,12 +12,12 @@ export interface IAbility {
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Class Abilities                                                            /
+/   Class CharacterAbilities                                                   /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Stores character abilities including the descriptions and levels(TODO)
 /   Contains functions that returns data for frontend(TODO: move from Character)
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class Abilities {
+export default class CharacterAbilities {
   private data: Record<AbilityTypes, Array<Attribute>> = {
     basic: new Array<Attribute>,
     skill: new Array<Attribute>,

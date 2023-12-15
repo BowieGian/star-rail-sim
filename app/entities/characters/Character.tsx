@@ -1,6 +1,6 @@
 import Entity from "../Entity";
 import CharacterBaseStats, { ICharacterBaseStatData, AllBaseStats, allBaseStats } from "./CharacterBaseStats";
-import Abilities, { AbilityTypes, IAbilityData } from "../Abilities";
+import CharacterAbilities, { AbilityTypes, IAbilityData } from "./CharacterAbilities";
 import getCharacterData, { CharacterKey } from ".";
 
 export interface ICharacterData {
@@ -46,7 +46,7 @@ export default class Character extends Entity {
   private _elementalDmg: number = 0; // TODO: Consider single vs mult element
   private _elementalRes: number = 0;
 
-  private abilities: Abilities;
+  private abilities: CharacterAbilities;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
@@ -60,7 +60,7 @@ export default class Character extends Entity {
     this.characterBaseStats = new CharacterBaseStats(characterData.baseStats);
     this.level = 1;
 
-    this.abilities = new Abilities(characterData.abilities);
+    this.abilities = new CharacterAbilities(characterData.abilities);
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
