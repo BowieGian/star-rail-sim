@@ -1,7 +1,8 @@
+import getCharacterData, { CharacterKey } from ".";
 import Entity from "../Entity";
 import CharacterBaseStats, { ICharacterBaseStatData, AllBaseStats, allBaseStats } from "./CharacterBaseStats";
-import CharacterAbilities, { AbilityTypes, IAbilityData } from "./CharacterAbilities";
-import getCharacterData, { CharacterKey } from ".";
+import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";
+import { AbilityTypes } from "./Ability";
 
 export interface ICharacterData {
   baseStats: ICharacterBaseStatData;
@@ -199,12 +200,12 @@ export default class Character extends Entity {
     this.abilities.setLevel(ability, level);
   }
 
-  public getAbilityAttr(ability: AbilityTypes): ReadonlyArray<number> {
-    return this.abilities.getAttributes(ability);
-  }
-
   public getAbilityDesc(ability: AbilityTypes): ReadonlyArray<string> {
     return this.abilities.getDescriptions(ability);
+  }
+
+  public getAbilityAttr(ability: AbilityTypes): ReadonlyArray<number> {
+    return this.abilities.getAttributes(ability);
   }
 
   public get critRate(): number {
