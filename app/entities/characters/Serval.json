@@ -12,7 +12,7 @@
       "base": 51,
       "add": 2.55
     },
-    "spd": 104
+    "spd": {"value": 104}
   },
   "abilities": {
     "basic": {

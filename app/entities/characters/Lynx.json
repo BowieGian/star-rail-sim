@@ -12,7 +12,7 @@
       "base": 75,
       "add": 3.75
     },
-    "spd": 100
+    "spd": {"value": 100}
   },
   "skills": {
     "basic": [
