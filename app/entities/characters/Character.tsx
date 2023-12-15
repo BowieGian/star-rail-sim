@@ -22,7 +22,7 @@ const statNames: Record<AllBaseStats, string> = {
 }
 
 export default class Character extends Entity {
-  private _maxLevel: number = 20;
+  private _maxLevel: number = 20; // TODO: Consider making a class for lvl/asc
   private _ascension: number = 0;
 
   private characterBaseStats: CharacterBaseStats;
