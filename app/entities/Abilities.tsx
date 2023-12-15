@@ -25,7 +25,7 @@ export default class Abilities {
     talent: new Array<Attribute>
   }
 
-    private descriptions: Record<AbilityTypes, Array<string>> = {
+  private descriptions: Record<AbilityTypes, Array<string>> = {
     basic: new Array<string>,
     skill: new Array<string>,
     ult: new Array<string>,
@@ -39,12 +39,19 @@ export default class Abilities {
     talent: new Array<number>
   }
 
+  private levels: Record<AbilityTypes, number> = {
+    basic: 1,
+    skill: 1,
+    ult: 1,
+    talent: 1
+  }
+
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(abilityData: IAbilityData) {
-    abilityTypes.forEach(ability => {
+    for (let ability of abilityTypes) {
       if (!abilityData[ability].attributes.length)
         throw new Error("Attributes of " + ability + " has no length");
 
@@ -61,29 +68,30 @@ export default class Abilities {
       for (let i = 0; i < abilityData[ability].description.length; i++) {
         this.descriptions[ability].push(abilityData[ability].description[i]);
       }
-  });
-
-    this.calculateAll({basic: 1, skill: 1, ult: 1, talent: 1});
-  }
-
-  public calculateAttribute(level: number, ability: AbilityTypes): void {
-    for (let i = 0; i < this.data[ability].length; i++) {
-      this.attributes[ability][i] = this.data[ability][i].calculate(level);
     }
-  }
 
-  public calculateAll(abilityLevels: Record<AbilityTypes, number>): void {
-    abilityTypes.forEach(
-      ability => this.calculateAttribute(abilityLevels[ability], ability)
-    );
+    this.calculateAll();
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-  /   Public Functions                                             /
+  /   Private Functions                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  public printAttributes() {
-    abilityTypes.forEach(ability => {
+  private calculateAttribute(ability: AbilityTypes): void {
+    for (let i = 0; i < this.data[ability].length; i++) {
+      this.attributes[ability][i] = this.data[ability][i].calculate(this.levels[ability]);
+    }
+  }
+
+  private calculateAll(): void {
+    for (let ability of abilityTypes) {
+      this.calculateAttribute(ability);
+    }
+  }
+
+  /** Prints a list of all abilities' attributes per level for checking */
+  private printAttributes(): void {
+    for (let ability of abilityTypes) {
       console.log(ability);
       for (let i = 0; i < this.data[ability].length; i++) {
         console.log("Attribute %d", i);
@@ -99,12 +107,29 @@ export default class Abilities {
           console.log(this.data[ability][i].calculate(j));
         }
       }
-    });
+    }
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-  /   Private Functions                                            /
+  /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
+
+  public getLevel(ability: AbilityTypes): number {
+    return this.levels[ability];
+  }
+
+  public setLevel(ability: AbilityTypes, level: number): void {
+    if (ability !== "basic") {
+      if (level < 0 || level > 12)
+        throw new RangeError("Ability level must be between 1-12");
+    } else {
+      if (level < 0 || level > 7)
+        throw new RangeError("Basic level must be between 1-7");
+    }
+
+    this.levels[ability] = level;
+    this.calculateAttribute(ability);
+  }
 
   public getAttributes(ability: AbilityTypes): ReadonlyArray<number> {
     return this.attributes[ability];

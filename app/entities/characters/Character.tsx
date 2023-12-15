@@ -47,12 +47,6 @@ export default class Character extends Entity {
   private _elementalRes: number = 0;
 
   private abilities: Abilities;
-  private abilityLevels = { // TODO: Consider moving levels into Abilites
-    basic: 1,
-    skill: 1,
-    ult: 1,
-    talent: 1
-  }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
@@ -67,7 +61,6 @@ export default class Character extends Entity {
     this.level = 1;
 
     this.abilities = new Abilities(characterData.abilities);
-    this.abilities.calculateAll(this.abilityLevels);
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -83,10 +76,10 @@ export default class Character extends Entity {
         name: statNames[stat],
         value: this.getBaseStat(stat)
       };
-      
+
       output.push(statDisplay);
     }
-    
+
     return output;
   }
 
@@ -155,10 +148,6 @@ export default class Character extends Entity {
     this.baseStats.spd = this.characterBaseStats.getStat("spd");
   }
 
-  private calculateAbility(abilityType: AbilityTypes): void {
-    this.abilities.calculateAttribute(this.abilityLevels[abilityType], abilityType);
-  }
-
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
@@ -171,7 +160,7 @@ export default class Character extends Entity {
 
   // Updates the ascension phase, rounding down when 2 phases are valid
   public override set level(value: number) {
-    if (value < 1 || value > 80) 
+    if (value < 1 || value > 80)
       throw new RangeError("Level must be between 1 and 80");
 
     this._level = value;
@@ -190,7 +179,7 @@ export default class Character extends Entity {
   }
 
   public set ascension(value: number) {
-    if (value < 0 || value > 6) 
+    if (value < 0 || value > 6)
       throw new RangeError("Ascension must be in range 0 - 6");
 
     if (this.isLevelInAscension(this._level, value)) {
@@ -202,33 +191,20 @@ export default class Character extends Entity {
     }
   }
 
-  public getAbilityLevel(abilityType: AbilityTypes): number {
-    return this.abilityLevels[abilityType];
+  public getAbilityLevel(ability: AbilityTypes): number {
+    return this.abilities.getLevel(ability);
   }
 
-  public setAbilityLevel(abilityType: AbilityTypes, level: number): void {
-    if (abilityType !== "basic") {
-      if (level < 0 || level > 12)
-        throw new RangeError("Ability level must be between 1-12");
-
-      this.abilityLevels[abilityType] = level;
-      this.calculateAbility(abilityType);
-      return;
-    }
-
-    if (level < 0 || level > 7)
-      throw new RangeError("Basic level must be between 1-7");
-
-    this.abilityLevels.basic = level;
-    this.calculateAbility("basic");
+  public setAbilityLevel(ability: AbilityTypes, level: number): void {
+    this.abilities.setLevel(ability, level);
   }
 
-  public getAbilityAttr(abilityType: AbilityTypes): ReadonlyArray<number> {
-    return this.abilities.getAttributes(abilityType);
+  public getAbilityAttr(ability: AbilityTypes): ReadonlyArray<number> {
+    return this.abilities.getAttributes(ability);
   }
 
-  public getAbilityDesc(abilityType: AbilityTypes): ReadonlyArray<string> {
-    return this.abilities.getDescriptions(abilityType);
+  public getAbilityDesc(ability: AbilityTypes): ReadonlyArray<string> {
+    return this.abilities.getDescriptions(ability);
   }
 
   public get critRate(): number {
