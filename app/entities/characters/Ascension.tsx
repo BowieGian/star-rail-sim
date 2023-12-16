@@ -1,4 +1,5 @@
 const ascendableLevels = [20, 30, 40, 50, 60, 70];
+const maxLevels = [20, 30, 40, 50, 60, 70, 80];
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -34,20 +35,15 @@ export default class Ascension {
       return NaN;
 
     for (let i = 0; i <= 6; i++) {
-      if (this._level <= this.maxLvlFromAscension(i))
+      if (this._level <= maxLevels[i])
         return i;
     }
 
     return NaN;
   }
 
-  private maxLvlFromAscension(ascension: number): number {
-    const maxLevel = [20, 30, 40, 50, 60, 70, 80];
-    return maxLevel[ascension];
-  }
-
-  /** Returns true if the level is in the ascension phase */
-  private isLevelInAscension(ascension: number): boolean {
+  /** Returns true if the ascension valid for the level */
+  private isAscensionInLevel(ascension: number): boolean {
     let defaultAscension = this.ascensionFromLevel();
 
     if (ascension == defaultAscension)
@@ -61,14 +57,22 @@ export default class Ascension {
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
+  /** Assumes level is between [1, 80] */
   public set level(value: number) {
     this._level = value;
     this._ascendable = ascendableLevels.includes(value);
 
-    if (this.isLevelInAscension(this._ascension)) {
-      this._ascended = this.ascensionFromLevel() + 1 === this._ascension;
+    if (this.isAscensionInLevel(this._ascension)) {
+      if (!this._ascendable)
+        this._ascended = false;
+      else
+        this._ascended = this.ascensionFromLevel() + 1 === this._ascension;
+
       return;
     }
+
+    if (!this._ascendable)
+      this._ascended = false;
 
     this.ascension = this.ascensionFromLevel();
   }
@@ -85,13 +89,9 @@ export default class Ascension {
     return this._ascension;
   }
 
-  /** Sets the ascension phase and returns true if the phase changed */
   private set ascension(value: number) {
-    if (value < 0 || value > 6)
-      throw new RangeError("Ascension must be in range 0 - 6");
-
     this._ascension = value;
-    this._maxLevel = this.maxLvlFromAscension(value);
+    this._maxLevel = maxLevels[value];
   }
 
   public get ascended(): boolean {
