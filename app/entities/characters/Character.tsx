@@ -65,6 +65,19 @@ export default class Character extends Entity {
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
+  /   Private Functions                                            /
+  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
+
+  // To be called after updating base stats and equipping weapons/relics
+  // Updates current stats with new base stats and equipment
+  private updateStats(): void {
+    this.baseStats.hp = this.characterBaseStats.getStat("hp");
+    this.baseStats.atk = this.characterBaseStats.getStat("atk");
+    this.baseStats.def = this.characterBaseStats.getStat("def");
+    this.baseStats.spd = this.characterBaseStats.getStat("spd");
+  }
+
+  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Public Functions                                             /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
@@ -94,19 +107,6 @@ export default class Character extends Entity {
 
   public isAscended(): boolean {
     return this.asc.isAscended(this.level);
-  }
-
-  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-  /   Private Functions                                            /
-  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-
-  // To be called after updating base stats and equipping weapons/relics
-  // Updates current stats with new base stats and equipment
-  private updateStats(): void {
-    this.baseStats.hp = this.characterBaseStats.getStat("hp");
-    this.baseStats.atk = this.characterBaseStats.getStat("atk");
-    this.baseStats.def = this.characterBaseStats.getStat("def");
-    this.baseStats.spd = this.characterBaseStats.getStat("spd");
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
