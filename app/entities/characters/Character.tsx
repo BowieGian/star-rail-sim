@@ -100,18 +100,6 @@ export default class Character extends Entity {
     return output;
   }
 
-  /** @example
-  /* Returns true if the level is part of 2 ascension phases
-   * (Levels 20, 30, 40, 50, 60, 70)
-   */
-  public isAscendable(): boolean {
-    return this.asc.isAscendable();
-  }
-
-  public isAscended(): boolean {
-    return this.asc.isAscended();
-  }
-
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
@@ -130,8 +118,12 @@ export default class Character extends Entity {
     this._level = value;
     this.asc.level = value;
 
-    this.characterBaseStats.calculate(this._level, this.asc.getAscension());
+    this.characterBaseStats.calculate(this._level, this.asc.ascension);
     this.updateStats();
+  }
+
+  public get ascendable(): boolean {
+    return this.asc.ascendable;
   }
 
   public get maxLevel(): number {
@@ -139,15 +131,17 @@ export default class Character extends Entity {
   }
 
   public get ascension(): number {
-    return this.asc.getAscension();
+    return this.asc.ascension;
   }
 
-  public set ascension(value: number) {
-    if (!this.asc.setAscension(value)) {
-      return;
-    }
+  public get ascended(): boolean {
+    return this.asc.ascended;
+  }
 
-    this.characterBaseStats.calculate(this._level, this.asc.getAscension());
+  public set ascended(value: boolean) {
+    this.asc.ascended = value;
+
+    this.characterBaseStats.calculate(this._level, this.asc.ascension);
     this.updateStats();
   }
 

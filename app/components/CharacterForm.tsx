@@ -16,8 +16,11 @@ export default function CharacterForm() {
   const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");
 
   const [charLvl, setCharLvl] = useState<string>("1");
-  const [ascension, setAscension] = useState<number>(0);
+  const [ascendable, setAscendable] = useState<boolean>(true);
+
   const [maxLvl, setMaxLvl] = useState<number>(character.maxLevel);
+  const [ascension, setAscension] = useState<number>(0);
+  const [ascended, setAscended] = useState<boolean>(false);
 
   const [basicLvl, setBasicLvl] = useState<string>("1");
   const [skillLvl, setSkillLvl] = useState<string>("1");
@@ -36,25 +39,18 @@ export default function CharacterForm() {
   const ultDesc = character.getAbilityDesc("ult");
   const talentDesc = character.getAbilityDesc("talent");
 
-  const [isAscended, setIsAscended] = useState<boolean>(false);
-  const [isAscDisabled, setIsAscDisabled] = useState<boolean>(true);
-
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
   }
 
   const handleAscToggle = (e: React.FormEvent) => {
-    let value = !isAscended;
-    setIsAscended(value);
-
-    if (value)
-      setAscension(ascension + 1);
-    else
-      setAscension(ascension - 1);
+    let value = !ascended;
+    setAscended(value);
   }
 
   useEffect(() => {
     setCharacter(characterList[characterKey]);
+    console.log(characterList);
   }, [characterKey])
 
   useEffect(() => {
@@ -63,9 +59,13 @@ export default function CharacterForm() {
     if (charLvl === levelString && ascension === character.ascension) {
       // Don't need to trigger the lvl/asc useEffect
       setStats(character.getStats());
+    } else if (charLvl === levelString) {
+      // Does not trigger charLvl useEffect
+      setMaxLvl(character.maxLevel);
+      setAscension(character.ascension);
+      setAscended(character.ascended);
     } else {
       setCharLvl(levelString);
-      setAscension(character.ascension);
     }
 
     setBasicLvl(character.getAbilityLevel("basic").toString());
@@ -75,23 +75,24 @@ export default function CharacterForm() {
   }, [character])
 
   useEffect(() => {
-    let levelInt = parseInt(charLvl);
-    character.level = levelInt;
+    character.level = parseInt(charLvl);
+    setAscendable(character.ascendable);
 
-    character.ascension = ascension;
+    setMaxLvl(character.maxLevel);
+    setAscension(character.ascension);
+    setAscended(character.ascended);
+
+    setStats(character.getStats());
+  }, [charLvl]);
+
+  useEffect(() => {
+    character.ascended = ascended;
+
     setAscension(character.ascension);
     setMaxLvl(character.maxLevel);
 
     setStats(character.getStats());
-
-    if (character.isAscendable()) {
-      setIsAscDisabled(false);
-      setIsAscended(character.isAscended());
-    } else {
-      setIsAscDisabled(true);
-      setIsAscended(false);
-    }
-  }, [charLvl, ascension]);
+  }, [ascended]);
 
   useEffect(() => {
     character.setAbilityLevel("basic", parseInt(basicLvl));
@@ -129,7 +130,7 @@ export default function CharacterForm() {
           lvl={charLvl}
           setLvl={setCharLvl}
           handleButton={handleAscToggle}
-          disableButton={isAscDisabled}
+          disableButton={!ascendable}
           maxLvlForAsc={maxLvl}
         />
       </div>
