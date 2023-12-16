@@ -88,8 +88,8 @@ export default class Character extends Entity {
   /* Returns true if the level is part of 2 ascension phases
    * (Levels 20, 30, 40, 50, 60, 70)
    */
-  public isLevelBetweenAscensions(level: number): boolean {
-    return this.asc.isLevelBetweenAscensions(level);
+  public isAscendable(level: number): boolean {
+    return this.asc.isAscendable(level);
   }
 
   public isAscended(): boolean {
@@ -125,9 +125,9 @@ export default class Character extends Entity {
       throw new RangeError("Level must be between 1 and 80");
 
     this._level = value;
-    this.asc.value = this.asc.ascensionFromLevel(value);
+    this.asc.updateAscension(value);
 
-    this.characterBaseStats.calculate(this._level, this.asc.value);
+    this.characterBaseStats.calculate(this._level, this.asc.getAscension());
     this.updateStats();
   }
 
@@ -136,20 +136,16 @@ export default class Character extends Entity {
   }
 
   public get ascension(): number {
-    return this.asc.value;
+    return this.asc.getAscension();
   }
 
   public set ascension(value: number) {
-    if (value < 0 || value > 6)
-      throw new RangeError("Ascension must be in range 0 - 6");
-
-    if (this.asc.isLevelInAscension(this._level, value)) {
-      this.asc.value = value;
-
-      this.asc.maxLevel = this.asc.maxLvlFromAscension(value);
-      this.characterBaseStats.calculate(this._level, this.asc.value);
-      this.updateStats();
+    if (!this.asc.setAscension(value, this._level)) {
+      return;
     }
+
+    this.characterBaseStats.calculate(this._level, this.asc.getAscension());
+    this.updateStats();
   }
 
   public getAbilityLevel(ability: AbilityTypes): number {
