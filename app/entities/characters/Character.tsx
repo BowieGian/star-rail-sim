@@ -3,6 +3,7 @@ import Entity from "../Entity";
 import CharacterBaseStats, { ICharacterBaseStatData, AllBaseStats, allBaseStats } from "./CharacterBaseStats";
 import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";
 import { AbilityTypes } from "./Ability";
+import Ascension from "./Ascension";
 
 export interface ICharacterData {
   baseStats: ICharacterBaseStatData;
@@ -31,8 +32,7 @@ const statNames: Record<AllBaseStats, string> = {
 /   Calculates the damage the character's abilities will do
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class Character extends Entity {
-  private _maxLevel: number = 20; // TODO: Consider making a class for lvl/asc
-  private _ascension: number = 0;
+  private asc: Ascension = new Ascension(0);
 
   private characterBaseStats: CharacterBaseStats;
 
@@ -89,56 +89,16 @@ export default class Character extends Entity {
    * (Levels 20, 30, 40, 50, 60, 70)
    */
   public isLevelBetweenAscensions(level: number): boolean {
-    if (level >= 20 && level <= 70 && (level % 10 == 0))
-      return true;
-    return false;
+    return this.asc.isLevelBetweenAscensions(level);
   }
 
   public isAscended(): boolean {
-    return this.ascensionFromLevel(this.level) + 1 === this.ascension;
+    return this.asc.isAscended(this.level);
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Private Functions                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-
-  // Returns the lower ascension phase for the input level
-  private ascensionFromLevel(level: number): number {
-    if (level <= 0)
-      return NaN;
-    else if (level <= 20)
-      return 0;
-    else if (level <= 30)
-      return 1;
-    else if (level <= 40)
-      return 2;
-    else if (level <= 50)
-      return 3;
-    else if (level <= 60)
-      return 4;
-    else if (level <= 70)
-      return 5;
-    else if (level <= 80)
-      return 6;
-    else
-      return NaN;
-  }
-
-  // Returns true if the level is in the ascension phase
-  private isLevelInAscension(level: number, ascension: number): boolean {
-    let defaultAscension = this.ascensionFromLevel(level);
-
-    if (ascension == defaultAscension)
-      return true;
-    if (this.isLevelBetweenAscensions(level) && ascension == defaultAscension + 1)
-      return true;
-    return false;
-  }
-
-  private maxLvlFromAscension(ascension: number): number {
-    const maxLevel = [20, 30, 40, 50, 60, 70, 80];
-    return maxLevel[ascension];
-  }
 
   // To be called after updating base stats and equipping weapons/relics
   // Updates current stats with new base stats and equipment
@@ -165,29 +125,29 @@ export default class Character extends Entity {
       throw new RangeError("Level must be between 1 and 80");
 
     this._level = value;
-    this._ascension = this.ascensionFromLevel(value);
+    this.asc.value = this.asc.ascensionFromLevel(value);
 
-    this.characterBaseStats.calculate(this._level, this._ascension);
+    this.characterBaseStats.calculate(this._level, this.asc.value);
     this.updateStats();
   }
 
   public get maxLevel(): number {
-    return this._maxLevel;
+    return this.asc.maxLevel;
   }
 
   public get ascension(): number {
-    return this._ascension;
+    return this.asc.value;
   }
 
   public set ascension(value: number) {
     if (value < 0 || value > 6)
       throw new RangeError("Ascension must be in range 0 - 6");
 
-    if (this.isLevelInAscension(this._level, value)) {
-      this._ascension = value;
+    if (this.asc.isLevelInAscension(this._level, value)) {
+      this.asc.value = value;
 
-      this._maxLevel = this.maxLvlFromAscension(value);
-      this.characterBaseStats.calculate(this._level, this._ascension);
+      this.asc.maxLevel = this.asc.maxLvlFromAscension(value);
+      this.characterBaseStats.calculate(this._level, this.asc.value);
       this.updateStats();
     }
   }
