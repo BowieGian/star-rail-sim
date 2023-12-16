@@ -50,7 +50,6 @@ export default function CharacterForm() {
 
   useEffect(() => {
     setCharacter(characterList[characterKey]);
-    console.log(characterList);
   }, [characterKey])
 
   useEffect(() => {
