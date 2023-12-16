@@ -3,19 +3,22 @@
 /   Class Ascension                                                            /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Stores the character's ascension phase
+/   Stores a copy of character level to maintain the correct ascension phase
 /   Contains helper functions relating ascension to level and max level
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class Ascension {
-  private phase: number;
+  private _level: number;
+  private ascension: number = NaN;
   private _maxLevel: number;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  constructor(value: number) {
-    this.phase = value;
-    this._maxLevel = this.maxLvlFromAscension(value);
+  constructor(level: number) {
+    this._level = level;
+    this.setAscension(this.ascensionFromLevel());
+    this._maxLevel = this.maxLvlFromAscension(this.ascension);
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -23,12 +26,12 @@ export default class Ascension {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   /** Returns the lower ascension phase for the input level */
-  private ascensionFromLevel(level: number): number {
-    if (level <= 0)
+  private ascensionFromLevel(): number {
+    if (this._level <= 0)
       return NaN;
 
     for (let i = 0; i <= 6; i++) {
-      if (level <= this.maxLvlFromAscension(i))
+      if (this._level <= this.maxLvlFromAscension(i))
         return i;
     }
 
@@ -41,12 +44,12 @@ export default class Ascension {
   }
 
   /** Returns true if the level is in the ascension phase */
-  private isLevelInAscension(level: number, ascension: number): boolean {
-    let defaultAscension = this.ascensionFromLevel(level);
+  private isLevelInAscension(ascension: number): boolean {
+    let defaultAscension = this.ascensionFromLevel();
 
     if (ascension == defaultAscension)
       return true;
-    if (this.isAscendable(level) && ascension == defaultAscension + 1)
+    if (this.isAscendable() && ascension == defaultAscension + 1)
       return true;
     return false;
   }
@@ -59,38 +62,39 @@ export default class Ascension {
   /* Returns true if the level is part of 2 ascension phases
    * (Levels 20, 30, 40, 50, 60, 70)
    */
-  public isAscendable(level: number): boolean {
-    if (level >= 20 && level <= 70 && (level % 10 == 0))
+  public isAscendable(): boolean {
+    if (this._level >= 20 && this._level <= 70 && (this._level % 10 == 0))
       return true;
     return false;
   }
 
-  public isAscended(level: number): boolean {
-    return this.ascensionFromLevel(level) + 1 === this.phase;
-  }
-
-  public updateAscension(level: number): void {
-    this.setAscension(this.ascensionFromLevel(level), level);
+  public isAscended(): boolean {
+    return this.ascensionFromLevel() + 1 === this.ascension;
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
+  public set level(value: number) {
+    this._level = value;
+    this.setAscension(this.ascensionFromLevel());
+  }
+
   public getAscension(): number {
-    return this.phase;
+    return this.ascension;
   }
 
   /** Sets the ascension phase and returns true if the phase changed */
-  public setAscension(value: number, level: number): boolean {
+  public setAscension(value: number): boolean {
     if (value < 0 || value > 6)
       throw new RangeError("Ascension must be in range 0 - 6");
 
-    if (!this.isLevelInAscension(level, value)) {
+    if (!this.isLevelInAscension(value)) {
       return false;
     }
 
-    this.phase = value;
+    this.ascension = value;
     this._maxLevel = this.maxLvlFromAscension(value);
     return true;
   }

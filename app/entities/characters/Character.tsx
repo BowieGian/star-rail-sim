@@ -32,7 +32,7 @@ const statNames: Record<AllBaseStats, string> = {
 /   Calculates the damage the character's abilities will do
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class Character extends Entity {
-  private asc: Ascension = new Ascension(0);
+  private asc: Ascension;
 
   private characterBaseStats: CharacterBaseStats;
 
@@ -59,7 +59,10 @@ export default class Character extends Entity {
     super(id);
 
     this.characterBaseStats = new CharacterBaseStats(characterData.baseStats);
-    this.level = 1;
+
+    const startingLevel = 1;
+    this.asc = new Ascension(startingLevel);
+    this.level = startingLevel;
 
     this.abilities = new CharacterAbilities(characterData.abilities);
   }
@@ -101,12 +104,12 @@ export default class Character extends Entity {
   /* Returns true if the level is part of 2 ascension phases
    * (Levels 20, 30, 40, 50, 60, 70)
    */
-  public isAscendable(level: number): boolean {
-    return this.asc.isAscendable(level);
+  public isAscendable(): boolean {
+    return this.asc.isAscendable();
   }
 
   public isAscended(): boolean {
-    return this.asc.isAscended(this.level);
+    return this.asc.isAscended();
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -125,7 +128,7 @@ export default class Character extends Entity {
       throw new RangeError("Level must be between 1 and 80");
 
     this._level = value;
-    this.asc.updateAscension(value);
+    this.asc.level = value;
 
     this.characterBaseStats.calculate(this._level, this.asc.getAscension());
     this.updateStats();
@@ -140,7 +143,7 @@ export default class Character extends Entity {
   }
 
   public set ascension(value: number) {
-    if (!this.asc.setAscension(value, this._level)) {
+    if (!this.asc.setAscension(value)) {
       return;
     }
 

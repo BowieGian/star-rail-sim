@@ -84,7 +84,7 @@ export default function CharacterForm() {
 
     setStats(character.getStats());
 
-    if (character.isAscendable(levelInt)) {
+    if (character.isAscendable()) {
       setIsAscDisabled(false);
       setIsAscended(character.isAscended());
     } else {
