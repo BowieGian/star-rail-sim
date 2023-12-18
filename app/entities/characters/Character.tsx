@@ -84,7 +84,7 @@ export default class Character extends Entity {
   /   Public Functions                                             /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  public getStats(): ReadonlyArray<IStatDisplay> {
+  public getBaseStatsDisplay(): ReadonlyArray<IStatDisplay> {
     let output = new Array<IStatDisplay>;
 
     for (let stat of allBaseStats) {

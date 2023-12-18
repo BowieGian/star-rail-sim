@@ -27,7 +27,7 @@ export default function CharacterForm() {
   const [ultLvl, setUltLvl] = useState<string>("1");
   const [talentLvl, setTalentLvl] = useState<string>("1");
 
-  const [stats, setStats] = useState<readonly IStatDisplay[]>(character.getStats());
+  const [stats, setStats] = useState<readonly IStatDisplay[]>(character.getBaseStatsDisplay());
 
   const [basicAttr, setBasicAttr] = useState<readonly number[]>(character.getAbilityAttr("basic"));
   const [skillAttr, setSkillAttr] = useState<readonly number[]>(character.getAbilityAttr("skill"));
@@ -57,7 +57,7 @@ export default function CharacterForm() {
 
     if (charLvl === levelString && ascension === character.ascension) {
       // Don't need to trigger the lvl/asc useEffect
-      setStats(character.getStats());
+      setStats(character.getBaseStatsDisplay());
     } else if (charLvl === levelString) {
       // Does not trigger charLvl useEffect
       setMaxLvl(character.maxLevel);
@@ -81,7 +81,7 @@ export default function CharacterForm() {
     setAscension(character.ascension);
     setAscended(character.ascended);
 
-    setStats(character.getStats());
+    setStats(character.getBaseStatsDisplay());
   }, [charLvl]);
 
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function CharacterForm() {
     setAscension(character.ascension);
     setMaxLvl(character.maxLevel);
 
-    setStats(character.getStats());
+    setStats(character.getBaseStatsDisplay());
   }, [ascended]);
 
   useEffect(() => {
