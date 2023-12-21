@@ -13,6 +13,10 @@ export default function Page() {
         To Yanqing Stats
       </Link>
 
+      <Link href={"/lightcone"} className="font-sans font-bold text-purple-200">
+        To Lightcone
+      </Link>
+
       <PanelLayout>
         <CalcForm/>
       </PanelLayout>
