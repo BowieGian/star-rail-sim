@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { IStatDisplay } from "../entities/characters/Character";
@@ -25,16 +25,16 @@ export default function CharacterForm() {
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
-  }
+  };
 
-  const handleAscToggle = (e: React.FormEvent) => {
-    let value = !ascended;
+  const handleAscToggle = () => {
+    const value = !ascended;
     setAscended(value);
-  }
+  };
 
   useEffect(() => {
     setCharacter(characterList[characterKey]);
-  }, [characterKey])
+  }, [characterKey]);
 
   useEffect(() => {
     const levelString = character.level.toString();
@@ -50,7 +50,7 @@ export default function CharacterForm() {
     } else {
       setCharLvl(levelString);
     }
-  }, [character])
+  }, [character]);
 
   useEffect(() => {
     character.level = parseInt(charLvl);
@@ -101,5 +101,5 @@ export default function CharacterForm() {
 
       <AbilityIO character={character}/>
     </form>
-  )
+  );
 }

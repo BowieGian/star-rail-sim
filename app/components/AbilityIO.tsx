@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useEffect, useState } from "react";
 import StatInput from "./StatInput";
 import AbilityDisplay from "./AbilityDisplay";
@@ -31,7 +31,7 @@ export default function AbilityIO(props: Props) {
     setSkillLvl(character.getAbilityLevel("skill").toString());
     setUltLvl(character.getAbilityLevel("ult").toString());
     setTalentLvl(character.getAbilityLevel("talent").toString());
-  }, [character])
+  }, [character]);
 
   useEffect(() => {
     character.setAbilityLevel("basic", parseInt(basicLvl));
@@ -75,5 +75,5 @@ export default function AbilityIO(props: Props) {
       </div>
       <AbilityDisplay attributes={talentAttr} description={talentDesc} label="Talent"/>
     </>
-  )
+  );
 }

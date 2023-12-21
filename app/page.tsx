@@ -17,5 +17,5 @@ export default function Page() {
         <CalcForm/>
       </PanelLayout>
     </main>
-  )
+  );
 }

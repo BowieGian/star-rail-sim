@@ -16,7 +16,7 @@ export default class Entity {
     atk: NaN,
     def: NaN,
     spd: NaN
-  }
+  };
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
@@ -50,7 +50,7 @@ export default class Entity {
   }
 
   public set level(value: number) {
-    if (value < 1 || value > 90) 
+    if (value < 1 || value > 90)
       throw new RangeError("Level must be between 1 and 90");
 
     this._level = value;

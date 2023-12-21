@@ -22,6 +22,6 @@ export default function getCharacterData(characterKey: CharacterKey) {
 export const characterList = {
   "Serval": new Serval("Serval"),
   "Yanqing": new Yanqing("Yanqing")
-}
+};
 
 export type Characters = typeof characterList[CharacterKey];

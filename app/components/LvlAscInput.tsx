@@ -21,7 +21,7 @@ const handleChange = (input: string, props: Props) => {
   else {
     props.setLvl(String(inputNum));
   }
-}
+};
 
 export default function LvlAscInput(props: Props) {
   return (
@@ -75,5 +75,5 @@ export default function LvlAscInput(props: Props) {
         />
       </div>
     </div>
-  )
+  );
 }

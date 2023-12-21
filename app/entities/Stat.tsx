@@ -31,7 +31,7 @@ export default class Stat {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public calculate(level: number, ascension: number): void {
-    let output = this.base + this.add * (level - 1 + 8 * ascension)
+    const output = this.base + this.add * (level - 1 + 8 * ascension);
     this._value = Math.round((output + Number.EPSILON) * 1e6) / 1e6;
   }
 
