@@ -4,6 +4,9 @@ export const abilityTypes = ["basic", "skill", "ult", "talent"] as const;
 export type AbilityTypes = typeof abilityTypes[number];
 
 export interface IAbility {
+  name: string;
+  energy: number;
+  toughness: number;
   attributes: IAttribute[];
   description: string[];
 }
@@ -19,6 +22,10 @@ export default class Ability {
   private type: AbilityTypes;
   private _level: number = 1;
 
+  private _name: string;
+  private _energy: number;
+  private _toughness: number;
+
   private data: Array<Attribute> = new Array<Attribute>;
   private _descriptions: Array<string> = new Array<string>;
 
@@ -32,6 +39,15 @@ export default class Ability {
   constructor(type: AbilityTypes, data: IAbility) {
     this.type = type;
 
+    if (!data.name)
+      throw new Error("Data has no name");
+
+    if (!data.energy)
+      throw new Error("Data has no energy");
+
+    if (!data.toughness)
+      throw new Error("Data has no toughness");
+
     if (!data.attributes.length)
       throw new Error("Attributes has no length");
 
@@ -40,6 +56,10 @@ export default class Ability {
 
     if (data.description.length - data.attributes.length !== 1)
       throw new Error("Description length is not 1 less than its attribute length");
+
+    this._name = data.name;
+    this._energy = data.energy;
+    this._toughness = data.toughness;
 
     for (let i = 0; i < data.attributes.length; i++) {
       this.data.push(new Attribute(data.attributes[i]));
@@ -100,6 +120,18 @@ export default class Ability {
 
     this._level = value;
     this.calculateAttribute();
+  }
+
+  public get name(): string {
+    return this._name;
+  }
+
+  public get energy(): number {
+    return this._energy;
+  }
+
+  public get toughness(): number {
+    return this._toughness;
   }
 
   public get descriptions(): ReadonlyArray<string> {

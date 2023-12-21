@@ -16,6 +16,9 @@
   },
   "abilities": {
     "basic": {
+      "name": "name",
+      "energy": 1,
+      "toughness": 1,
       "attributes": [
         {"base": 0.5, "add": 0.1, "type": "basic"}
       ],
@@ -25,6 +28,9 @@
       ]
     },
     "skill": {
+      "name": "name",
+      "energy": 1,
+      "toughness": 1,
       "attributes": [
         {"base": 1.1, "add": 0.11, "type": "default"}
       ],
@@ -34,6 +40,9 @@
       ]
     },
     "ult": {
+      "name": "name",
+      "energy": 1,
+      "toughness": 1,
       "attributes": [
         {"base": 0.3, "add": 0.02, "type": "default"},
         {"base": 2.1, "add": 0.14, "type": "default"}

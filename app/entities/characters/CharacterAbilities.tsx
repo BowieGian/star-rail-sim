@@ -34,6 +34,18 @@ export default class CharacterAbilities {
     this.abilities[ability].level = level;
   }
 
+  public getName(ability: AbilityTypes): string {
+    return this.abilities[ability].name;
+  }
+
+  public getEnergy(ability: AbilityTypes): number {
+    return this.abilities[ability].energy;
+  }
+
+  public getToughness(ability: AbilityTypes): number {
+    return this.abilities[ability].toughness;
+  }
+
   public getDescriptions(ability: AbilityTypes): ReadonlyArray<string> {
     return this.abilities[ability].descriptions;
   }

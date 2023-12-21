@@ -153,6 +153,18 @@ export default class Character extends Entity {
     this.abilities.setLevel(ability, level);
   }
 
+  public getAbilityName(ability: AbilityTypes): string{
+    return this.abilities.getName(ability);
+  }
+
+  public getAbilityEnergy(ability: AbilityTypes): number{
+    return this.abilities.getEnergy(ability);
+  }
+
+  public getAbilityToughness(ability: AbilityTypes): number{
+    return this.abilities.getToughness(ability);
+  }
+
   public getAbilityDesc(ability: AbilityTypes): ReadonlyArray<string> {
     return this.abilities.getDescriptions(ability);
   }
