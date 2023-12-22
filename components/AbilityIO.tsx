@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import StatInput from "./StatInput";
 import AbilityDisplay from "./AbilityDisplay";
-import { Characters } from "../entities/characters/index";
+import { Characters } from "../app/entities/characters/index";
 
 interface Props {
   character: Characters;
