@@ -42,7 +42,7 @@ export default class CharacterBaseStats {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public calculate(level: number, ascension: number): void {
-    for (let stat of scalingBaseStats) {
+    for (const stat of scalingBaseStats) {
       this.stats[stat].calculate(level, ascension);
     }
   }

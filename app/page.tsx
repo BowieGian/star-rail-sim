@@ -10,7 +10,7 @@ export default function Page() {
       </h1>
 
       <Link href={"/character-stats"} className="font-sans font-bold text-purple-200">
-        To Yanqing Stats
+        To Character Stats
       </Link>
 
       <Link href={"/lightcone"} className="font-sans font-bold text-purple-200">
@@ -21,5 +21,5 @@ export default function Page() {
         <CalcForm/>
       </PanelLayout>
     </main>
-  )
+  );
 }

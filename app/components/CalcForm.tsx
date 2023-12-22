@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import StatInput from './StatInput';
+import React, { useEffect, useState } from "react";
+import StatInput from "./StatInput";
 import PercentInput from "./PercentInput";
 import DamageOutput from "./DamageOutput";
 
@@ -10,21 +10,21 @@ const parseNumber = (inputNumber: number, decimals: number): string => {
     return("-");
   else
     return(inputNumber.toFixed(decimals));
-}
+};
 
 export default function CalcForm() {
   const [charLvl, setCharLvl] = useState<string>("1");
   const [atk, setAtk] = useState<string>("1000");
   const [abilityMult, setAbilityMult] = useState<string>("100");
   const [trgtLvl, setTrgtLvl] = useState<string>("1");
-  
+
   const [trgtDef, setTrgtDef] = useState<string>("");
   const [defMult, setDefMult] = useState<string>("0.5");
   const [damage, setDamage] = useState<string>("500");
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
-  }
+  };
 
   useEffect(() => {
     const trgtDef = 200 + 10 * parseInt(trgtLvl);
@@ -50,5 +50,5 @@ export default function CalcForm() {
         <DamageOutput num={defMult} label="Defence Multiplier"/>
       </div>
     </form>
-  )
+  );
 }

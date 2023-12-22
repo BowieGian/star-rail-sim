@@ -21,9 +21,9 @@ const statNames: Record<AllBaseStats, string> = {
   atk: "ATK",
   def: "DEF",
   spd: "SPD"
-}
+};
 
-/** @example
+/** @example CRLF
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Class Character                                                            /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -85,10 +85,10 @@ export default class Character extends Entity {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public getBaseStatsDisplay(): ReadonlyArray<IStatDisplay> {
-    let output = new Array<IStatDisplay>;
+    const output = new Array<IStatDisplay>;
 
-    for (let stat of allBaseStats) {
-      let statDisplay: IStatDisplay = {
+    for (const stat of allBaseStats) {
+      const statDisplay: IStatDisplay = {
         key: stat,
         name: statNames[stat],
         value: this.getBaseStat(stat)

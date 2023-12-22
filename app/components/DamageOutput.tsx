@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface Props {
   num: string;
@@ -16,5 +16,5 @@ export default function DamageOutput(props: Props) {
         {props.num}
       </div>
     </div>
-  )
+  );
 }

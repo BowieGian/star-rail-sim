@@ -17,7 +17,7 @@ export default class CharacterAbilities {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(abilityData: IAbilityData) {
-    for (let ability of abilityTypes) {
+    for (const ability of abilityTypes) {
       this.abilities[ability] = new Ability(ability, abilityData[ability]);
     }
   }
