@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from "react";
 
 interface Props {
   stat: string;
@@ -21,9 +21,9 @@ const handleChange = (input: string, props: Props) => {
   else {
     props.setStat(String(inputNum));
   }
-}
+};
 
-const StatInput = (props: Props) => {
+export default function StatInput(props: Props) {
   return (
     <div>
       <label
@@ -66,7 +66,5 @@ const StatInput = (props: Props) => {
         />
       </div>
     </div>
-  )
+  );
 }
-
-export default StatInput;

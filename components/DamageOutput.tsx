@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 interface Props {
   num: string;
   label: string;
 }
 
-const DamageOutput = (props: Props) => {
+export default function DamageOutput(props: Props) {
   return (
     <div className="flex justify-between">
       <div className="font-sans text-sm font-bold text-purple-200">
@@ -16,7 +16,5 @@ const DamageOutput = (props: Props) => {
         {props.num}
       </div>
     </div>
-  )
+  );
 }
-
-export default DamageOutput;

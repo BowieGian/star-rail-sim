@@ -1,0 +1,59 @@
+{
+  "baseStats": {
+    "hp": {
+      "base": 124.8,
+      "add": 6.24
+    },
+    "atk": {
+      "base": 88.8,
+      "add": 4.44
+    },
+    "def": {
+      "base": 51,
+      "add": 2.55
+    },
+    "spd": {"value": 104}
+  },
+  "abilities": {
+    "basic": {
+      "attributes": [
+        {"base": 0.5, "add": 0.1, "type": "basic"}
+      ],
+      "description": [
+        "Deals Lightning DMG equal to ",
+        " of Serval's ATK to a single enemy."
+      ]
+    },
+    "skill": {
+      "attributes": [
+        {"base": 0.7, "add": 0.07, "type": "default"},
+        {"base": 0.3, "add": 0.03, "type": "default"},
+        {"base": 0.4, "add": 0.04, "type": "dot"}
+      ],
+      "description": [
+        "Deals Lightning DMG equal to ",
+        " of Serval's ATK to a single enemy and Lightning DMG equal to ",
+        " of Serval's ATK to enemies adjacent to it, with a 80% base chance for enemies hit to become Shocked for 2 turn(s).\nWhile Shocked, enemies take Lightning DoT equal to ",
+        " of Serval's ATK at the beginning of each turn."
+      ]
+    },
+    "ult": {
+      "attributes": [
+        {"base": 1.08, "add": 0.072, "type": "default"}
+      ],
+      "description": [
+        "Deals Lightning DMG equal to ",
+        " of Serval's ATK to all enemies. Enemies already Shocked will extend the duration of their Shock state by 2 turn(s)."
+      ]
+    },
+    "talent": {
+      "attributes": [
+        {"base": 0.36, "add": 0.036, "type": "default"}
+      ],
+      "description": [
+        "After Serval attacks, deals Additional Lightning DMG equal to ",
+        " of Serval's ATK to all Shocked enemies."
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "baseStats": {
+    "hp": {
+      "base": 200.64,
+      "add": 10.032
+    },
+    "atk": {
+      "base": 63.36,
+      "add": 3.168
+    },
+    "def": {
+      "base": 82.5,
+      "add": 4.125
+    },
+    "spd": {"value": 100}
+  },
+  "skills": {
+    "basic": [
+      {"base": 0.25, "add": 0.05, "type": "basic"}
+    ],
+    "skill": [
+      {"base": 0.03, "add": 0.003, "type": "default"},
+      {"base": 0.06, "add": 0.006, "type": "default"}
+    ],
+    "ult": [
+      {"base": 0.6, "add": 0.04, "type": "default"}
+    ],
+    "talent": [
+      {"base": 0.1, "add": 0.008, "type": "default"},
+      {"base": 0.8, "add": 0.01, "type": "default"}
+    ]
+  }
+}
