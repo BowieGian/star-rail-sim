@@ -14,13 +14,6 @@ export default function CharacterForm() {
   const [character, setCharacter] = useState<Characters>(() => characterList["Yanqing"]);
   const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");
 
-  const [charLvl, setCharLvl] = useState<string>("1");
-  const [ascendable, setAscendable] = useState<boolean>(true);
-
-  const [maxLvl, setMaxLvl] = useState<number>(character.maxLevel);
-  const [ascension, setAscension] = useState<number>(0);
-  const [ascended, setAscended] = useState<boolean>(false);
-
   const [stats, setStats] = useState<readonly IStatDisplay[]>(character.getBaseStatsDisplay());
 
   const handleAdd = (e: React.FormEvent) => {
@@ -28,8 +21,13 @@ export default function CharacterForm() {
   };
 
   const handleAscToggle = () => {
-    const value = !ascended;
-    setAscended(value);
+    character.ascended = !character.ascended;
+    setStats(character.getBaseStatsDisplay());
+  };
+
+  const updateCharLvl = (level: number) => {
+    character.level = level;
+    setStats(character.getBaseStatsDisplay());
   };
 
   useEffect(() => {
@@ -37,40 +35,8 @@ export default function CharacterForm() {
   }, [characterKey]);
 
   useEffect(() => {
-    const levelString = character.level.toString();
-
-    if (charLvl === levelString && ascension === character.ascension) {
-      // Don't need to trigger the lvl/asc useEffect
-      setStats(character.getBaseStatsDisplay());
-    } else if (charLvl === levelString) {
-      // Does not trigger charLvl useEffect
-      setMaxLvl(character.maxLevel);
-      setAscension(character.ascension);
-      setAscended(character.ascended);
-    } else {
-      setCharLvl(levelString);
-    }
+    setStats(character.getBaseStatsDisplay());
   }, [character]);
-
-  useEffect(() => {
-    character.level = parseInt(charLvl);
-    setAscendable(character.ascendable);
-
-    setMaxLvl(character.maxLevel);
-    setAscension(character.ascension);
-    setAscended(character.ascended);
-
-    setStats(character.getBaseStatsDisplay());
-  }, [charLvl]);
-
-  useEffect(() => {
-    character.ascended = ascended;
-
-    setAscension(character.ascension);
-    setMaxLvl(character.maxLevel);
-
-    setStats(character.getBaseStatsDisplay());
-  }, [ascended]);
 
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
@@ -85,11 +51,10 @@ export default function CharacterForm() {
           name="char-lvl"
           min={1}
           max={80}
-          lvl={charLvl}
-          setLvl={setCharLvl}
+          updateCharLvl={updateCharLvl}
           handleButton={handleAscToggle}
-          disableButton={!ascendable}
-          maxLvlForAsc={maxLvl}
+          disableButton={!character.ascendable}
+          maxLvlForAsc={character.maxLevel}
         />
       </div>
 
