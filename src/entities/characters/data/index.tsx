@@ -1,4 +1,4 @@
-import { ICharacterData } from "./Character";
+import { ICharacterData } from "../Character";
 import Serval from "./Serval";
 import ServalData from "./Serval.json";
 import Yanqing from "./Yanqing";

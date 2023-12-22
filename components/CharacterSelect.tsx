@@ -1,4 +1,4 @@
-import { CharacterKey, characterKeys } from "../app/entities/characters";
+import { CharacterKey, characterKeys } from "../src/entities/characters/data";
 
 interface Props {
   characterKey: CharacterKey;

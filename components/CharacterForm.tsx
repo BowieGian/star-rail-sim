@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IStatDisplay } from "../app/entities/characters/Character";
+import { IStatDisplay } from "../src/entities/characters/Character";
 import DamageOutput from "./DamageOutput";
 import LvlAscInput from "./LvlAscInput";
 import CharacterSelect from "./CharacterSelect";
 import AbilityIO from "./AbilityIO";
-import { CharacterKey, characterList, Characters } from "../app/entities/characters";
+import { CharacterKey, characterList, Characters } from "../src/entities/characters/data";
 
 // TODO: Split base stats and abilities to new files
 export default function CharacterForm() {
