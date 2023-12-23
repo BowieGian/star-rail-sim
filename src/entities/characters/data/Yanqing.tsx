@@ -1,4 +1,4 @@
-import Character from "./Character";
+import Character from "../Character";
 
 export default class Yanqing extends Character {
   constructor(id: string) {

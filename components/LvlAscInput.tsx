@@ -1,29 +1,35 @@
+import { useState } from "react";
+
 interface Props {
   name: string;
   min: number;
   max: number;
-  lvl: string;
-  setLvl: React.Dispatch<React.SetStateAction<string>>;
+  updateCharLvl: (level: number) => void;
   handleButton: (e: React.FormEvent) => void;
   disableButton: boolean;
   maxLvlForAsc: number;
 }
 
-const handleChange = (input: string, props: Props) => {
-  const inputNum = Math.round(Number(input));
-
-  if (!input)
-    props.setLvl(input);
-  else if (inputNum < props.min)
-    props.setLvl(String(props.min));
-  else if (inputNum > props.max)
-    props.setLvl(String(props.max));
-  else {
-    props.setLvl(String(inputNum));
-  }
-};
-
 export default function LvlAscInput(props: Props) {
+  const [lvl, setLvl] = useState<string>("1");
+
+  const handleChange = (input: string) => {
+    if (!input) {
+      setLvl(input);
+      return;
+    }
+
+    let inputNum = Math.round(Number(input));
+
+    if (inputNum < props.min)
+      inputNum = props.min;
+    else if (inputNum > props.max)
+      inputNum = props.max;
+
+    setLvl(String(inputNum));
+    props.updateCharLvl(inputNum);
+  };
+
   return (
     <div>
       <div className="relative flex mt-2 rounded-md shadow-sm">
@@ -43,10 +49,10 @@ export default function LvlAscInput(props: Props) {
           focus:ring-2 focus:ring-inset focus:ring-purple-500
           sm:text-sm sm:leading-6"
           placeholder={props.min.toString()}
-          value={props.lvl}
+          value={lvl}
           min={props.min}
           max={props.max}
-          onChange={(e) => handleChange(e.target.value, props)}
+          onChange={(e) => handleChange(e.target.value)}
         />
 
         <button onClick={props.handleButton} disabled={props.disableButton}
@@ -68,10 +74,10 @@ export default function LvlAscInput(props: Props) {
           id={props.name}
           className="block w-full py-1.5
           outline-none accent-violet-200"
-          value={props.lvl}
+          value={lvl}
           min={props.min}
           max={props.max}
-          onChange={(e) => props.setLvl(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
         />
       </div>
     </div>

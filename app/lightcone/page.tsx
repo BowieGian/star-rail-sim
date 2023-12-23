@@ -1,6 +1,6 @@
 import Link from "next/link";
-import LightCone from "../components/LightCone";
-import PanelLayout from "../components/PanelLayout";
+import LightCone from "@/components/LightCone";
+import PanelLayout from "@/components/PanelLayout";
 
 export default function Page() {
   return (
@@ -17,5 +17,5 @@ export default function Page() {
         <LightCone/>
       </PanelLayout>
     </main>
-  )
+  );
 }

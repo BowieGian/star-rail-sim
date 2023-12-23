@@ -1,4 +1,4 @@
-import getCharacterData, { CharacterKey } from ".";
+import getCharacterData, { CharacterKey } from "./data";
 import Entity from "../Entity";
 import CharacterBaseStats, { ICharacterBaseStatData, AllBaseStats, allBaseStats } from "./CharacterBaseStats";
 import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";

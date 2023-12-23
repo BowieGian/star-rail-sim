@@ -1,6 +1,6 @@
 import Link from "next/link";
-import CalcForm from "./components/CalcForm";
-import PanelLayout from "./components/PanelLayout";
+import CalcForm from "../components/CalcForm";
+import PanelLayout from "../components/PanelLayout";
 
 export default function Page() {
   return (
