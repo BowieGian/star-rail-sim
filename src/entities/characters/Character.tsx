@@ -23,7 +23,7 @@ const statNames: Record<AllBaseStats, string> = {
   spd: "SPD"
 };
 
-/** @example CRLF
+/** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Class Character                                                            /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -35,6 +35,7 @@ export default class Character extends Entity {
   private asc: Ascension;
 
   private characterBaseStats: CharacterBaseStats;
+  private _baseStatsDisplay: Array<IStatDisplay> = new Array<IStatDisplay>;
 
   private _critRate: number = .05;
   private _critDamage: number = .5;
@@ -71,20 +72,8 @@ export default class Character extends Entity {
   /   Private Functions                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  // To be called after updating base stats and equipping weapons/relics
-  // Updates current stats with new base stats and equipment
-  private updateStats(): void {
-    this.baseStats.hp = this.characterBaseStats.getStat("hp");
-    this.baseStats.atk = this.characterBaseStats.getStat("atk");
-    this.baseStats.def = this.characterBaseStats.getStat("def");
-    this.baseStats.spd = this.characterBaseStats.getStat("spd");
-  }
-
-  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-  /   Public Functions                                             /
-  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-
-  public getBaseStatsDisplay(): ReadonlyArray<IStatDisplay> {
+  /** Updates the stat display */
+  private updateBaseStatsDisplay(): void {
     const output = new Array<IStatDisplay>;
 
     for (const stat of allBaseStats) {
@@ -97,7 +86,19 @@ export default class Character extends Entity {
       output.push(statDisplay);
     }
 
-    return output;
+    this._baseStatsDisplay = output;
+  }
+
+  /**
+   * To be called after updating base stats and equipping weapons/relics.
+   * Updates current stats with new base stats and equipment.
+   */
+  private updateStats(): void {
+    for (const stat of allBaseStats) {
+      this.baseStats[stat] = this.characterBaseStats.getStat(stat);
+    }
+
+    this.updateBaseStatsDisplay();
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -143,6 +144,10 @@ export default class Character extends Entity {
 
     this.characterBaseStats.calculate(this._level, this.asc.ascension);
     this.updateStats();
+  }
+
+  public get baseStatsDisplay(): ReadonlyArray<IStatDisplay> {
+    return this._baseStatsDisplay;
   }
 
   public getAbilityLevel(ability: AbilityTypes): number {
