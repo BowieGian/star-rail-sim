@@ -14,7 +14,8 @@ export default function CharacterForm() {
   const [character, setCharacter] = useState<Characters>(() => characterList["Yanqing"]);
   const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");
 
-  const [stats, setStats] = useState<readonly IStatDisplay[]>(character.getBaseStatsDisplay());
+  const [levelInput, setLevelInput] = useState<string>("1");
+  const [stats, setStats] = useState<readonly IStatDisplay[]>(character.baseStatsDisplay);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,12 +23,17 @@ export default function CharacterForm() {
 
   const handleAscToggle = () => {
     character.ascended = !character.ascended;
-    setStats(character.getBaseStatsDisplay());
+    setStats(character.baseStatsDisplay);
   };
 
-  const updateCharLvl = (level: number) => {
-    character.level = level;
-    setStats(character.getBaseStatsDisplay());
+  const updateCharLvl = (level: string) => {
+    setLevelInput(level);
+
+    if (!level)
+      return;
+
+    character.level = parseInt(level);
+    setStats(character.baseStatsDisplay);
   };
 
   useEffect(() => {
@@ -35,7 +41,8 @@ export default function CharacterForm() {
   }, [characterKey]);
 
   useEffect(() => {
-    setStats(character.getBaseStatsDisplay());
+    setLevelInput(character.level.toString());
+    setStats(character.baseStatsDisplay);
   }, [character]);
 
   return (
@@ -51,7 +58,8 @@ export default function CharacterForm() {
           name="char-lvl"
           min={1}
           max={80}
-          updateCharLvl={updateCharLvl}
+          level={levelInput}
+          updateLevel={updateCharLvl}
           handleButton={handleAscToggle}
           disableButton={!character.ascendable}
           maxLvlForAsc={character.maxLevel}
