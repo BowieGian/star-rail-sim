@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from "react";
 
 interface Props {
   stat: string;
@@ -21,7 +21,7 @@ const handleChange = (input: string, props: Props) => {
   else {
     props.setStat(String(inputNum));
   }
-}
+};
 
 export default function PercentInput(props: Props) {
   return (
@@ -69,5 +69,5 @@ export default function PercentInput(props: Props) {
         />
       </div>
     </div>
-  )
+  );
 }

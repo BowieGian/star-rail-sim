@@ -1,4 +1,4 @@
-import { ICharacterData } from "./Character";
+import { ICharacterData } from "../Character";
 import Serval from "./Serval";
 import ServalData from "./Serval.json";
 import Yanqing from "./Yanqing";
@@ -22,6 +22,6 @@ export default function getCharacterData(characterKey: CharacterKey) {
 export const characterList = {
   "Serval": new Serval("Serval"),
   "Yanqing": new Yanqing("Yanqing")
-}
+};
 
 export type Characters = typeof characterList[CharacterKey];

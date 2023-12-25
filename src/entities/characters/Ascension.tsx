@@ -44,7 +44,7 @@ export default class Ascension {
 
   /** Returns true if the ascension valid for the level */
   private isAscensionInLevel(ascension: number): boolean {
-    let defaultAscension = this.ascensionFromLevel();
+    const defaultAscension = this.ascensionFromLevel();
 
     if (ascension == defaultAscension)
       return true;

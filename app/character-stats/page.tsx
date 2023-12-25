@@ -1,6 +1,6 @@
 import Link from "next/link";
-import PanelLayout from "../components/PanelLayout";
-import CharacterForm from "../components/CharacterForm";
+import PanelLayout from "../../components/PanelLayout";
+import CharacterForm from "../../components/CharacterForm";
 
 export default function Page() {
   return (
@@ -17,5 +17,5 @@ export default function Page() {
         <CharacterForm/>
       </PanelLayout>
     </main>
-  )
+  );
 }

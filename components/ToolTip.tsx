@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode
@@ -21,5 +21,5 @@ export default function ToolTip(props: Props) {
         </span>
       </span>
     </div>
-  )
+  );
 }

@@ -15,9 +15,9 @@ export default function AbilityDisplay(props: Props) {
             {props.description[index]}
             <ToolTip text={<span className="text-purple-500">{(attribute * 100).toFixed(0)}%</span>}><div>Temp Tip</div></ToolTip>
           </span>
-        )
+        );
       })}
       {props.description[props.description.length - 1]}
     </div>
-  )
+  );
 }

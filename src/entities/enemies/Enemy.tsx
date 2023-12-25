@@ -1,46 +1,36 @@
-export interface IStat {
-  base: number;
-  add: number;
-}
+import Entity from "../Entity";
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Class Stat                                                                 /
+/   Class Enemy                                                                /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Stores & calculates a stat of a character
+/   Simulates an enemy in Honkai: Star Rail
+/   Stores the enemy's stats/buffs
+/   Calculates the damage the enemy's abilities will do
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class Stat {
-  private base: number;
-  private add: number;
-  private _value: number = NaN;
+export default class Enemy extends Entity {
+  private _toughnessMax: number = NaN;
+  // TODO: Add Attack class and add big attacks
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  constructor(input: IStat) {
-    if (input.base < 0) throw new RangeError("Base cannot be negative");
-    if (input.add < 0) throw new RangeError("Add cannot be negative");
+  // constructor(name: string, level: number) {
 
-    this.base = input.base;
-    this.add = input.add;
-  }
-
-  /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-  /   Public Functions                                             /
-  / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-
-  public calculate(level: number, ascension: number): void {
-    let output = this.base + this.add * (level - 1 + 8 * ascension)
-    this._value = Math.round((output + Number.EPSILON) * 1e6) / 1e6;
-  }
+  // }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  public get value(): number {
-    if (Number.isNaN(this._value)) throw new Error("Value has not been calculated");
-    return this._value;
+  public get toughnessMax(): number {
+    return this._toughnessMax;
+  }
+
+  public set toughnessMax(value: number) {
+    if (value < 1) throw new RangeError("Max Toughness must be greater than 0");
+
+    this._toughnessMax = value;
   }
 }

@@ -1,63 +1,46 @@
-import { AllBaseStats } from "./characters/CharacterBaseStats";
+export interface IStat {
+  base: number;
+  add: number;
+}
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Class Entity                                                               /
+/   Class Stat                                                                 /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Parent class of Character and Enemy
-/   Stores the basic common attributes
+/   Stores & calculates a stat of a character
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class Entity {
-  protected _id: string = "";
-  protected _level: number = NaN;
-
-  protected baseStats: Record<AllBaseStats, number> = {
-    hp: NaN,
-    atk: NaN,
-    def: NaN,
-    spd: NaN
-  }
+export default class Stat {
+  private base: number;
+  private add: number;
+  private _value: number = NaN;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  constructor(id: string) {
-    if (!id) throw new Error("The ID is invalid");
-    this._id = id;
+  constructor(input: IStat) {
+    if (input.base < 0) throw new RangeError("Base cannot be negative");
+    if (input.add < 0) throw new RangeError("Add cannot be negative");
+
+    this.base = input.base;
+    this.add = input.add;
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Public Functions                                             /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  public getAV(): number {
-    if (!this.baseStats.spd) throw new Error("SPD has not been defined yet or is 0");
-    return 10000 / this.baseStats.spd;
+  public calculate(level: number, ascension: number): void {
+    const output = this.base + this.add * (level - 1 + 8 * ascension);
+    this._value = Math.round((output + Number.EPSILON) * 1e6) / 1e6;
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  public get id(): string {
-    return this._id;
-  }
-
-  public get level(): number {
-    if (!this._level) throw new Error("Level has not been defined yet or is 0");
-    return this._level;
-  }
-
-  public set level(value: number) {
-    if (value < 1 || value > 90) 
-      throw new RangeError("Level must be between 1 and 90");
-
-    this._level = value;
-  }
-
-  public getBaseStat(stat: AllBaseStats): number {
-    if (!this.baseStats[stat]) throw new Error("Base stat has not been defined yet or is 0");
-    return this.baseStats[stat];
+  public get value(): number {
+    if (Number.isNaN(this._value)) throw new Error("Value has not been calculated");
+    return this._value;
   }
 }

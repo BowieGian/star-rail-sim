@@ -1,6 +1,6 @@
 import Link from "next/link";
-import CalcForm from "./components/CalcForm";
-import PanelLayout from "./components/PanelLayout";
+import CalcForm from "../components/CalcForm";
+import PanelLayout from "../components/PanelLayout";
 
 export default function Page() {
   return (
@@ -10,12 +10,12 @@ export default function Page() {
       </h1>
 
       <Link href={"/character-stats"} className="font-sans font-bold text-purple-200">
-        To Yanqing Stats
+        To Character Stats
       </Link>
 
       <PanelLayout>
         <CalcForm/>
       </PanelLayout>
     </main>
-  )
+  );
 }

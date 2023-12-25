@@ -30,7 +30,7 @@ export default class Attribute {
 
     if (input.add === undefined) throw new Error("Add is undefined");
     if (input.add < 0) throw new RangeError("Add cannot be negative");
-    
+
     if (!this.isAttributeType(input.type))
       throw new Error(input.type + " is not part of AttributeTypes");
 
