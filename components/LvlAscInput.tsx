@@ -1,21 +1,18 @@
-import { useState } from "react";
-
 interface Props {
   name: string;
   min: number;
   max: number;
-  updateCharLvl: (level: number) => void;
+  level: string;
+  updateLevel: (level: string) => void;
   handleButton: (e: React.FormEvent) => void;
   disableButton: boolean;
   maxLvlForAsc: number;
 }
 
 export default function LvlAscInput(props: Props) {
-  const [lvl, setLvl] = useState<string>("1");
-
   const handleChange = (input: string) => {
     if (!input) {
-      setLvl(input);
+      props.updateLevel(input);
       return;
     }
 
@@ -26,8 +23,7 @@ export default function LvlAscInput(props: Props) {
     else if (inputNum > props.max)
       inputNum = props.max;
 
-    setLvl(String(inputNum));
-    props.updateCharLvl(inputNum);
+    props.updateLevel(String(inputNum));
   };
 
   return (
@@ -49,7 +45,7 @@ export default function LvlAscInput(props: Props) {
           focus:ring-2 focus:ring-inset focus:ring-purple-500
           sm:text-sm sm:leading-6"
           placeholder={props.min.toString()}
-          value={lvl}
+          value={props.level}
           min={props.min}
           max={props.max}
           onChange={(e) => handleChange(e.target.value)}
@@ -74,7 +70,7 @@ export default function LvlAscInput(props: Props) {
           id={props.name}
           className="block w-full py-1.5
           outline-none accent-violet-200"
-          value={lvl}
+          value={props.level}
           min={props.min}
           max={props.max}
           onChange={(e) => handleChange(e.target.value)}
