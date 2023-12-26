@@ -11,7 +11,7 @@ export default class Entity {
   protected _id: string = "";
   protected _level: number = NaN;
 
-  protected baseStats: Record<AllBaseStats, number> = {
+  protected _baseStats: Record<AllBaseStats, number> = {
     hp: NaN,
     atk: NaN,
     def: NaN,
@@ -32,8 +32,8 @@ export default class Entity {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public getAV(): number {
-    if (!this.baseStats.spd) throw new Error("SPD has not been defined yet or is 0");
-    return 10000 / this.baseStats.spd;
+    if (!this._baseStats.spd) throw new Error("SPD has not been defined yet or is 0");
+    return 10000 / this._baseStats.spd;
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -56,8 +56,12 @@ export default class Entity {
     this._level = value;
   }
 
+  public get baseStats(): Readonly<Record<AllBaseStats, number>> {
+    return this._baseStats;
+  }
+
   public getBaseStat(stat: AllBaseStats): number {
-    if (!this.baseStats[stat]) throw new Error("Base stat has not been defined yet or is 0");
-    return this.baseStats[stat];
+    if (!this._baseStats[stat]) throw new Error("Base stat has not been defined yet or is 0");
+    return this._baseStats[stat];
   }
 }
