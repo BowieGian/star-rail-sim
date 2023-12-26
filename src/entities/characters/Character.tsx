@@ -1,6 +1,6 @@
 import getCharacterData, { CharacterKey } from "./data";
 import Entity from "../Entity";
-import CharacterBaseStats, { ICharacterBaseStatData, AllBaseStats, allBaseStats } from "./CharacterBaseStats";
+import CharacterBaseStats, { ICharacterBaseStatData, allBaseStats, allBaseStatNames } from "./CharacterBaseStats";
 import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";
 import { AbilityTypes } from "./Ability";
 import Ascension from "./Ascension";
@@ -15,13 +15,6 @@ export interface IStatDisplay {
   name: string;
   value: number;
 }
-
-const statNames: Record<AllBaseStats, string> = {
-  hp: "HP",
-  atk: "ATK",
-  def: "DEF",
-  spd: "SPD"
-};
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -79,7 +72,7 @@ export default class Character extends Entity {
     for (const stat of allBaseStats) {
       const statDisplay: IStatDisplay = {
         key: stat,
-        name: statNames[stat],
+        name: allBaseStatNames[stat],
         value: this.getBaseStat(stat)
       };
 
