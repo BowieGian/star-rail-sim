@@ -1,29 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { IStatDisplay } from "../src/entities/characters/Character";
-import DamageOutput from "./DamageOutput";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import LvlAscInput from "./LvlAscInput";
 import CharacterSelect from "./CharacterSelect";
 import AbilityIO from "./AbilityIO";
 import { CharacterKey, characterList, Characters } from "../src/entities/characters/data";
+import BaseStatsDisplay from "./BaseStatsDisplay";
+import { AllBaseStats } from "@/src/entities/characters/CharacterBaseStats";
 
-// TODO: Split base stats and abilities to new files
 export default function CharacterForm() {
-  // Using lazy initial state to only run constructor once
-  const [character, setCharacter] = useState<Characters>(() => characterList["Yanqing"]);
   const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");
+  const character: MutableRefObject<Characters> = useRef<Characters>() as MutableRefObject<Characters>;
+  character.current = characterList[characterKey];
 
   const [levelInput, setLevelInput] = useState<string>("1");
-  const [stats, setStats] = useState<readonly IStatDisplay[]>(character.baseStatsDisplay);
+  const [ascendable, setAscendable] = useState<boolean>(character.current.ascendable);
+  const [maxLevel, setMaxLevel] = useState<number>(character.current.maxLevel);
+  const [baseStats, setBaseStats] = useState<Readonly<Record<AllBaseStats, number>>>(character.current.baseStats);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
   };
 
   const handleAscToggle = () => {
-    character.ascended = !character.ascended;
-    setStats(character.baseStatsDisplay);
+    character.current.ascended = !character.current.ascended;
+    setMaxLevel(character.current.maxLevel);
+    setBaseStats({...character.current.baseStats});
   };
 
   const updateCharLvl = (level: string) => {
@@ -32,18 +34,19 @@ export default function CharacterForm() {
     if (!level)
       return;
 
-    character.level = parseInt(level);
-    setStats(character.baseStatsDisplay);
+    character.current.level = parseInt(level);
+    setAscendable(character.current.ascendable);
+    setMaxLevel(character.current.maxLevel);
+    setBaseStats({...character.current.baseStats});
   };
 
   useEffect(() => {
-    setCharacter(characterList[characterKey]);
+    character.current = characterList[characterKey];
+    setLevelInput(character.current.level.toString());
+    setAscendable(character.current.ascendable);
+    setMaxLevel(character.current.maxLevel);
+    setBaseStats({...character.current.baseStats});
   }, [characterKey]);
-
-  useEffect(() => {
-    setLevelInput(character.level.toString());
-    setStats(character.baseStatsDisplay);
-  }, [character]);
 
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
@@ -61,18 +64,16 @@ export default function CharacterForm() {
           level={levelInput}
           updateLevel={updateCharLvl}
           handleButton={handleAscToggle}
-          disableButton={!character.ascendable}
-          maxLvlForAsc={character.maxLevel}
+          disableButton={!ascendable}
+          maxLvlForAsc={maxLevel}
         />
       </div>
 
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
-        {stats.map(function(object) {
-          return <DamageOutput key={object.key} num={object.value.toString()} label={object.name}/>;
-        })}
+        <BaseStatsDisplay baseStats={baseStats}/>
       </div>
 
-      <AbilityIO character={character}/>
+      <AbilityIO character={character.current}/>
     </form>
   );
 }
