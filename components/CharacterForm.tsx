@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IStatDisplay } from "../src/entities/characters/Character";
-import DamageOutput from "./DamageOutput";
 import LvlAscInput from "./LvlAscInput";
 import CharacterSelect from "./CharacterSelect";
 import AbilityIO from "./AbilityIO";
 import { CharacterKey, characterList, Characters } from "../src/entities/characters/data";
+import BaseStatsDisplay from "./BaseStatsDisplay";
+import { AllBaseStats } from "@/src/entities/characters/CharacterBaseStats";
 
 // TODO: Split base stats and abilities to new files
 export default function CharacterForm() {
@@ -15,7 +15,7 @@ export default function CharacterForm() {
   const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");
 
   const [levelInput, setLevelInput] = useState<string>("1");
-  const [stats, setStats] = useState<readonly IStatDisplay[]>(character.baseStatsDisplay);
+  const [baseStats, setBaseStats] = useState<Readonly<Record<AllBaseStats, number>>>(character.baseStats);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ export default function CharacterForm() {
 
   const handleAscToggle = () => {
     character.ascended = !character.ascended;
-    setStats(character.baseStatsDisplay);
+    setBaseStats({...character.baseStats});
   };
 
   const updateCharLvl = (level: string) => {
@@ -33,7 +33,7 @@ export default function CharacterForm() {
       return;
 
     character.level = parseInt(level);
-    setStats(character.baseStatsDisplay);
+    setBaseStats({...character.baseStats});
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function CharacterForm() {
 
   useEffect(() => {
     setLevelInput(character.level.toString());
-    setStats(character.baseStatsDisplay);
+    setBaseStats({...character.baseStats});
   }, [character]);
 
   return (
@@ -67,9 +67,7 @@ export default function CharacterForm() {
       </div>
 
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
-        {stats.map(function(object) {
-          return <DamageOutput key={object.key} num={object.value.toString()} label={object.name}/>;
-        })}
+        <BaseStatsDisplay baseStats={baseStats}/>
       </div>
 
       <AbilityIO character={character}/>
