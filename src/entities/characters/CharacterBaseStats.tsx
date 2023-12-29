@@ -1,22 +1,9 @@
+import { AllBaseStats, ScalingBaseStats, Speed, scalingBaseStats } from "../BaseStats";
 import Stat, { IStat } from "../Stat";
 
-const scalingBaseStats = ["hp", "atk", "def"] as const;
-type ScalingBaseStats = typeof scalingBaseStats[number];
-
-type Speed = "spd";
 interface ISpeedStat {
   value: number;
 }
-
-export const allBaseStats = ["hp", "atk", "def", "spd"] as const;
-export type AllBaseStats = typeof allBaseStats[number];
-
-export const allBaseStatNames: Record<AllBaseStats, string> = {
-  hp: "HP",
-  atk: "ATK",
-  def: "DEF",
-  spd: "SPD"
-};
 
 export type ICharacterBaseStatData = Record<ScalingBaseStats, IStat> & Record<Speed, ISpeedStat>;
 
