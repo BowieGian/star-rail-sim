@@ -1,3 +1,5 @@
+export type StatTypes = "Character" | "Light Cone";
+
 export const scalingBaseStats = ["hp", "atk", "def"] as const;
 export type ScalingBaseStats = typeof scalingBaseStats[number];
 

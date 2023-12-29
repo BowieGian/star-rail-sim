@@ -1,4 +1,4 @@
-import { AllBaseStats, ScalingBaseStats, Speed, scalingBaseStats } from "../BaseStats";
+import { AllBaseStats, ScalingBaseStats, Speed, StatTypes, scalingBaseStats } from "../BaseStats";
 import Stat, { IStat } from "../Stat";
 
 interface ISpeedStat {
@@ -20,13 +20,13 @@ export default class CharacterBaseStats {
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  constructor(input: ICharacterBaseStatData) {
+  constructor(input: ICharacterBaseStatData, type: StatTypes) {
     if (input.spd.value <= 0) throw new RangeError("Spd must be positive");
 
     this.stats = {
-      hp: new Stat(input.hp),
-      atk: new Stat(input.atk),
-      def: new Stat(input.def),
+      hp: new Stat(input.hp, type),
+      atk: new Stat(input.atk, type),
+      def: new Stat(input.def, type),
       spd: input.spd
     };
   }
