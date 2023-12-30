@@ -1,10 +1,5 @@
 import { StatTypes } from "./BaseStats";
 
-export interface IStat {
-  base: number;
-  add: number;
-}
-
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Class Stat                                                                 /
@@ -21,13 +16,21 @@ export default class Stat {
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  constructor(input: IStat, type: StatTypes) {
-    if (input.base < 0) throw new RangeError("Base cannot be negative");
-    if (input.add < 0) throw new RangeError("Add cannot be negative");
+  constructor(baseValue: number, type: StatTypes) {
+    if (baseValue < 0) throw new RangeError("Base value cannot be negative");
 
     this.type = type;
-    this.base = input.base;
-    this.add = input.add;
+    this.base = baseValue;
+
+    if (type === "Character")
+      this.add = baseValue / 20;
+    else if (type === "Light Cone")
+      this.add = baseValue / 20 * 3;
+    else {
+      const _exhaustiveCheck: never = type;
+      this.add = NaN;
+      return _exhaustiveCheck;
+    }
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /

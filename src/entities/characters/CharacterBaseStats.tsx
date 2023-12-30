@@ -1,11 +1,11 @@
 import { AllBaseStats, ScalingBaseStats, Speed, StatTypes, scalingBaseStats } from "../BaseStats";
-import Stat, { IStat } from "../Stat";
+import Stat from "../Stat";
 
 interface ISpeedStat {
   value: number;
 }
 
-export type ICharacterBaseStatData = Record<ScalingBaseStats, IStat> & Record<Speed, ISpeedStat>;
+export type ICharacterBaseStatData = Record<AllBaseStats, number>;
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -21,13 +21,13 @@ export default class CharacterBaseStats {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(input: ICharacterBaseStatData, type: StatTypes) {
-    if (input.spd.value <= 0) throw new RangeError("Spd must be positive");
+    if (input.spd <= 0) throw new RangeError("Spd must be positive");
 
     this.stats = {
       hp: new Stat(input.hp, type),
       atk: new Stat(input.atk, type),
       def: new Stat(input.def, type),
-      spd: input.spd
+      spd: {value: input.spd}
     };
   }
 
