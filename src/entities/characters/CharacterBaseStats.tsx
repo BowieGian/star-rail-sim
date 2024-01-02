@@ -6,6 +6,7 @@ interface ISpeedStat {
 }
 
 export type ICharacterBaseStatData = Record<AllBaseStats, number>;
+export type ILightConeBaseStatData = Record<ScalingBaseStats, number>;
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -14,21 +15,32 @@ export type ICharacterBaseStatData = Record<AllBaseStats, number>;
 /   Stores & calculates the base values of a character's base stats
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class CharacterBaseStats {
-  private stats: Record<ScalingBaseStats, Stat> & Record<Speed, ISpeedStat>;
+  private stats: Record<ScalingBaseStats, Stat> & Record<Speed, ISpeedStat | undefined>;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  constructor(input: ICharacterBaseStatData, type: StatTypes) {
-    if (input.spd <= 0) throw new RangeError("Spd must be positive");
+  constructor(data: ICharacterBaseStatData | ILightConeBaseStatData, type: StatTypes) {
+    if ("spd" in data && type === "Character") {
+      if (data.spd <= 0) throw new RangeError("Spd must be positive");
 
-    this.stats = {
-      hp: new Stat(input.hp, type),
-      atk: new Stat(input.atk, type),
-      def: new Stat(input.def, type),
-      spd: {value: input.spd}
-    };
+      this.stats = {
+        hp: new Stat(data.hp, type),
+        atk: new Stat(data.atk, type),
+        def: new Stat(data.def, type),
+        spd: {value: data.spd}
+      };
+    } else if (!("spd" in data) && type === "Light Cone") {
+      this.stats = {
+        hp: new Stat(data.hp, type),
+        atk: new Stat(data.atk, type),
+        def: new Stat(data.def, type),
+        spd: undefined
+      };
+    } else {
+      throw new Error("Base stat data and type mismatch");
+    }
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -46,6 +58,9 @@ export default class CharacterBaseStats {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public getStat(stat: AllBaseStats): number {
-    return this.stats[stat].value;
+    if (!this.stats.spd)
+      throw new Error("Light cones do not have spd");
+
+    return this.stats[stat]!.value;
   }
 }
