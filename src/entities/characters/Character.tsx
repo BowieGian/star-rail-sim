@@ -2,7 +2,7 @@ import getCharacterData, { CharacterKey } from "./data";
 import Entity from "../Entity";
 import CharacterBaseStats, { ICharacterBaseStatData } from "./CharacterBaseStats";
 import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";
-import { AbilityTypes } from "./Ability";
+import { CharacterAbilityTypes } from "./Ability";
 import Ascension from "./Ascension";
 import { allBaseStats } from "../BaseStats";
 
@@ -120,19 +120,19 @@ export default class Character extends Entity {
     this.updateStats();
   }
 
-  public getAbilityLevel(ability: AbilityTypes): number {
+  public getAbilityLevel(ability: CharacterAbilityTypes): number {
     return this.abilities.getLevel(ability);
   }
 
-  public setAbilityLevel(ability: AbilityTypes, level: number): void {
+  public setAbilityLevel(ability: CharacterAbilityTypes, level: number): void {
     this.abilities.setLevel(ability, level);
   }
 
-  public getAbilityDesc(ability: AbilityTypes): ReadonlyArray<string> {
+  public getAbilityDesc(ability: CharacterAbilityTypes): ReadonlyArray<string> {
     return this.abilities.getDescriptions(ability);
   }
 
-  public getAbilityAttr(ability: AbilityTypes): ReadonlyArray<number> {
+  public getAbilityAttr(ability: CharacterAbilityTypes): ReadonlyArray<number> {
     return this.abilities.getAttributes(ability);
   }
 

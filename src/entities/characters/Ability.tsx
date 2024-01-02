@@ -1,7 +1,9 @@
 import Attribute, { IAttribute } from "../Attribute";
 
-export const abilityTypes = ["basic", "skill", "ult", "talent"] as const;
-export type AbilityTypes = typeof abilityTypes[number];
+export const characterAbilityTypes = ["basic", "skill", "ult", "talent"] as const;
+export type CharacterAbilityTypes = typeof characterAbilityTypes[number];
+
+type AbilityTypes = CharacterAbilityTypes | "light cone";
 
 export interface IAbility {
   attributes: IAttribute[];
@@ -69,7 +71,9 @@ export default class Ability {
       console.log("Attribute %d", i);
 
       let length: number;
-      if (this.type === "basic") {
+      if (this.type === "light cone") {
+        length = 5;
+      } else if (this.type === "basic") {
         length = 7;
       } else {
         length = 12;
@@ -90,12 +94,15 @@ export default class Ability {
   }
 
   public set level(value: number) {
-    if (this.type !== "basic") {
-      if (value < 0 || value > 12)
-        throw new RangeError("Ability level must be between 1-12");
-    } else {
+    if (this.type === "light cone") {
+      if (value < 0 || value > 5)
+        throw new RangeError("Superimposition must be between 1-5");
+    } else if (this.type === "basic") {
       if (value < 0 || value > 7)
         throw new RangeError("Basic level must be between 1-7");
+    } else {
+      if (value < 0 || value > 12)
+        throw new RangeError("Ability level must be between 1-12");
     }
 
     this._level = value;
