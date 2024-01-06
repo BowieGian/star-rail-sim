@@ -1,4 +1,4 @@
-import { StatTypes } from "./BaseStats";
+import { StatTypes } from ".";
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /

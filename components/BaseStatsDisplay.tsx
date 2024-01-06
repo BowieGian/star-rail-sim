@@ -1,4 +1,4 @@
-import { AllBaseStats, allBaseStatNames, allBaseStats } from "@/src/entities/BaseStats";
+import { AllBaseStats, allBaseStatNames, allBaseStats } from "@/src/base-stats";
 import DamageOutput from "./DamageOutput";
 
 interface Props {

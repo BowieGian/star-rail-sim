@@ -1,4 +1,4 @@
-import { AllBaseStats } from "./BaseStats";
+import { AllBaseStats } from "../base-stats";
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /

@@ -1,5 +1,5 @@
-import { AllBaseStats, ScalingBaseStats, Speed, StatTypes, scalingBaseStats } from "../BaseStats";
-import Stat from "../Stat";
+import { AllBaseStats, ScalingBaseStats, Speed, StatTypes, scalingBaseStats } from ".";
+import Stat from "./Stat";
 
 interface ISpeedStat {
   value: number;
@@ -14,7 +14,7 @@ export type ILightConeBaseStatData = Record<ScalingBaseStats, number>;
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Stores & calculates the base values of a character's base stats
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class CharacterBaseStats {
+export default class BaseStats {
   private stats: Record<ScalingBaseStats, Stat> & Record<Speed, ISpeedStat | undefined>;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /

@@ -1,8 +1,8 @@
 import getLightConeData, { LightConeKey } from ".";
-import { ScalingBaseStats, scalingBaseStats } from "../entities/BaseStats";
+import { ScalingBaseStats, scalingBaseStats } from "../base-stats";
 import Ability, { IAbility } from "../entities/characters/Ability";
 import Ascension from "../entities/characters/Ascension";
-import CharacterBaseStats, { ILightConeBaseStatData } from "../entities/characters/CharacterBaseStats";
+import BaseStats, { ILightConeBaseStatData } from "../base-stats/BaseStats";
 
 export interface ILightConeData {
   baseStats: ILightConeBaseStatData;
@@ -22,7 +22,7 @@ export default class LightCone {
 
   private asc: Ascension;
 
-  private baseStatData: CharacterBaseStats;
+  private baseStatData: BaseStats;
   private _baseStats: Record<ScalingBaseStats, number> = {
     hp: NaN,
     atk: NaN,
@@ -41,7 +41,7 @@ export default class LightCone {
     this._id = id;
 
     const lightConeData: ILightConeData = getLightConeData(lightConeKey);
-    this.baseStatData = new CharacterBaseStats(lightConeData.baseStats, "Light Cone");
+    this.baseStatData = new BaseStats(lightConeData.baseStats, "Light Cone");
 
     const startingLevel = 1;
     this.asc = new Ascension(startingLevel);
