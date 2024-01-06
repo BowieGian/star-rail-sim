@@ -41,7 +41,7 @@ export default class LightCone {
     this._id = id;
 
     const lightConeData: ILightConeData = getLightConeData(lightConeKey);
-    this.baseStatData = new BaseStats(lightConeData.baseStats, "Light Cone");
+    this.baseStatData = new BaseStats(lightConeData.baseStats, "light cone");
 
     const startingLevel = 1;
     this.asc = new Ascension(startingLevel);

@@ -52,7 +52,7 @@ export default class Character extends Entity {
 
     super(id);
 
-    this.baseStatData = new BaseStats(characterData.baseStats, "Character");
+    this.baseStatData = new BaseStats(characterData.baseStats, "character");
 
     const startingLevel = 1;
     this.asc = new Ascension(startingLevel);

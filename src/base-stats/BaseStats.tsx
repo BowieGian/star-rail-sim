@@ -22,7 +22,7 @@ export default class BaseStats {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(data: ICharacterBaseStatData | ILightConeBaseStatData, type: StatTypes) {
-    if ("spd" in data && type === "Character") {
+    if ("spd" in data && type === "character") {
       if (data.spd <= 0) throw new RangeError("Spd must be positive");
 
       this.stats = {
@@ -31,7 +31,7 @@ export default class BaseStats {
         def: new Stat(data.def, type),
         spd: {value: data.spd}
       };
-    } else if (!("spd" in data) && type === "Light Cone") {
+    } else if (!("spd" in data) && type === "light cone") {
       this.stats = {
         hp: new Stat(data.hp, type),
         atk: new Stat(data.atk, type),

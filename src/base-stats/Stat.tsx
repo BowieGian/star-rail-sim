@@ -22,9 +22,9 @@ export default class Stat {
     this.type = type;
     this.base = baseValue;
 
-    if (type === "Character")
+    if (type === "character")
       this.add = baseValue / 20;
-    else if (type === "Light Cone")
+    else if (type === "light cone")
       this.add = baseValue / 20 * 3;
     else {
       const _exhaustiveCheck: never = type;
@@ -40,9 +40,9 @@ export default class Stat {
   public calculate(level: number, ascension: number): void {
     let multiplier = level - 1;
 
-    if (this.type === "Character")
+    if (this.type === "character")
       multiplier += 8 * ascension;
-    else if (this.type === "Light Cone") {
+    else if (this.type === "light cone") {
       if (ascension >= 1)
         multiplier += 8;
 
