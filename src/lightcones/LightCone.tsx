@@ -108,4 +108,20 @@ export default class LightCone {
     if (!this._baseStats[stat]) throw new Error("Base stat has not been defined yet or is 0");
     return this._baseStats[stat];
   }
+
+  public get superimposition(): number {
+    return this.ability.level;
+  }
+
+  public set superimposition(value: number) {
+    this.ability.level = value;
+  }
+
+  public getAbilityDesc(): ReadonlyArray<string> {
+    return this.ability.descriptions;
+  }
+
+  public getAbilityAttr(): ReadonlyArray<number> {
+    return this.ability.attributes;
+  }
 }
