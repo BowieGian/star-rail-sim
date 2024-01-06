@@ -1,4 +1,4 @@
-import Attribute, { IAttribute } from "../Attribute";
+import Attribute, { IAttribute } from "./Attribute";
 
 export const characterAbilityTypes = ["basic", "skill", "ult", "talent"] as const;
 export type CharacterAbilityTypes = typeof characterAbilityTypes[number];

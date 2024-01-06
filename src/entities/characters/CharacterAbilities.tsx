@@ -1,4 +1,4 @@
-import Ability, { CharacterAbilityTypes, IAbility, characterAbilityTypes } from "./Ability";
+import Ability, { CharacterAbilityTypes, IAbility, characterAbilityTypes } from "../../ability/Ability";
 
 export type IAbilityData = Record<CharacterAbilityTypes, IAbility>
 

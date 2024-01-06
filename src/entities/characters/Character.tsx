@@ -2,7 +2,7 @@ import getCharacterData, { CharacterKey } from "./data";
 import Entity from "../Entity";
 import BaseStats, { ICharacterBaseStatData } from "../../base-stats/BaseStats";
 import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";
-import { CharacterAbilityTypes } from "./Ability";
+import { CharacterAbilityTypes } from "../../ability/Ability";
 import Ascension from "./Ascension";
 import { allBaseStats } from "../../base-stats";
 
