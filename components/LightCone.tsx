@@ -27,8 +27,8 @@ export default function LightCone() {
   // temp
   const [basicAttr, setBasicAttr] = useState<readonly number[]>([36, 0.36]);
   const basicDesc = ["Increases the wearer's CRIT DMG by ",
-  ". When the wearer uses Ultimate, increases the wearer's Ultimate DMG based on their max energy. Each point of Energy increases the Ultimate DMG by ",
-  ", up to 180 points of Energy."]
+    ". When the wearer uses Ultimate, increases the wearer's Ultimate DMG based on their max energy. Each point of Energy increases the Ultimate DMG by ",
+    ", up to 180 points of Energy."];
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
