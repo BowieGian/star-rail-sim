@@ -1,5 +1,5 @@
+import { AllBaseStats, allBaseStatNames, allBaseStats } from "@/src/base-stats";
 import DamageOutput from "./DamageOutput";
-import { AllBaseStats, allBaseStatNames, allBaseStats } from "@/src/entities/characters/CharacterBaseStats";
 
 interface Props {
   baseStats: Readonly<Record<AllBaseStats, number>>;

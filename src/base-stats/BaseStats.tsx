@@ -1,24 +1,12 @@
-import Stat, { IStat } from "../Stat";
+import { AllBaseStats, ScalingBaseStats, Speed, StatTypes, scalingBaseStats } from ".";
+import Stat from "./Stat";
 
-const scalingBaseStats = ["hp", "atk", "def"] as const;
-type ScalingBaseStats = typeof scalingBaseStats[number];
-
-type Speed = "spd";
 interface ISpeedStat {
   value: number;
 }
 
-export const allBaseStats = ["hp", "atk", "def", "spd"] as const;
-export type AllBaseStats = typeof allBaseStats[number];
-
-export const allBaseStatNames: Record<AllBaseStats, string> = {
-  hp: "HP",
-  atk: "ATK",
-  def: "DEF",
-  spd: "SPD"
-};
-
-export type ICharacterBaseStatData = Record<ScalingBaseStats, IStat> & Record<Speed, ISpeedStat>;
+export type ICharacterBaseStatData = Record<AllBaseStats, number>;
+export type ILightConeBaseStatData = Record<ScalingBaseStats, number>;
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -26,22 +14,33 @@ export type ICharacterBaseStatData = Record<ScalingBaseStats, IStat> & Record<Sp
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Stores & calculates the base values of a character's base stats
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class CharacterBaseStats {
-  private stats: Record<ScalingBaseStats, Stat> & Record<Speed, ISpeedStat>;
+export default class BaseStats {
+  private stats: Record<ScalingBaseStats, Stat> & Record<Speed, ISpeedStat | undefined>;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  constructor(input: ICharacterBaseStatData) {
-    if (input.spd.value <= 0) throw new RangeError("Spd must be positive");
+  constructor(data: ICharacterBaseStatData | ILightConeBaseStatData, type: StatTypes) {
+    if ("spd" in data && type === "character") {
+      if (data.spd <= 0) throw new RangeError("Spd must be positive");
 
-    this.stats = {
-      hp: new Stat(input.hp),
-      atk: new Stat(input.atk),
-      def: new Stat(input.def),
-      spd: input.spd
-    };
+      this.stats = {
+        hp: new Stat(data.hp, type),
+        atk: new Stat(data.atk, type),
+        def: new Stat(data.def, type),
+        spd: {value: data.spd}
+      };
+    } else if (!("spd" in data) && type === "light cone") {
+      this.stats = {
+        hp: new Stat(data.hp, type),
+        atk: new Stat(data.atk, type),
+        def: new Stat(data.def, type),
+        spd: undefined
+      };
+    } else {
+      throw new Error("Base stat data and type mismatch");
+    }
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -59,6 +58,9 @@ export default class CharacterBaseStats {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public getStat(stat: AllBaseStats): number {
-    return this.stats[stat].value;
+    if (!this.stats.spd)
+      throw new Error("Light cones do not have spd");
+
+    return this.stats[stat]!.value;
   }
 }
