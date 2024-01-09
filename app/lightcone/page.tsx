@@ -1,5 +1,5 @@
 import Link from "next/link";
-import LightCone from "@/components/LightCone";
+import LightConeForm from "@/components/LightConeForm";
 import PanelLayout from "@/components/PanelLayout";
 
 export default function Page() {
@@ -14,7 +14,7 @@ export default function Page() {
       </Link>
 
       <PanelLayout>
-        <LightCone/>
+        <LightConeForm/>
       </PanelLayout>
     </main>
   );

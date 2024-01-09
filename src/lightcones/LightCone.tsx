@@ -65,6 +65,10 @@ export default class LightCone {
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
+  public get id(): string {
+    return this._id;
+  }
+
   public get level(): number {
     return this._level;
   }
@@ -79,6 +83,15 @@ export default class LightCone {
 
     this.baseStatData.calculate(this._level, this.asc.ascension);
     this.updateStats();
+  }
+
+  public get baseStats(): Readonly<Record<ScalingBaseStats, number>> {
+    return this._baseStats;
+  }
+
+  public getBaseStat(stat: ScalingBaseStats): number {
+    if (!this._baseStats[stat]) throw new Error("Base stat has not been defined yet or is 0");
+    return this._baseStats[stat];
   }
 
   public get ascendable(): boolean {
@@ -104,11 +117,6 @@ export default class LightCone {
     this.updateStats();
   }
 
-  public getBaseStat(stat: ScalingBaseStats): number {
-    if (!this._baseStats[stat]) throw new Error("Base stat has not been defined yet or is 0");
-    return this._baseStats[stat];
-  }
-
   public get superimposition(): number {
     return this.ability.level;
   }
@@ -117,11 +125,11 @@ export default class LightCone {
     this.ability.level = value;
   }
 
-  public getAbilityDesc(): ReadonlyArray<string> {
+  public get abilityDescriptions(): ReadonlyArray<string> {
     return this.ability.descriptions;
   }
 
-  public getAbilityAttr(): ReadonlyArray<number> {
+  public get abilityAttributes(): ReadonlyArray<number> {
     return this.ability.attributes;
   }
 }
