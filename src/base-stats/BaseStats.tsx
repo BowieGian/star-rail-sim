@@ -58,7 +58,7 @@ export default class BaseStats {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public getStat(stat: AllBaseStats): number {
-    if (!this.stats.spd)
+    if (!this.stats.spd && stat === "spd")
       throw new Error("Light cones do not have spd");
 
     return this.stats[stat]!.value;
