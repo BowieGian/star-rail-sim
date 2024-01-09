@@ -2,7 +2,7 @@
 
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import LvlAscInput from "./LvlAscInput";
-import CharacterSelect from "./CharacterSelect";
+import DropdownMenu from "./DropdownMenu";
 import BaseStatsDisplay from "./BaseStatsDisplay";
 import { ScalingBaseStats } from "@/src/base-stats";
 import AbilityDisplay from "./AbilityDisplay";
@@ -64,7 +64,7 @@ export default function LightConeForm() {
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
-        <CharacterSelect characterKey={lightConeKey} setCharacterKey={setLightConeKey} characterKeys={lightConeKeys}/>
+        <DropdownMenu selected={lightConeKey} setSelected={setLightConeKey} list={lightConeKeys}/>
       </div>
 
       <div></div>

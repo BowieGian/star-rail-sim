@@ -2,7 +2,7 @@
 
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import LvlAscInput from "./LvlAscInput";
-import CharacterSelect from "./CharacterSelect";
+import DropdownMenu from "./DropdownMenu";
 import AbilityIO from "./AbilityIO";
 import { CharacterKey, characterKeys, characterList, Characters } from "../src/entities/characters/data";
 import BaseStatsDisplay from "./BaseStatsDisplay";
@@ -51,7 +51,7 @@ export default function CharacterForm() {
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
-        <CharacterSelect characterKey={characterKey} setCharacterKey={setCharacterKey} characterKeys={characterKeys}/>
+        <DropdownMenu selected={characterKey} setSelected={setCharacterKey} list={characterKeys}/>
       </div>
 
       <div></div>
