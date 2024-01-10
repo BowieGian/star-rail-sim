@@ -8,7 +8,7 @@ interface Props {
   character: Characters;
 }
 
-export default function AbilityIO(props: Props) {
+export default function CharacterAbilities(props: Props) {
   const character = props.character;
 
   const [basicLvl, setBasicLvl] = useState<string>("1");

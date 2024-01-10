@@ -3,7 +3,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import LvlAscInput from "./LvlAscInput";
 import DropdownMenu from "./DropdownMenu";
-import AbilityIO from "./AbilityIO";
+import CharacterAbilities from "./CharacterAbilities";
 import { CharacterKey, characterKeys, characterList, Characters } from "../src/entities/characters/data";
 import BaseStatsDisplay from "./BaseStatsDisplay";
 import { AllBaseStats } from "@/src/base-stats/BaseStats";
@@ -73,7 +73,7 @@ export default function CharacterForm() {
         <BaseStatsDisplay baseStats={baseStats}/>
       </div>
 
-      <AbilityIO character={character.current}/>
+      <CharacterAbilities character={character.current}/>
     </form>
   );
 }
