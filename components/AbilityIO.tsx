@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import NumberSlider from "./NumberSlider";
-import AbilityDisplay from "./AbilityDisplay";
+import AbilityDescription from "./AbilityDescription";
 import { Characters } from "../src/entities/characters/data/index";
 
 interface Props {
@@ -58,22 +58,22 @@ export default function AbilityIO(props: Props) {
       <div className="flex flex-col gap-y-8 lg:px-5">
         <NumberSlider stat={basicLvl} setStat={setBasicLvl} name="basic-lvl" label="Basic Level" min={1} max={7}/>
       </div>
-      <AbilityDisplay attributes={basicAttr} description={basicDesc} label="Basic"/>
+      <AbilityDescription attributes={basicAttr} description={basicDesc} label="Basic"/>
 
       <div className="flex flex-col gap-y-8 lg:px-5">
         <NumberSlider stat={skillLvl} setStat={setSkillLvl} name="skill-lvl" label="Skill Level" min={1} max={12}/>
       </div>
-      <AbilityDisplay attributes={skillAttr} description={skillDesc} label="Skill"/>
+      <AbilityDescription attributes={skillAttr} description={skillDesc} label="Skill"/>
 
       <div className="flex flex-col gap-y-8 lg:px-5">
         <NumberSlider stat={ultLvl} setStat={setUltLvl} name="ult-lvl" label="Ult Level" min={1} max={12}/>
       </div>
-      <AbilityDisplay attributes={ultAttr} description={ultDesc} label="Ult"/>
+      <AbilityDescription attributes={ultAttr} description={ultDesc} label="Ult"/>
 
       <div className="flex flex-col gap-y-8 lg:px-5">
         <NumberSlider stat={talentLvl} setStat={setTalentLvl} name="talent-lvl" label="Talent Level" min={1} max={12}/>
       </div>
-      <AbilityDisplay attributes={talentAttr} description={talentDesc} label="Talent"/>
+      <AbilityDescription attributes={talentAttr} description={talentDesc} label="Talent"/>
     </>
   );
 }

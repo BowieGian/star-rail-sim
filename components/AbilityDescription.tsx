@@ -6,7 +6,7 @@ interface Props {
   label: string;
 }
 
-export default function AbilityDisplay(props: Props) {
+export default function AbilityDescription(props: Props) {
   return (
     <div className="lg:px-5 whitespace-pre-line font-sans text-sm font-bold text-purple-200">
       {props.attributes.map((attribute, index) => {

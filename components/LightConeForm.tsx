@@ -4,7 +4,7 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import LvlAscInput from "./LvlAscInput";
 import DropdownMenu from "./DropdownMenu";
 import BaseStatsDisplay from "./BaseStatsDisplay";
-import AbilityDisplay from "./AbilityDisplay";
+import AbilityDescription from "./AbilityDescription";
 import { LightConeKey, lightConeKeys, lightConeList } from "@/src/light-cones/data";
 import LightCone from "@/src/light-cones/LightCone";
 import NumberSlider from "./NumberSlider";
@@ -89,7 +89,7 @@ export default function LightConeForm() {
       <div className="flex flex-col gap-y-8 lg:px-5">
         <NumberSlider stat={superimposition} setStat={setSuperimposition} name="superimposition" label="Superimposition" min={1} max={5}/>
       </div>
-      <AbilityDisplay attributes={abilityAttributes} description={abilityDescriptions} label="Basic"/>
+      <AbilityDescription attributes={abilityAttributes} description={abilityDescriptions} label="Basic"/>
     </form>
   );
 }
