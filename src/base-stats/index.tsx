@@ -1,3 +1,7 @@
+export * from "./Ascension";
+export * from "./BaseStats";
+export * from "./Stat";
+
 export type StatTypes = "character" | "light cone";
 
 export const scalingBaseStats = ["hp", "atk", "def"] as const;

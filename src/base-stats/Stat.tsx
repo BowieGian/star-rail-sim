@@ -6,7 +6,7 @@ import { StatTypes } from ".";
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Stores & calculates a stat of a character
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class Stat {
+export class Stat {
   private type: StatTypes;
   private base: number;
   private add: number;

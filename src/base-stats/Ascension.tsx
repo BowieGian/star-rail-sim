@@ -9,7 +9,7 @@ const maxLevels = [20, 30, 40, 50, 60, 70, 80];
 /   Stores a copy of character level to maintain the correct ascension phase
 /   Contains helper functions relating ascension to level and max level
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class Ascension {
+export class Ascension {
   private _level: number = NaN;
   private _ascendable: boolean = false;
 

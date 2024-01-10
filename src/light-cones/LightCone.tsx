@@ -1,8 +1,6 @@
 import getLightConeData, { LightConeKey } from "./data";
-import { ScalingBaseStats, scalingBaseStats } from "../base-stats";
+import { Ascension, BaseStats, ILightConeBaseStatData, ScalingBaseStats, scalingBaseStats } from "../base-stats";
 import Ability, { IAbility } from "../ability/Ability";
-import Ascension from "../base-stats/Ascension";
-import BaseStats, { ILightConeBaseStatData } from "../base-stats/BaseStats";
 
 export interface ILightConeData {
   baseStats: ILightConeBaseStatData;
