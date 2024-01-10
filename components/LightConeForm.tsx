@@ -1,14 +1,13 @@
 "use client";
 
 import { MutableRefObject, useEffect, useRef, useState } from "react";
+import AbilityIO from "./AbilityIO";
 import LvlAscInput from "./LvlAscInput";
 import DropdownMenu from "./DropdownMenu";
 import BaseStatsDisplay from "./BaseStatsDisplay";
-import AbilityDescription from "./AbilityDescription";
-import { LightConeKey, lightConeKeys, lightConeList } from "@/src/light-cones/data";
-import LightCone from "@/src/light-cones/LightCone";
-import NumberSlider from "./NumberSlider";
 import { ScalingBaseStats } from "@/src/base-stats/BaseStats";
+import LightCone from "@/src/light-cones/LightCone";
+import { LightConeKey, lightConeKeys, lightConeList } from "@/src/light-cones/data";
 
 export default function LightConeForm() {
   const [lightConeKey, setLightConeKey] = useState<LightConeKey>("InTheNight");
@@ -19,10 +18,6 @@ export default function LightConeForm() {
   const [ascendable, setAscendable] = useState<boolean>(lightCone.current.ascendable);
   const [maxLevel, setMaxLevel] = useState<number>(lightCone.current.maxLevel);
   const [baseStats, setBaseStats] = useState<Readonly<Record<ScalingBaseStats, number>>>(lightCone.current.baseStats);
-
-  const [superimposition, setSuperimposition] = useState<string>("1");
-  const [abilityAttributes, setAbilityAttributes] = useState<readonly number[]>(lightCone.current.abilityAttributes);
-  const abilityDescriptions = lightCone.current.abilityDescriptions;
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,14 +47,7 @@ export default function LightConeForm() {
     setAscendable(lightCone.current.ascendable);
     setMaxLevel(lightCone.current.maxLevel);
     setBaseStats({...lightCone.current.baseStats});
-
-    setSuperimposition(lightCone.current.superimposition.toString());
   }, [lightConeKey]);
-
-  useEffect(() => {
-    lightCone.current.superimposition = parseInt(superimposition);
-    setAbilityAttributes([...lightCone.current.abilityAttributes]);
-  }, [superimposition, lightCone]);
 
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
@@ -86,10 +74,15 @@ export default function LightConeForm() {
         <BaseStatsDisplay baseStats={baseStats}/>
       </div>
 
-      <div className="flex flex-col gap-y-8 lg:px-5">
-        <NumberSlider stat={superimposition} setStat={setSuperimposition} name="superimposition" label="Superimposition" min={1} max={5}/>
-      </div>
-      <AbilityDescription attributes={abilityAttributes} description={abilityDescriptions} label="Basic"/>
+      <AbilityIO
+        key="light cone"
+        label="Superimposition"
+        max={5}
+        getLevel={() => {return lightCone.current.superimposition;}}
+        setLevel={(value: number) => {lightCone.current.superimposition = value;}}
+        getAttributes={() => {return lightCone.current.abilityAttributes;}}
+        description={lightCone.current.abilityDescriptions}
+      />
     </form>
   );
 }
