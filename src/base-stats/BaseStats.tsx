@@ -1,4 +1,4 @@
-import { Stat, StatTypes } from ".";
+import { Stat, StatTypes } from "./Stat";
 
 export const scalingBaseStats = ["hp", "atk", "def"] as const;
 export type ScalingBaseStats = typeof scalingBaseStats[number];

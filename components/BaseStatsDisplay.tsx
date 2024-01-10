@@ -1,5 +1,5 @@
-import { AllBaseStats, ScalingBaseStats, allBaseStatNames, allBaseStats } from "@/src/base-stats";
 import DamageOutput from "./DamageOutput";
+import { AllBaseStats, ScalingBaseStats, allBaseStatNames, allBaseStats } from "@/src/base-stats/BaseStats";
 
 interface Props {
   baseStats: Readonly<Record<AllBaseStats, number> | Record<ScalingBaseStats, number>>;
