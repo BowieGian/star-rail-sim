@@ -1,5 +1,5 @@
 import { CharacterKey } from "../src/entities/characters/data";
-import { LightConeKey } from "@/src/lightcones";
+import { LightConeKey } from "@/src/light-cones/data";
 
 interface Props<T> {
   selected: T;

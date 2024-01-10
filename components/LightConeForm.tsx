@@ -6,8 +6,8 @@ import DropdownMenu from "./DropdownMenu";
 import BaseStatsDisplay from "./BaseStatsDisplay";
 import { ScalingBaseStats } from "@/src/base-stats";
 import AbilityDisplay from "./AbilityDisplay";
-import { LightConeKey, lightConeKeys, lightConeList } from "@/src/lightcones";
-import LightCone from "@/src/lightcones/LightCone";
+import { LightConeKey, lightConeKeys, lightConeList } from "@/src/light-cones/data";
+import LightCone from "@/src/light-cones/LightCone";
 import StatInput from "./StatInput";
 
 export default function LightConeForm() {

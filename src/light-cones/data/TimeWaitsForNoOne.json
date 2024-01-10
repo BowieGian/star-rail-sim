@@ -1,0 +1,20 @@
+{
+  "baseStats": {
+    "hp": 57.6,
+    "atk": 21.6,
+    "def": 21
+  },
+  "ability": {
+    "attributes": [
+      {"base": 0.18, "add": 0.03, "type": "light cone"},
+      {"base": 0.12, "add": 0.02, "type": "light cone"},
+      {"base": 0.36, "add": 0.06, "type": "light cone"}
+    ],
+    "description": [
+      "Increases the wearer's Max HP by ",
+      "% and Outgoing Healing by ",
+      "%. When the wearer heals allies, record the amount of Outgoing Healing. When any ally launches an attack, a random attacked enemy takes additional DMG equal to ",
+      "% of the recorded Outgoing Healing value. This Additional DMG is of the same Type as the wearer's, is not affected by other buffs, and can only occur 1 time per turn."
+    ]
+  }
+}
