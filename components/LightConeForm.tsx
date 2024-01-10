@@ -1,6 +1,6 @@
 "use client";
 
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 import AbilityIO from "./AbilityIO";
 import LvlAscInput from "./LvlAscInput";
 import DropdownMenu from "./DropdownMenu";
@@ -18,6 +18,9 @@ export default function LightConeForm() {
   const [ascendable, setAscendable] = useState<boolean>(lightCone.current.ascendable);
   const [maxLevel, setMaxLevel] = useState<number>(lightCone.current.maxLevel);
   const [baseStats, setBaseStats] = useState<Readonly<Record<ScalingBaseStats, number>>>(lightCone.current.baseStats);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getSuperimposition = useMemo(() => () => {return lightCone.current.superimposition;}, [lightConeKey]);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +81,7 @@ export default function LightConeForm() {
         key="light cone"
         label="Superimposition"
         max={5}
-        getLevel={() => {return lightCone.current.superimposition;}}
+        getLevel={getSuperimposition}
         setLevel={(value: number) => {lightCone.current.superimposition = value;}}
         getAttributes={() => {return lightCone.current.abilityAttributes;}}
         description={lightCone.current.abilityDescriptions}
