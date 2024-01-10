@@ -1,6 +1,6 @@
-import Ability, { AbilityTypes, IAbility, abilityTypes } from "./Ability";
+import Ability, { CharacterAbilityTypes, IAbility, characterAbilityTypes } from "../../ability/Ability";
 
-export type IAbilityData = Record<AbilityTypes, IAbility>
+export type IAbilityData = Record<CharacterAbilityTypes, IAbility>
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -10,14 +10,14 @@ export type IAbilityData = Record<AbilityTypes, IAbility>
 /   Contains functions that returns data for frontend(TODO: move from Character)
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class CharacterAbilities {
-  private abilities: Record<AbilityTypes, Ability> = {} as Record<AbilityTypes, Ability>;
+  private abilities: Record<CharacterAbilityTypes, Ability> = {} as Record<CharacterAbilityTypes, Ability>;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(abilityData: IAbilityData) {
-    for (const ability of abilityTypes) {
+    for (const ability of characterAbilityTypes) {
       this.abilities[ability] = new Ability(ability, abilityData[ability]);
     }
   }
@@ -26,31 +26,31 @@ export default class CharacterAbilities {
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  public getLevel(ability: AbilityTypes): number {
+  public getLevel(ability: CharacterAbilityTypes): number {
     return this.abilities[ability].level;
   }
 
-  public setLevel(ability: AbilityTypes, level: number): void {
+  public setLevel(ability: CharacterAbilityTypes, level: number): void {
     this.abilities[ability].level = level;
   }
 
-  public getName(ability: AbilityTypes): string {
+  public getName(ability: CharacterAbilityTypes): string {
     return this.abilities[ability].name;
   }
 
-  public getEnergy(ability: AbilityTypes): number {
+  public getEnergy(ability: CharacterAbilityTypes): number {
     return this.abilities[ability].energy;
   }
 
-  public getToughness(ability: AbilityTypes): number {
+  public getToughness(ability: CharacterAbilityTypes): number {
     return this.abilities[ability].toughness;
   }
 
-  public getDescriptions(ability: AbilityTypes): ReadonlyArray<string> {
+  public getDescriptions(ability: CharacterAbilityTypes): ReadonlyArray<string> {
     return this.abilities[ability].descriptions;
   }
 
-  public getAttributes(ability: AbilityTypes): ReadonlyArray<number> {
+  public getAttributes(ability: CharacterAbilityTypes): ReadonlyArray<number> {
     return this.abilities[ability].attributes;
   }
 }

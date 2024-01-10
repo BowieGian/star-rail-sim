@@ -1,4 +1,4 @@
-const attributeTypes = ["default", "basic", "dot", "heal", "heal%"] as const;
+const attributeTypes = ["light cone", "default", "basic", "dot", "heal", "heal%"] as const;
 type AttributeTypes = typeof attributeTypes[number];
 
 export interface IAttribute {
@@ -16,9 +16,9 @@ export interface IAttribute {
 /   For heal & heal%, add = (level 6) - (level 5)
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class Attribute {
-  private base: number = 0;
-  private add: number = 0;
-  private type: AttributeTypes = "default";
+  private base: number;
+  private add: number;
+  private type: AttributeTypes;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
@@ -56,7 +56,9 @@ export default class Attribute {
 
     let multiplier: number[];
 
-    if (this.type === "default") {
+    if (this.type === "light cone") {
+      multiplier = [1, 1, 1, 1];
+    } else if (this.type === "default") {
       multiplier = [1, 1, 1, 1, 1, 1.25, 1.25, 1.25, 1.25, 1, 1];
     } else if (this.type === "heal") {
       multiplier = [2, 1.5, 1.5, 1, 1, .75, .75, .75, .75, .75, .75];

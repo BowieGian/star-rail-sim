@@ -1,19 +1,13 @@
-import getCharacterData, { CharacterKey } from "./data";
 import Entity from "../Entity";
-import CharacterBaseStats, { ICharacterBaseStatData, allBaseStats } from "./CharacterBaseStats";
+import getCharacterData, { CharacterKey } from "./data";
 import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";
-import { AbilityTypes } from "./Ability";
-import Ascension from "./Ascension";
+import { CharacterAbilityTypes } from "@/src/ability/Ability";
+import { Ascension } from "@/src/base-stats/Ascension";
+import { BaseStats, ICharacterBaseStatData, allBaseStats } from "@/src/base-stats/BaseStats";
 
 export interface ICharacterData {
   baseStats: ICharacterBaseStatData;
   abilities: IAbilityData;
-}
-
-export interface IStatDisplay {
-  key: string;
-  name: string;
-  value: number;
 }
 
 /** @example
@@ -27,7 +21,7 @@ export interface IStatDisplay {
 export default class Character extends Entity {
   private asc: Ascension;
 
-  private characterBaseStats: CharacterBaseStats;
+  private baseStatData: BaseStats;
 
   private _critRate: number = .05;
   private _critDamage: number = .5;
@@ -51,7 +45,7 @@ export default class Character extends Entity {
 
     super(id);
 
-    this.characterBaseStats = new CharacterBaseStats(characterData.baseStats);
+    this.baseStatData = new BaseStats(characterData.baseStats, "character");
 
     const startingLevel = 1;
     this.asc = new Ascension(startingLevel);
@@ -70,7 +64,7 @@ export default class Character extends Entity {
    */
   private updateStats(): void {
     for (const stat of allBaseStats) {
-      this._baseStats[stat] = this.characterBaseStats.getStat(stat);
+      this._baseStats[stat] = this.baseStatData.getStat(stat);
     }
   }
 
@@ -92,7 +86,7 @@ export default class Character extends Entity {
     this._level = value;
     this.asc.level = value;
 
-    this.characterBaseStats.calculate(this._level, this.asc.ascension);
+    this.baseStatData.calculate(this._level, this.asc.ascension);
     this.updateStats();
   }
 
@@ -115,35 +109,35 @@ export default class Character extends Entity {
   public set ascended(value: boolean) {
     this.asc.ascended = value;
 
-    this.characterBaseStats.calculate(this._level, this.asc.ascension);
+    this.baseStatData.calculate(this._level, this.asc.ascension);
     this.updateStats();
   }
 
-  public getAbilityLevel(ability: AbilityTypes): number {
+  public getAbilityLevel(ability: CharacterAbilityTypes): number {
     return this.abilities.getLevel(ability);
   }
 
-  public setAbilityLevel(ability: AbilityTypes, level: number): void {
+  public setAbilityLevel(ability: CharacterAbilityTypes, level: number): void {
     this.abilities.setLevel(ability, level);
   }
 
-  public getAbilityName(ability: AbilityTypes): string{
+  public getAbilityName(ability: CharacterAbilityTypes): string{
     return this.abilities.getName(ability);
   }
 
-  public getAbilityEnergy(ability: AbilityTypes): number{
+  public getAbilityEnergy(ability: CharacterAbilityTypes): number{
     return this.abilities.getEnergy(ability);
   }
 
-  public getAbilityToughness(ability: AbilityTypes): number{
+  public getAbilityToughness(ability: CharacterAbilityTypes): number{
     return this.abilities.getToughness(ability);
   }
 
-  public getAbilityDesc(ability: AbilityTypes): ReadonlyArray<string> {
+  public getAbilityDesc(ability: CharacterAbilityTypes): ReadonlyArray<string> {
     return this.abilities.getDescriptions(ability);
   }
 
-  public getAbilityAttr(ability: AbilityTypes): ReadonlyArray<number> {
+  public getAbilityAttr(ability: CharacterAbilityTypes): ReadonlyArray<number> {
     return this.abilities.getAttributes(ability);
   }
 

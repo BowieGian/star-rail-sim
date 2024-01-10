@@ -1,15 +1,13 @@
-export interface IStat {
-  base: number;
-  add: number;
-}
+export type StatTypes = "character" | "light cone";
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Class Stat                                                                 /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Stores & calculates a stat of a character
+/   Stores & calculates a stat of a character or light cone
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class Stat {
+export class Stat {
+  private type: StatTypes;
   private base: number;
   private add: number;
   private _value: number = NaN;
@@ -18,12 +16,21 @@ export default class Stat {
   /   Constructor                                                  /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
-  constructor(input: IStat) {
-    if (input.base < 0) throw new RangeError("Base cannot be negative");
-    if (input.add < 0) throw new RangeError("Add cannot be negative");
+  constructor(baseValue: number, type: StatTypes) {
+    if (baseValue < 0) throw new RangeError("Base value cannot be negative");
 
-    this.base = input.base;
-    this.add = input.add;
+    this.type = type;
+    this.base = baseValue;
+
+    if (type === "character")
+      this.add = baseValue / 20;
+    else if (type === "light cone")
+      this.add = baseValue / 20 * 3;
+    else {
+      const _exhaustiveCheck: never = type;
+      this.add = NaN;
+      return _exhaustiveCheck;
+    }
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -31,7 +38,24 @@ export default class Stat {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public calculate(level: number, ascension: number): void {
-    const output = this.base + this.add * (level - 1 + 8 * ascension);
+    let multiplier = level - 1;
+
+    if (this.type === "character")
+      multiplier += 8 * ascension;
+    else if (this.type === "light cone") {
+      if (ascension >= 1)
+        multiplier += 8;
+
+      if (ascension >= 2) {
+        ascension--;
+        multiplier += 32/3 * ascension;
+      }
+    } else {
+      const _exhaustiveCheck: never = this.type;
+      return _exhaustiveCheck;
+    }
+
+    const output = this.base + this.add * (multiplier);
     this._value = Math.round((output + Number.EPSILON) * 1e6) / 1e6;
   }
 

@@ -1,18 +1,9 @@
 {
   "baseStats": {
-    "hp": {
-      "base": 124.8,
-      "add": 6.24
-    },
-    "atk": {
-      "base": 88.8,
-      "add": 4.44
-    },
-    "def": {
-      "base": 51,
-      "add": 2.55
-    },
-    "spd": {"value": 104}
+    "hp": 124.8,
+    "atk": 88.8,
+    "def": 51,
+    "spd": 104
   },
   "abilities": {
     "basic": {

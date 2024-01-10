@@ -1,0 +1,20 @@
+{
+  "baseStats": {
+    "hp": 48,
+    "atk": 26.4,
+    "def": 21
+  },
+  "ability": {
+    "attributes": [
+      {"base": 0.18, "add": 0.03, "type": "light cone"},
+      {"base": 0.06, "add": 0.07, "type": "light cone"},
+      {"base": 0.12, "add": 0.02, "type": "light cone"}
+    ],
+    "description": [
+      "Increases the wearer's CRIT Rate by ",
+      "%. While the wearer is in battle, for every 10 SPD that exceeds 100, the DMG of the wearer's Basic ATK and Skill is increased by ",
+      "% and the CRIT DMG of their Ultimate is increased by ",
+      "%. This effect can stack up to 6 time(s)."
+    ]
+  }
+}
