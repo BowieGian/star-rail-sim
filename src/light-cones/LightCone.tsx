@@ -1,7 +1,7 @@
 import getLightConeData, { LightConeKey } from "./data";
 import { ScalingBaseStats, scalingBaseStats } from "../base-stats";
 import Ability, { IAbility } from "../ability/Ability";
-import Ascension from "../entities/characters/Ascension";
+import Ascension from "../base-stats/Ascension";
 import BaseStats, { ILightConeBaseStatData } from "../base-stats/BaseStats";
 
 export interface ILightConeData {
