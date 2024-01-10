@@ -1,4 +1,4 @@
-import DamageOutput from "./DamageOutput";
+import LabelledNumber from "./LabelledNumber";
 import { AllBaseStats, ScalingBaseStats, allBaseStatNames, allBaseStats } from "@/src/base-stats/BaseStats";
 
 interface Props {
@@ -11,7 +11,7 @@ export default function BaseStatsDisplay(props: Props) {
   return (
     allBaseStats.map((stat) => {
       if (stat in baseStats)
-        return <DamageOutput key={stat} num={baseStats[stat].toString()} label={allBaseStatNames[stat]}/>;
+        return <LabelledNumber key={stat} num={baseStats[stat].toString()} label={allBaseStatNames[stat]}/>;
     })
   );
 }

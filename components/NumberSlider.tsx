@@ -23,7 +23,7 @@ const handleChange = (input: string, props: Props) => {
   }
 };
 
-export default function StatInput(props: Props) {
+export default function NumberSlider(props: Props) {
   return (
     <div>
       <label

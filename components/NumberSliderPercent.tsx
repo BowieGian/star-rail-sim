@@ -23,7 +23,7 @@ const handleChange = (input: string, props: Props) => {
   }
 };
 
-export default function PercentInput(props: Props) {
+export default function NumberSliderPercent(props: Props) {
   return (
     <div>
       <label

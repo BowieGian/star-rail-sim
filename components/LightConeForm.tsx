@@ -7,7 +7,7 @@ import BaseStatsDisplay from "./BaseStatsDisplay";
 import AbilityDisplay from "./AbilityDisplay";
 import { LightConeKey, lightConeKeys, lightConeList } from "@/src/light-cones/data";
 import LightCone from "@/src/light-cones/LightCone";
-import StatInput from "./StatInput";
+import NumberSlider from "./NumberSlider";
 import { ScalingBaseStats } from "@/src/base-stats/BaseStats";
 
 export default function LightConeForm() {
@@ -87,7 +87,7 @@ export default function LightConeForm() {
       </div>
 
       <div className="flex flex-col gap-y-8 lg:px-5">
-        <StatInput stat={superimposition} setStat={setSuperimposition} name="superimposition" label="Superimposition" min={1} max={5}/>
+        <NumberSlider stat={superimposition} setStat={setSuperimposition} name="superimposition" label="Superimposition" min={1} max={5}/>
       </div>
       <AbilityDisplay attributes={abilityAttributes} description={abilityDescriptions} label="Basic"/>
     </form>
