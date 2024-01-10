@@ -1,21 +1,32 @@
-import { AllBaseStats, ScalingBaseStats, Speed, StatTypes, scalingBaseStats } from ".";
-import Stat from "./Stat";
+import { Stat, StatTypes } from "./Stat";
 
-interface ISpeedStat {
-  value: number;
-}
+export const scalingBaseStats = ["hp", "atk", "def"] as const;
+export type ScalingBaseStats = typeof scalingBaseStats[number];
+
+export const allBaseStats = ["hp", "atk", "def", "spd"] as const;
+export type AllBaseStats = typeof allBaseStats[number];
+
+export const allBaseStatNames: Record<AllBaseStats, string> = {
+  hp: "HP",
+  atk: "ATK",
+  def: "DEF",
+  spd: "SPD"
+};
 
 export type ICharacterBaseStatData = Record<AllBaseStats, number>;
 export type ILightConeBaseStatData = Record<ScalingBaseStats, number>;
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Class CharacterBaseStats                                                   /
+/   Class BaseStats                                                            /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Stores & calculates the base values of a character's base stats
+/   Stores & calculates the base values of a
+/   character's or light cone's base stats.
+/   It also stores the character's base spd,
+/   but keeps it undefined for a light cone.
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class BaseStats {
-  private stats: Record<ScalingBaseStats, Stat> & Record<Speed, ISpeedStat | undefined>;
+export class BaseStats {
+  private stats: Record<ScalingBaseStats, Stat> & Record<"spd", {value: number} | undefined>;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
@@ -58,7 +69,7 @@ export default class BaseStats {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   public getStat(stat: AllBaseStats): number {
-    if (!this.stats.spd)
+    if (!this.stats.spd && stat === "spd")
       throw new Error("Light cones do not have spd");
 
     return this.stats[stat]!.value;

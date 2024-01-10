@@ -2,11 +2,11 @@
 
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import LvlAscInput from "./LvlAscInput";
-import CharacterSelect from "./CharacterSelect";
+import DropdownMenu from "./DropdownMenu";
 import AbilityIO from "./AbilityIO";
-import { CharacterKey, characterList, Characters } from "../src/entities/characters/data";
+import { CharacterKey, characterKeys, characterList, Characters } from "../src/entities/characters/data";
 import BaseStatsDisplay from "./BaseStatsDisplay";
-import { AllBaseStats } from "@/src/base-stats";
+import { AllBaseStats } from "@/src/base-stats/BaseStats";
 
 export default function CharacterForm() {
   const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");
@@ -51,7 +51,7 @@ export default function CharacterForm() {
   return (
     <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
-        <CharacterSelect characterKey={characterKey} setCharacterKey={setCharacterKey}/>
+        <DropdownMenu selected={characterKey} setSelected={setCharacterKey} list={characterKeys}/>
       </div>
 
       <div></div>

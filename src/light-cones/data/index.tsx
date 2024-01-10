@@ -1,13 +1,16 @@
+import { ILightConeData } from "../LightCone";
 import InTheNight from "./InTheNight";
 import InTheNightData from "./InTheNight.json";
-import { ILightConeData } from "./LightCone";
+import TimeWaitsForNoOne from "./TimeWaitsForNoOne";
+import TimeWaitsForNoOneData from "./TimeWaitsForNoOne.json";
 
-export const lightConeKeys = ["InTheNight"] as const;
+export const lightConeKeys = ["InTheNight", "TimeWaitsForNoOne"] as const;
 export type LightConeKey = typeof lightConeKeys[number];
 
 /** Record of all light cone data */
 const lightConeData: Record<LightConeKey, ILightConeData> = {
-  "InTheNight": InTheNightData
+  "InTheNight": InTheNightData,
+  "TimeWaitsForNoOne": TimeWaitsForNoOneData
 } as Record<LightConeKey, ILightConeData>;
 
 /** Returns the ILightConeData imported from the json file */
@@ -22,7 +25,8 @@ export default function getLightConeData(lightConeKey: LightConeKey) {
  * Needs to change to hold multiple light cones.
  */
 export const lightConeList = {
-  "InTheNight": new InTheNight("InTheNight")
+  "InTheNight": new InTheNight("InTheNight"),
+  "TimeWaitsForNoOne": new TimeWaitsForNoOne("TimeWaitsForNoOne")
 };
 
 export type LightCones = typeof lightConeList[LightConeKey];

@@ -1,12 +1,12 @@
-import { StatTypes } from ".";
+export type StatTypes = "character" | "light cone";
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Class Stat                                                                 /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Stores & calculates a stat of a character
+/   Stores & calculates a stat of a character or light cone
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
-export default class Stat {
+export class Stat {
   private type: StatTypes;
   private base: number;
   private add: number;

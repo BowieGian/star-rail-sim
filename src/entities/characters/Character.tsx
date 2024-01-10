@@ -1,20 +1,13 @@
-import getCharacterData, { CharacterKey } from "./data";
 import Entity from "../Entity";
-import BaseStats, { ICharacterBaseStatData } from "../../base-stats/BaseStats";
+import getCharacterData, { CharacterKey } from "./data";
 import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";
-import { CharacterAbilityTypes } from "../../ability/Ability";
-import Ascension from "./Ascension";
-import { allBaseStats } from "../../base-stats";
+import { CharacterAbilityTypes } from "@/src/ability/Ability";
+import { Ascension } from "@/src/base-stats/Ascension";
+import { BaseStats, ICharacterBaseStatData, allBaseStats } from "@/src/base-stats/BaseStats";
 
 export interface ICharacterData {
   baseStats: ICharacterBaseStatData;
   abilities: IAbilityData;
-}
-
-export interface IStatDisplay {
-  key: string;
-  name: string;
-  value: number;
 }
 
 /** @example
