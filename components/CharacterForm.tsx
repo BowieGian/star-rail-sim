@@ -6,7 +6,7 @@ import DropdownMenu from "./DropdownMenu";
 import AbilityIO from "./AbilityIO";
 import { CharacterKey, characterKeys, characterList, Characters } from "../src/entities/characters/data";
 import BaseStatsDisplay from "./BaseStatsDisplay";
-import { AllBaseStats } from "@/src/base-stats";
+import { AllBaseStats } from "@/src/base-stats/BaseStats";
 
 export default function CharacterForm() {
   const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");

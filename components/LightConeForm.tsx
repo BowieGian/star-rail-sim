@@ -4,11 +4,11 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import LvlAscInput from "./LvlAscInput";
 import DropdownMenu from "./DropdownMenu";
 import BaseStatsDisplay from "./BaseStatsDisplay";
-import { ScalingBaseStats } from "@/src/base-stats";
 import AbilityDisplay from "./AbilityDisplay";
 import { LightConeKey, lightConeKeys, lightConeList } from "@/src/light-cones/data";
 import LightCone from "@/src/light-cones/LightCone";
 import StatInput from "./StatInput";
+import { ScalingBaseStats } from "@/src/base-stats/BaseStats";
 
 export default function LightConeForm() {
   const [lightConeKey, setLightConeKey] = useState<LightConeKey>("InTheNight");

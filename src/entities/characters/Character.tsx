@@ -10,12 +10,6 @@ export interface ICharacterData {
   abilities: IAbilityData;
 }
 
-export interface IStatDisplay {
-  key: string;
-  name: string;
-  value: number;
-}
-
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Class Character                                                            /
