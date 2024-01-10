@@ -1,20 +1,32 @@
-import { AllBaseStats, ScalingBaseStats, Speed, Stat, StatTypes, scalingBaseStats } from ".";
+import { Stat, StatTypes } from ".";
 
-interface ISpeedStat {
-  value: number;
-}
+export const scalingBaseStats = ["hp", "atk", "def"] as const;
+export type ScalingBaseStats = typeof scalingBaseStats[number];
+
+export const allBaseStats = ["hp", "atk", "def", "spd"] as const;
+export type AllBaseStats = typeof allBaseStats[number];
+
+export const allBaseStatNames: Record<AllBaseStats, string> = {
+  hp: "HP",
+  atk: "ATK",
+  def: "DEF",
+  spd: "SPD"
+};
 
 export type ICharacterBaseStatData = Record<AllBaseStats, number>;
 export type ILightConeBaseStatData = Record<ScalingBaseStats, number>;
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Class CharacterBaseStats                                                   /
+/   Class BaseStats                                                            /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Stores & calculates the base values of a character's base stats
+/   Stores & calculates the base values of a
+/   character's or light cone's base stats.
+/   It also stores the character's base spd,
+/   but keeps it undefined for a light cone.
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export class BaseStats {
-  private stats: Record<ScalingBaseStats, Stat> & Record<Speed, ISpeedStat | undefined>;
+  private stats: Record<ScalingBaseStats, Stat> & Record<"spd", {value: number} | undefined>;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /

@@ -5,8 +5,8 @@ const maxLevels = [20, 30, 40, 50, 60, 70, 80];
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Class Ascension                                                            /
 / ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
-/   Stores the character's ascension phase
-/   Stores a copy of character level to maintain the correct ascension phase
+/   Stores the character's or light cone's ascension phase
+/   Stores a copy of their level to maintain the correct ascension phase
 /   Contains helper functions relating ascension to level and max level
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export class Ascension {
