@@ -6,6 +6,10 @@ interface Props {
   character: Character;
 }
 
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export default function CharacterAbilities(props: Props) {
   const {character} = props;
 
@@ -20,7 +24,7 @@ export default function CharacterAbilities(props: Props) {
 
       return <AbilityIO
         key={ability}
-        label={ability}
+        label={capitalizeFirstLetter(ability)}
         max={max}
         getLevel={() => {return character.getAbilityLevel(ability);}}
         setLevel={(value: number) => character.setAbilityLevel(ability, value)}
