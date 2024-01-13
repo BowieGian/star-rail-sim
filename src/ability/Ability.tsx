@@ -18,8 +18,9 @@ export interface IAbility {
 /   Contains functions that returns data formatted for frontend
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class Ability {
-  private type: AbilityTypes;
+  private _type: AbilityTypes;
   private _level: number = 1;
+  private _maxLevel: number;
 
   private data: Array<Attribute> = new Array<Attribute>;
   private _descriptions: Array<string> = new Array<string>;
@@ -32,7 +33,7 @@ export default class Ability {
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
   constructor(type: AbilityTypes, data: IAbility) {
-    this.type = type;
+    this._type = type;
 
     if (!data.attributes.length)
       throw new Error("Attributes has no length");
@@ -42,6 +43,13 @@ export default class Ability {
 
     if (data.description.length - data.attributes.length !== 1)
       throw new Error("Description length is not 1 less than its attribute length");
+
+    if (this._type === "light cone")
+      this._maxLevel = 5;
+    else if (this._type === "basic")
+      this._maxLevel = 7;
+    else
+      this._maxLevel = 12;
 
     for (let i = 0; i < data.attributes.length; i++) {
       this.data.push(new Attribute(data.attributes[i]));
@@ -66,20 +74,11 @@ export default class Ability {
 
   /** Prints a list of all attributes per level for checking */
   private printAttributes(): void {
-    console.log(this.type);
+    console.log(this._type);
     for (let i = 0; i < this.data.length; i++) {
       console.log("Attribute %d", i);
 
-      let length: number;
-      if (this.type === "light cone") {
-        length = 5;
-      } else if (this.type === "basic") {
-        length = 7;
-      } else {
-        length = 12;
-      }
-
-      for (let j = 1; j <= length; j++) {
+      for (let j = 1; j <= this._maxLevel; j++) {
         console.log(this.data[i].calculate(j));
       }
     }
@@ -89,24 +88,24 @@ export default class Ability {
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
+  public get type(): AbilityTypes {
+    return this._type;
+  }
+
   public get level(): number {
     return this._level;
   }
 
   public set level(value: number) {
-    if (this.type === "light cone") {
-      if (value < 0 || value > 5)
-        throw new RangeError("Superimposition must be between 1-5");
-    } else if (this.type === "basic") {
-      if (value < 0 || value > 7)
-        throw new RangeError("Basic level must be between 1-7");
-    } else {
-      if (value < 0 || value > 12)
-        throw new RangeError("Ability level must be between 1-12");
-    }
+    if (value < 0 || value > this._maxLevel)
+      throw new RangeError("Ability(" + this._type + ") level must be between 1-" + this._maxLevel);
 
     this._level = value;
     this.calculateAttribute();
+  }
+
+  public get maxLevel(): number {
+    return this._maxLevel;
   }
 
   public get descriptions(): ReadonlyArray<string> {
