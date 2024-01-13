@@ -49,31 +49,31 @@ export default function CharacterForm() {
   }, [characterKey]);
 
   return (
-    <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
+    <form className="mx-auto max-w-6xl" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
         <DropdownMenu selected={characterKey} setSelected={setCharacterKey} list={characterKeys}/>
       </div>
 
-      <div></div>
+      <div className="mx-auto grid gap-y-5 lg:grid-cols-2 lg:gap-x-8">
+        <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
+          <LvlAscInput
+            name="char-lvl"
+            min={1}
+            max={80}
+            level={levelInput}
+            updateLevel={updateCharLvl}
+            handleButton={handleAscToggle}
+            disableButton={!ascendable}
+            maxLvlForAsc={maxLevel}
+          />
+        </div>
 
-      <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
-        <LvlAscInput
-          name="char-lvl"
-          min={1}
-          max={80}
-          level={levelInput}
-          updateLevel={updateCharLvl}
-          handleButton={handleAscToggle}
-          disableButton={!ascendable}
-          maxLvlForAsc={maxLevel}
-        />
+        <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
+          <BaseStatsDisplay baseStats={baseStats}/>
+        </div>
+
+        <CharacterAbilities character={character.current}/>
       </div>
-
-      <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
-        <BaseStatsDisplay baseStats={baseStats}/>
-      </div>
-
-      <CharacterAbilities character={character.current}/>
     </form>
   );
 }

@@ -53,39 +53,39 @@ export default function LightConeForm() {
   }, [lightConeKey]);
 
   return (
-    <form className="mx-auto grid max-w-6xl gap-y-5 lg:grid-cols-2 lg:gap-x-8" onSubmit={handleAdd}>
+    <form className="mx-auto max-w-6xl" onSubmit={handleAdd}>
       <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
         <DropdownMenu selected={lightConeKey} setSelected={setLightConeKey} list={lightConeKeys}/>
       </div>
 
-      <div></div>
+      <div className="mx-auto grid gap-y-5 lg:grid-cols-2 lg:gap-x-8">
+        <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
+          <LvlAscInput
+            name="char-lvl"
+            min={1}
+            max={80}
+            level={levelInput}
+            updateLevel={updateCharLvl}
+            handleButton={handleAscToggle}
+            disableButton={!ascendable}
+            maxLvlForAsc={maxLevel}
+          />
+        </div>
 
-      <div className="flex flex-col gap-y-8 lg:px-5 lg:py-6">
-        <LvlAscInput
-          name="char-lvl"
-          min={1}
-          max={80}
-          level={levelInput}
-          updateLevel={updateCharLvl}
-          handleButton={handleAscToggle}
-          disableButton={!ascendable}
-          maxLvlForAsc={maxLevel}
+        <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
+          <BaseStatsDisplay baseStats={baseStats}/>
+        </div>
+
+        <AbilityIO
+          key="light cone"
+          label="Superimposition"
+          max={5}
+          getLevel={getSuperimposition}
+          setLevel={(value: number) => {lightCone.current.superimposition = value;}}
+          getAttributes={() => {return lightCone.current.abilityAttributes;}}
+          description={lightCone.current.abilityDescriptions}
         />
       </div>
-
-      <div className="flex flex-col gap-y-1 lg:px-5 lg:py-6">
-        <BaseStatsDisplay baseStats={baseStats}/>
-      </div>
-
-      <AbilityIO
-        key="light cone"
-        label="Superimposition"
-        max={5}
-        getLevel={getSuperimposition}
-        setLevel={(value: number) => {lightCone.current.superimposition = value;}}
-        getAttributes={() => {return lightCone.current.abilityAttributes;}}
-        description={lightCone.current.abilityDescriptions}
-      />
     </form>
   );
 }
