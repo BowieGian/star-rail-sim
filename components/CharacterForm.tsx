@@ -3,11 +3,12 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import DropdownMenu from "./DropdownMenu";
 import CharacterDisplay from "./CharacterDisplay";
-import { CharacterKey, characterKeys, characterList, Characters } from "../src/entities/characters/data";
+import Character from "@/src/entities/characters/Character";
+import { CharacterKey, characterKeys, characterList } from "../src/entities/characters/data";
 
 export default function CharacterForm() {
   const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");
-  const character: MutableRefObject<Characters> = useRef<Characters>() as MutableRefObject<Characters>;
+  const character: MutableRefObject<Character> = useRef<Character>() as MutableRefObject<Character>;
   character.current = characterList[characterKey];
 
   const handleAdd = (e: React.FormEvent) => {
