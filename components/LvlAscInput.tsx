@@ -1,29 +1,61 @@
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import Character from "@/src/entities/characters/Character";
+import LightCone from "@/src/light-cones/LightCone";
+
 interface Props {
-  name: string;
-  min: number;
-  max: number;
-  level: string;
-  updateLevel: (level: string) => void;
-  handleButton: (e: React.FormEvent) => void;
-  disableButton: boolean;
-  maxLvlForAsc: number;
+  charOrLightCone: Character | LightCone;
+  setBaseStats: Dispatch<SetStateAction<Readonly<Record<"hp" | "atk" | "def" | "spd", number>>>>;
 }
 
 export default function LvlAscInput(props: Props) {
-  const handleChange = (input: string) => {
+  const {charOrLightCone, setBaseStats} = props;
+
+  const min = 1;
+  const max = 80;
+
+  const [level, setLevelInput] = useState<string>(charOrLightCone.level.toString());
+  const [maxLevel, setMaxLevel] = useState<number>(charOrLightCone.maxLevel);
+  const [ascendable, setAscendable] = useState<boolean>(charOrLightCone.ascendable);
+
+  useEffect(() => {
+    setLevelInput(charOrLightCone.level.toString());
+    setMaxLevel(charOrLightCone.maxLevel);
+    setAscendable(charOrLightCone.ascendable);
+    setBaseStats(charOrLightCone.baseStats);
+  }, [charOrLightCone, setBaseStats]);
+
+  const handleAscToggle = () => {
+    charOrLightCone.ascended = !charOrLightCone.ascended;
+    setMaxLevel(charOrLightCone.maxLevel);
+    setBaseStats({...charOrLightCone.baseStats});
+  };
+
+  const updateCharLvl = (level: string) => {
+    setLevelInput(level);
+
+    if (!level)
+      return;
+
+    charOrLightCone.level = parseInt(level);
+    setAscendable(charOrLightCone.ascendable);
+    setMaxLevel(charOrLightCone.maxLevel);
+    setBaseStats({...charOrLightCone.baseStats});
+  };
+
+  const inputChange = (input: string) => {
     if (!input) {
-      props.updateLevel(input);
+      updateCharLvl(input);
       return;
     }
 
     let inputNum = Math.round(Number(input));
 
-    if (inputNum < props.min)
-      inputNum = props.min;
-    else if (inputNum > props.max)
-      inputNum = props.max;
+    if (inputNum < min)
+      inputNum = min;
+    else if (inputNum > max)
+      inputNum = max;
 
-    props.updateLevel(String(inputNum));
+    updateCharLvl(String(inputNum));
   };
 
   return (
@@ -35,8 +67,6 @@ export default function LvlAscInput(props: Props) {
 
         <input
           type="number"
-          name={props.name}
-          id={props.name}
           className="block w-full rounded-l-md border-0 px-3 py-1.5
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
           font-sans font-bold text-neutral-900 text-right outline-none bg-purple-200
@@ -44,14 +74,14 @@ export default function LvlAscInput(props: Props) {
           placeholder:text-neutral-400
           focus:ring-2 focus:ring-inset focus:ring-purple-500
           sm:text-sm sm:leading-6"
-          placeholder={props.min.toString()}
-          value={props.level}
-          min={props.min}
-          max={props.max}
-          onChange={(e) => handleChange(e.target.value)}
+          placeholder={min.toString()}
+          value={level}
+          min={min}
+          max={max}
+          onChange={(e) => inputChange(e.target.value)}
         />
 
-        <button onClick={props.handleButton} disabled={props.disableButton}
+        <button onClick={handleAscToggle} disabled={!ascendable}
           className="block w-16 rounded-r-md border-0 px-3 py-1.5
           font-sans font-bold text-neutral-900 text-left outline-none bg-purple-200
           ring-1 ring-inset ring-neutral-800
@@ -59,21 +89,19 @@ export default function LvlAscInput(props: Props) {
           hover:bg-purple-400 active:bg-purple-600
           disabled:bg-neutral-200 disabled:text-neutral-500"
         >
-          / {props.maxLvlForAsc}
+          / {maxLevel}
         </button>
       </div>
 
       <div>
         <input
           type="range"
-          name={props.name}
-          id={props.name}
           className="block w-full py-1.5
           outline-none accent-violet-200"
-          value={props.level}
-          min={props.min}
-          max={props.max}
-          onChange={(e) => handleChange(e.target.value)}
+          value={level}
+          min={min}
+          max={max}
+          onChange={(e) => inputChange(e.target.value)}
         />
       </div>
     </div>

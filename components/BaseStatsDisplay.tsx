@@ -1,8 +1,8 @@
 import LabelledNumber from "./LabelledNumber";
-import { AllBaseStats, ScalingBaseStats, allBaseStatNames, allBaseStats } from "@/src/base-stats/BaseStats";
+import { AllBaseStats, allBaseStatNames, allBaseStats } from "@/src/base-stats/BaseStats";
 
 interface Props {
-  baseStats: Readonly<Record<AllBaseStats, number> | Record<ScalingBaseStats, number>>;
+  baseStats: Readonly<Record<AllBaseStats, number>>;
 }
 
 export default function BaseStatsDisplay(props: Props) {
@@ -10,7 +10,7 @@ export default function BaseStatsDisplay(props: Props) {
 
   return (
     allBaseStats.map((stat) => {
-      if (stat in baseStats)
+      if (stat in baseStats && baseStats[stat])
         return <LabelledNumber key={stat} num={baseStats[stat].toString()} label={allBaseStatNames[stat]}/>;
     })
   );
