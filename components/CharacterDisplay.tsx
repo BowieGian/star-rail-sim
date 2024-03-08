@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BaseStatsDisplay from "./BaseStatsDisplay";
-import CharacterAbilities from "./CharacterAbilities";
+import CharacterAbilitiesIO from "./CharacterAbilitiesIO";
 import LvlAscInput from "./LvlAscInput";
 import { AllBaseStats } from "@/src/base-stats/BaseStats";
 import Character from "@/src/entities/characters/Character";
@@ -27,7 +27,7 @@ export default function CharacterDisplay(props: Props) {
         <BaseStatsDisplay baseStats={baseStats}/>
       </div>
 
-      <CharacterAbilities character={character}/>
+      <CharacterAbilitiesIO character={character}/>
     </div>
   );
 }
