@@ -1,7 +1,7 @@
 import Entity from "../Entity";
 import getCharacterData, { CharacterKey } from "./data";
 import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";
-import { CharacterAbilityTypes } from "@/src/ability/Ability";
+import Ability, { CharacterAbilityTypes } from "@/src/ability/Ability";
 import { Ascension } from "@/src/base-stats/Ascension";
 import { BaseStats, ICharacterBaseStatData, allBaseStats } from "@/src/base-stats/BaseStats";
 
@@ -111,6 +111,10 @@ export default class Character extends Entity {
 
     this.baseStatData.calculate(this._level, this.asc.ascension);
     this.updateStats();
+  }
+
+  public getAbility(ability: CharacterAbilityTypes): Ability {
+    return this.abilities.getAbility(ability);
   }
 
   public getAbilityLevel(ability: CharacterAbilityTypes): number {

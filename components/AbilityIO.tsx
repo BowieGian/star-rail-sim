@@ -1,37 +1,36 @@
 import { useEffect, useState } from "react";
 import AbilityDescription from "./AbilityDescription";
 import NumberSlider from "./NumberSlider";
+import Ability from "@/src/ability/Ability";
 
 interface Props {
   label: string;
-  max: number;
-  getLevel: () => number;
-  setLevel: (value: number) => void;
-  getAttributes: () => readonly number[];
-  description: readonly string[];
+  ability: Ability;
 }
 
 export default function AbilityIO(props: Props) {
-  const {label, max, getLevel, setLevel, getAttributes, description} = props;
+  const {label, ability} = props;
+
+  const description = ability.descriptions;
 
   const [abilityLevel, setAbilityLevel] = useState<string>("1");
-  const [attributes, setAttributes] = useState<readonly number[]>(getAttributes());
+  const [attributes, setAttributes] = useState<readonly number[]>([...ability.attributes]);
 
   useEffect(() => {
-    setAbilityLevel(getLevel().toString());
-  }, [getLevel]);
+    setAbilityLevel(ability.level.toString());
+  }, [ability]);
 
   useEffect(() => {
-    setLevel(parseInt(abilityLevel));
-    setAttributes([...getAttributes()]);
-  }, [abilityLevel, setLevel, getAttributes]);
+    ability.level = parseInt(abilityLevel);
+    setAttributes([...ability.attributes]);
+  }, [abilityLevel, ability]);
 
   return (
     <>
       <div className="flex flex-col gap-y-8 lg:px-5">
-        <NumberSlider stat={abilityLevel} setStat={setAbilityLevel} name={label + "-lvl"} label={label} min={1} max={max}/>
+        <NumberSlider stat={abilityLevel} setStat={setAbilityLevel} name={label + "-lvl"} label={label} min={1} max={ability.maxLevel}/>
       </div>
       <AbilityDescription attributes={attributes} description={description} label={label}/>
     </>
-  );
+  ); // update setStat to custom hook
 }

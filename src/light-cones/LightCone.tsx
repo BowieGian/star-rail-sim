@@ -29,7 +29,7 @@ export default class LightCone {
     spd: NaN
   };
 
-  private ability: Ability;
+  private _ability: Ability;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
@@ -47,7 +47,7 @@ export default class LightCone {
     this.asc = new Ascension(startingLevel);
     this.level = startingLevel;
 
-    this.ability = new Ability("light cone", lightConeData.ability);
+    this._ability = new Ability("light cone", lightConeData.ability);
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -117,19 +117,23 @@ export default class LightCone {
     this.updateStats();
   }
 
+  public get ability(): Ability {
+    return this._ability;
+  }
+
   public get superimposition(): number {
-    return this.ability.level;
+    return this._ability.level;
   }
 
   public set superimposition(value: number) {
-    this.ability.level = value;
+    this._ability.level = value;
   }
 
   public get abilityDescriptions(): ReadonlyArray<string> {
-    return this.ability.descriptions;
+    return this._ability.descriptions;
   }
 
   public get abilityAttributes(): ReadonlyArray<number> {
-    return this.ability.attributes;
+    return this._ability.attributes;
   }
 }

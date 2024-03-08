@@ -10,7 +10,7 @@ export type IAbilityData = Record<CharacterAbilityTypes, IAbility>
 /   Contains functions that returns data for frontend(TODO: move from Character)
 / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 export default class CharacterAbilities {
-  private abilities: Record<CharacterAbilityTypes, Ability> = {} as Record<CharacterAbilityTypes, Ability>;
+  private _abilities: Record<CharacterAbilityTypes, Ability> = {} as Record<CharacterAbilityTypes, Ability>;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
@@ -18,7 +18,7 @@ export default class CharacterAbilities {
 
   constructor(abilityData: IAbilityData) {
     for (const ability of characterAbilityTypes) {
-      this.abilities[ability] = new Ability(ability, abilityData[ability]);
+      this._abilities[ability] = new Ability(ability, abilityData[ability]);
     }
   }
 
@@ -26,19 +26,23 @@ export default class CharacterAbilities {
   /   Getters & Setters                                            /
   / ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――*/
 
+  public getAbility(ability: CharacterAbilityTypes): Ability {
+    return this._abilities[ability];
+  }
+
   public getLevel(ability: CharacterAbilityTypes): number {
-    return this.abilities[ability].level;
+    return this._abilities[ability].level;
   }
 
   public setLevel(ability: CharacterAbilityTypes, level: number): void {
-    this.abilities[ability].level = level;
+    this._abilities[ability].level = level;
   }
 
   public getDescriptions(ability: CharacterAbilityTypes): ReadonlyArray<string> {
-    return this.abilities[ability].descriptions;
+    return this._abilities[ability].descriptions;
   }
 
   public getAttributes(ability: CharacterAbilityTypes): ReadonlyArray<number> {
-    return this.abilities[ability].attributes;
+    return this._abilities[ability].attributes;
   }
 }

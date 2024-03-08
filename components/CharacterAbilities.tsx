@@ -15,21 +15,10 @@ export default function CharacterAbilities(props: Props) {
 
   return (
     characterAbilityTypes.map((ability) => {
-      let max: number;
-
-      if (ability === "basic")
-        max = 7;
-      else
-        max = 12;
-
       return <AbilityIO
         key={ability}
         label={capitalizeFirstLetter(ability)}
-        max={max}
-        getLevel={() => {return character.getAbilityLevel(ability);}}
-        setLevel={(value: number) => character.setAbilityLevel(ability, value)}
-        getAttributes={() => character.getAbilityAttr(ability)}
-        description={character.getAbilityDesc(ability)}
+        ability={character.getAbility(ability)}
       />;
     })
   );
