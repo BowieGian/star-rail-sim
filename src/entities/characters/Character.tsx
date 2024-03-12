@@ -1,9 +1,10 @@
 import Entity from "../Entity";
 import getCharacterData, { CharacterKey } from "./data";
-import CharacterAbilities, { IAbilityData } from "./CharacterAbilities";
-import Ability, { CharacterAbilityTypes } from "@/src/ability/Ability";
+import Ability, { CharacterAbilityTypes, IAbility, characterAbilityTypes } from "@/src/ability/Ability";
 import { Ascension } from "@/src/base-stats/Ascension";
 import { BaseStats, ICharacterBaseStatData, allBaseStats } from "@/src/base-stats/BaseStats";
+
+type IAbilityData = Record<CharacterAbilityTypes, IAbility>
 
 export interface ICharacterData {
   baseStats: ICharacterBaseStatData;
@@ -34,7 +35,7 @@ export default class Character extends Entity {
   private _elementalDmg: number = 0; // TODO: Consider single vs mult element
   private _elementalRes: number = 0;
 
-  private abilities: CharacterAbilities;
+  private _abilities: Record<CharacterAbilityTypes, Ability> = {} as Record<CharacterAbilityTypes, Ability>;
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
   /   Constructor                                                  /
@@ -51,7 +52,9 @@ export default class Character extends Entity {
     this.asc = new Ascension(startingLevel);
     this.level = startingLevel;
 
-    this.abilities = new CharacterAbilities(characterData.abilities);
+    for (const ability of characterAbilityTypes) {
+      this._abilities[ability] = new Ability(ability, characterData.abilities[ability]);
+    }
   }
 
   /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
@@ -114,23 +117,7 @@ export default class Character extends Entity {
   }
 
   public getAbility(ability: CharacterAbilityTypes): Ability {
-    return this.abilities.getAbility(ability);
-  }
-
-  public getAbilityLevel(ability: CharacterAbilityTypes): number {
-    return this.abilities.getLevel(ability);
-  }
-
-  public setAbilityLevel(ability: CharacterAbilityTypes, level: number): void {
-    this.abilities.setLevel(ability, level);
-  }
-
-  public getAbilityDesc(ability: CharacterAbilityTypes): ReadonlyArray<string> {
-    return this.abilities.getDescriptions(ability);
-  }
-
-  public getAbilityAttr(ability: CharacterAbilityTypes): ReadonlyArray<number> {
-    return this.abilities.getAttributes(ability);
+    return this._abilities[ability];
   }
 
   public get critRate(): number {
