@@ -1,4 +1,4 @@
-import AbilityIO from "./AbilityIO";
+import AbilityIO from "../ability/AbilityIO";
 import Character from "@/src/entities/characters/Character";
 import { characterAbilityTypes } from "@/src/ability/Ability";
 

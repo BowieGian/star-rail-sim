@@ -1,7 +1,7 @@
 "use client";
 
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "../DropdownMenu";
 import LightConeDisplay from "./LightConeDisplay";
 import LightCone from "@/src/light-cones/LightCone";
 import { LightConeKey, lightConeKeys, lightConeList } from "@/src/light-cones/data";

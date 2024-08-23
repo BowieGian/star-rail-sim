@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AbilityDescription from "./AbilityDescription";
-import NumberSlider from "./NumberSlider";
+import NumberSlider from "../NumberSlider";
 import Ability from "@/src/ability/Ability";
 
 interface Props {

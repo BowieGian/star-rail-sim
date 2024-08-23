@@ -1,7 +1,7 @@
 import { useState } from "react";
-import AbilityIO from "./AbilityIO";
-import BaseStatsDisplay from "./BaseStatsDisplay";
-import LvlAscInput from "./LvlAscInput";
+import AbilityIO from "../ability/AbilityIO";
+import BaseStatsDisplay from "../BaseStatsDisplay";
+import LvlAscInput from "../LvlAscInput";
 import { AllBaseStats } from "@/src/base-stats/BaseStats";
 import LightCone from "@/src/light-cones/LightCone";
 

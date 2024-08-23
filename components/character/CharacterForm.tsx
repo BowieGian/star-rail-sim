@@ -1,10 +1,10 @@
 "use client";
 
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "../DropdownMenu";
 import CharacterDisplay from "./CharacterDisplay";
 import Character from "@/src/entities/characters/Character";
-import { CharacterKey, characterKeys, characterList } from "../src/entities/characters/data";
+import { CharacterKey, characterKeys, characterList } from "../../src/entities/characters/data";
 
 export default function CharacterForm() {
   const [characterKey, setCharacterKey] = useState<CharacterKey>("Yanqing");

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import BaseStatsDisplay from "./BaseStatsDisplay";
+import BaseStatsDisplay from "../BaseStatsDisplay";
 import CharacterAbilitiesIO from "./CharacterAbilitiesIO";
-import LvlAscInput from "./LvlAscInput";
+import LvlAscInput from "../LvlAscInput";
 import { AllBaseStats } from "@/src/base-stats/BaseStats";
 import Character from "@/src/entities/characters/Character";
 

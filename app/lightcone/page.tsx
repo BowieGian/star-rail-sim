@@ -1,5 +1,5 @@
 import Link from "next/link";
-import LightConeForm from "@/components/LightConeForm";
+import LightConeForm from "@/components/light-cone/LightConeForm";
 import PanelLayout from "@/components/PanelLayout";
 
 export default function Page() {

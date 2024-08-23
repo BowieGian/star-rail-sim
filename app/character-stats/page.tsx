@@ -1,6 +1,6 @@
 import Link from "next/link";
 import PanelLayout from "../../components/PanelLayout";
-import CharacterForm from "../../components/CharacterForm";
+import CharacterForm from "../../components/character/CharacterForm";
 
 export default function Page() {
   return (
