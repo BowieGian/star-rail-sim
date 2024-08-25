@@ -1,15 +1,8 @@
 import Entity from "../Entity";
-import getCharacterData, { CharacterKey } from "./data";
-import Ability, { CharacterAbilityTypes, IAbility, characterAbilityTypes } from "@/src/ability/Ability";
+import getCharacterData, { CharacterKey, ICharacterData } from "./data";
+import Ability, { CharacterAbilityTypes, characterAbilityTypes } from "@/src/ability/Ability";
 import { Ascension } from "@/src/base-stats/Ascension";
-import { BaseStats, ICharacterBaseStatData, allBaseStats } from "@/src/base-stats/BaseStats";
-
-type IAbilityData = Record<CharacterAbilityTypes, IAbility>
-
-export interface ICharacterData {
-  baseStats: ICharacterBaseStatData;
-  abilities: IAbilityData;
-}
+import { BaseStats, allBaseStats } from "@/src/base-stats/BaseStats";
 
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /

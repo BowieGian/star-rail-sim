@@ -1,4 +1,5 @@
-import { ICharacterData } from "../Character";
+import { IAbilityData } from "@/src/ability/Ability";
+import { ICharacterBaseStatData } from "@/src/base-stats/BaseStats";
 import Serval from "./Serval";
 import ServalData from "./Serval.json";
 import Yanqing from "./Yanqing";
@@ -6,6 +7,11 @@ import YanqingData from "./Yanqing.json";
 
 export const characterKeys = ["Serval", "Yanqing"] as const;
 export type CharacterKey = typeof characterKeys[number];
+
+export interface ICharacterData {
+  baseStats: ICharacterBaseStatData;
+  abilities: IAbilityData;
+}
 
 /** Record of all character data */
 const characterData: Record<CharacterKey, ICharacterData> = {

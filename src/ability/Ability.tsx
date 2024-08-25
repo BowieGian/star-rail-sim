@@ -10,6 +10,8 @@ export interface IAbility {
   description: string[];
 }
 
+export type IAbilityData = Record<CharacterAbilityTypes, IAbility>;
+
 /** @example
 /*―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― /
 /   Class Ability                                                              /
